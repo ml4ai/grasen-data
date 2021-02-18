@@ -1,0 +1,47 @@
+ uri "http://sadl.org/GrFNExtractionModel.sadl" alias grfnem.
+ 
+ Node is a class
+ 	described by uid with a single value of type string
+ 	described by description with a single value of type string
+ .
+ 
+ GrFN is a type of Node
+ 	described by date_created with a single value of type dateTime
+ 	described by identifier with a single value of type string
+ 	described by functions with values of type Function
+ 	described by hyper_edges with values of type HyperEdge
+ 	described by subgraphs with values of type SubGraph
+ .
+ 
+ Function is a type of Node
+ 	described by ftype with a single value of type string
+ 	described by lambda with a single value of type string
+ .
+ 
+ HyperEdge is a type of Node
+ 	described by inputs with values of type Variable
+ 	described by function with a single value of type Function
+ 	described by outputs with values of type Variable
+ .
+ 
+ Variable is a type of Node
+  	described by identifier with a single value of type string
+ 	described by object_ref with a single value of type string
+ 	described by data_type with a single value of type string
+ .
+ 
+ SubGraph is a type of Node
+ 	described by parent with a single value of type string //uid
+ 	described by basename with a single value of type string 
+ 	described by namespace with a single value of type string 
+ 	described by scope with a single value of type string 
+ 	described by occurrence_num with a single value of type string 
+ 	described by subgraph_type with a single value of type string 
+ 	described by exit with a single value of type string 
+ 	described by objects with values of type Object
+ 	described by nodes with values of type {Variable or Function} //string List
+ .
+ 
+ Object is a type of Node
+  	described by object_type with a single value of type string 
+ .
