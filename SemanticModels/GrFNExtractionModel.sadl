@@ -3,19 +3,22 @@
  Node is a class
  	described by uid with a single value of type string
  	described by description with a single value of type string
+  	described by identifier with a single value of type string
  .
  
  GrFN is a type of Node
  	described by date_created with a single value of type dateTime
- 	described by identifier with a single value of type string
  	described by functions with values of type Function
  	described by hyper_edges with values of type HyperEdge
  	described by subgraphs with values of type SubGraph
+ 	described by objects with values of type Object
+// 	described by usr_types with values of type Type
  .
  
  Function is a type of Node
  	described by ftype with a single value of type string
  	described by lambda with a single value of type string
+ 	described by expression_tree with a single value of type ExpressionTree
  .
  
  HyperEdge is a type of Node
@@ -24,14 +27,13 @@
  	described by outputs with values of type Variable
  .
  
- Variable is a type of Node
-  	described by identifier with a single value of type string
+ Variable is a type of ExpNode
  	described by object_ref with a single value of type string
  	described by data_type with a single value of type string
  .
  
  SubGraph is a type of Node
- 	described by parent with a single value of type string //uid
+ 	described by parent with a single value of type SubGraph //uid
  	described by basename with a single value of type string 
  	described by namespace with a single value of type string 
  	described by scope with a single value of type string 
@@ -43,5 +45,27 @@
  .
  
  Object is a type of Node
-  	described by object_type with a single value of type string 
+  	described by obj_type with a single value of type Type 
  .
+ 
+ Type is a type of Node
+ 	described by name with a single value of type string
+ 	described by metatype with a single value of type string
+ 	described by fields with values of type Field
+ .
+ 
+ Field is a class
+ 	described by name with a single value of type string
+ 	described by data_type with a single value of type string
+ .
+ 
+ // An expression from a function
+ ExpressionTree is a type of Node //with don't really need this class
+ 	described by nodes with values of type ExpNode .
+ ExpNode is a type of Node
+	described by var_name with a single value of type string
+	described by exp_node_type with a single value of type string
+	described by operator with a single value of type string
+	described by node_value with values of type string
+	described by children with values of type ExpNode List
+. 	

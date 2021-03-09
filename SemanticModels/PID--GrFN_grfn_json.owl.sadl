@@ -1,0 +1,531 @@
+uri "http://aske.ge.com/PID--GrFN_grfn_json" alias PID--GrFN_grfn_json
+    (note "This ontology was created by extraction from GrFN json by the GraSEN GrFNModelExtractor.").
+
+import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
+
+
+// Individuals:
+NODE10 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.015".
+NODE11 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.2".
+NODE12 is a grfnem:Function,
+    has grfnem:ftype "PACK",
+    has grfnem:lambda "lambda setSpeed,actualSpeed,err,err_last,voltage,integral,Kp,Ki,Kd: {\"SetSpeed\": setSpeed, \"ActualSpeed\": actualSpeed, \"err\": err, \"err_last\": err_last, \"voltage\": voltage, \"integral\": integral, \"Kp\": Kp, \"Ki\": Ki, \"Kd\": Kd}".
+NODE13 is a grfnem:Function,
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda pid: (pid)".
+NODE14 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0".
+NODE15 is a grfnem:Function,
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda pid,count: (pid, count)".
+NODE16 is a grfnem:Function,
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda pid: (pid)".
+NODE17 is a grfnem:Function,
+    has grfnem:ftype "EXTRACT",
+    has grfnem:lambda "lambda pid: (pid[\"ActualSpeed\"], pid[\"integral\"], pid[\"Kp\"], pid[\"Ki\"], pid[\"Kd\"], pid[\"err_last\"])".
+NODE18 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda speed: speed".
+NODE19 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda pidSetSpeed,pidActualSpeed: pidSetSpeed - pidActualSpeed".
+NODE20 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda pidIntegral,pidErr: pidIntegral + pidErr".
+NODE21 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda pidKp,pidErr,pidKi,pidIntegral,pidKd,pidErr_last: pidKp * pidErr + pidKi * pidIntegral + pidKd * (pidErr - pidErr_last)".
+NODE22 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda pidErr: pidErr".
+NODE23 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda pidVoltage: pidVoltage * 1.0".
+NODE24 is a grfnem:Function,
+    has grfnem:ftype "PACK",
+    has grfnem:lambda "lambda setSpeed,actualSpeed,err,err_last,voltage,integral,Kp,Ki,Kd: {\"SetSpeed\": setSpeed, \"ActualSpeed\": actualSpeed, \"err\": err, \"err_last\": err_last, \"voltage\": voltage, \"integral\": integral, \"Kp\": Kp, \"Ki\": Ki, \"Kd\": Kd}".
+NODE25 is a grfnem:Function,
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda pid,pidActualSpeed: (pid, pidActualSpeed)".
+NODE26 is a grfnem:Function,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda count: count + 1".
+NODE27 is a grfnem:Function,
+    has grfnem:ftype "CONDITION",
+    has grfnem:lambda "lambda count: count < 100".
+NODE28 is a grfnem:Function,
+    has grfnem:ftype "DECISION",
+    has grfnem:lambda "lambda COND_0_0: not COND_0_0".
+NODE29 is a grfnem:Function,
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda pid,speed: (pid, speed)".
+NODE3 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+NODE30 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 20.0".
+NODE31 is a grfnem:Function,
+    has grfnem:ftype "DECISION",
+    has grfnem:lambda "lambda pid_initial,count_initial,pid_updated,count_updated: (pid_initial, count_initial) if pid_updated is None and count_updated is None else (pid_updated, count_updated)".
+NODE32 is a grfnem:Function,
+    has grfnem:ftype "DECISION",
+    has grfnem:lambda "lambda EXIT,pid_initial,count_initial,pid_updated,count_updated: (pid_initial, count_initial) if EXIT else (pid_updated, count_updated)".
+NODE4 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+NODE5 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+NODE6 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+NODE7 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+NODE8 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+NODE9 is a grfnem:Function,
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.2".
+OBJECT1 is a grfnem:Object,
+    has grfnem:obj_type TYPE1,
+    has grfnem:uid "OBJECT1".
+SUBGRAPH1 is a grfnem:SubGraph,
+    has grfnem:nodes VARIABLE39,
+    has grfnem:nodes VARIABLE38,
+    has grfnem:nodes VARIABLE15,
+    has grfnem:nodes VARIABLE14,
+    has grfnem:nodes NODE14,
+    has grfnem:uid "SUBGRAPH1".
+SUBGRAPH2 is a grfnem:SubGraph,
+    has grfnem:nodes VARIABLE6,
+    has grfnem:nodes VARIABLE9,
+    has grfnem:nodes NODE12,
+    has grfnem:nodes VARIABLE11,
+    has grfnem:nodes NODE4,
+    has grfnem:nodes NODE7,
+    has grfnem:parent SUBGRAPH1,
+    has grfnem:nodes VARIABLE5,
+    has grfnem:nodes VARIABLE8,
+    has grfnem:nodes NODE11,
+    has grfnem:nodes VARIABLE10,
+    has grfnem:nodes VARIABLE13,
+    has grfnem:nodes NODE3,
+    has grfnem:nodes NODE6,
+    has grfnem:nodes NODE9,
+    has grfnem:nodes NODE13,
+    has grfnem:nodes VARIABLE4,
+    has grfnem:nodes VARIABLE7,
+    has grfnem:nodes NODE10,
+    has grfnem:nodes VARIABLE12,
+    has grfnem:uid "SUBGRAPH2",
+    has grfnem:nodes NODE5,
+    has grfnem:nodes NODE8 .
+SUBGRAPH3 is a grfnem:SubGraph,
+    has grfnem:nodes VARIABLE42,
+    has grfnem:nodes NODE26,
+    has grfnem:nodes NODE29,
+    has grfnem:nodes VARIABLE43,
+    has grfnem:nodes VARIABLE36,
+    has grfnem:nodes VARIABLE17,
+    has grfnem:nodes VARIABLE33,
+    has grfnem:nodes VARIABLE41,
+    has grfnem:nodes NODE28,
+    has grfnem:uid "SUBGRAPH3",
+    has grfnem:nodes NODE32,
+    has grfnem:nodes VARIABLE35,
+    has grfnem:parent SUBGRAPH1,
+    has grfnem:nodes NODE15,
+    has grfnem:nodes VARIABLE16,
+    has grfnem:nodes VARIABLE40,
+    has grfnem:nodes NODE27,
+    has grfnem:nodes NODE31,
+    has grfnem:nodes VARIABLE34,
+    has grfnem:nodes VARIABLE37 .
+SUBGRAPH4 is a grfnem:SubGraph,
+    has grfnem:nodes VARIABLE21,
+    has grfnem:nodes VARIABLE19,
+    has grfnem:nodes NODE21,
+    has grfnem:nodes VARIABLE30,
+    has grfnem:nodes VARIABLE23,
+    has grfnem:nodes VARIABLE26,
+    has grfnem:nodes NODE24,
+    has grfnem:nodes NODE17,
+    has grfnem:nodes VARIABLE29,
+    has grfnem:nodes VARIABLE20,
+    has grfnem:nodes NODE20,
+    has grfnem:nodes VARIABLE32,
+    has grfnem:nodes VARIABLE22,
+    has grfnem:nodes VARIABLE25,
+    has grfnem:nodes VARIABLE28,
+    has grfnem:nodes NODE23,
+    has grfnem:nodes NODE16,
+    has grfnem:nodes NODE19,
+    has grfnem:parent SUBGRAPH3,
+    has grfnem:nodes NODE25,
+    has grfnem:nodes NODE22,
+    has grfnem:nodes VARIABLE31,
+    has grfnem:nodes VARIABLE24,
+    has grfnem:nodes VARIABLE18,
+    has grfnem:nodes VARIABLE27,
+    has grfnem:nodes NODE30,
+    has grfnem:uid "SUBGRAPH4",
+    has grfnem:nodes NODE18 .
+TYPE1 is a grfnem:Type,
+    has grfnem:uid "TYPE1",
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "err"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "integral"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "voltage"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "ActualSpeed"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "err_last"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "Kd"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "Kp"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "SetSpeed"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "float",
+    with grfnem:name "Ki"),
+    has grfnem:name "struct _pid".
+VARIABLE10 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE10",
+    has grfnem:identifier "PID::@global.PID_init::pid.Kp::0".
+VARIABLE11 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE11",
+    has grfnem:identifier "PID::@global.PID_init::pid.Ki::0".
+VARIABLE12 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE12",
+    has grfnem:identifier "PID::@global.PID_init::pid.Kd::0".
+VARIABLE13 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE13",
+    has grfnem:identifier "PID::@global.PID_init::pid::0".
+VARIABLE14 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE14",
+    has grfnem:identifier "PID::@global.main::pid::0".
+VARIABLE15 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE15",
+    has grfnem:identifier "PID::@global.main::count::0".
+VARIABLE16 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE16",
+    has grfnem:identifier "PID::@global.main.LOOP_0::pid::0".
+VARIABLE17 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE17",
+    has grfnem:identifier "PID::@global.main.LOOP_0::count::0".
+VARIABLE18 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE18",
+    has grfnem:identifier "PID::@global.PID_realize::pid::0".
+VARIABLE19 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE19",
+    has grfnem:identifier "PID::@global.PID_realize::speed::0".
+VARIABLE20 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE20",
+    has grfnem:identifier "PID::@global.PID_realize::pid.ActualSpeed::0".
+VARIABLE21 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE21",
+    has grfnem:identifier "PID::@global.PID_realize::pid.integral::0".
+VARIABLE22 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE22",
+    has grfnem:identifier "PID::@global.PID_realize::pid.Kp::0".
+VARIABLE23 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE23",
+    has grfnem:identifier "PID::@global.PID_realize::pid.Ki::0".
+VARIABLE24 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE24",
+    has grfnem:identifier "PID::@global.PID_realize::pid.Kd::0".
+VARIABLE25 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE25",
+    has grfnem:identifier "PID::@global.PID_realize::pid.err_last::0".
+VARIABLE26 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE26",
+    has grfnem:identifier "PID::@global.PID_realize::pid.SetSpeed::0".
+VARIABLE27 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE27",
+    has grfnem:identifier "PID::@global.PID_realize::pid.err::0".
+VARIABLE28 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE28",
+    has grfnem:identifier "PID::@global.PID_realize::pid.integral::1".
+VARIABLE29 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE29",
+    has grfnem:identifier "PID::@global.PID_realize::pid.voltage::0".
+VARIABLE30 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE30",
+    has grfnem:identifier "PID::@global.PID_realize::pid.err_last::1".
+VARIABLE31 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE31",
+    has grfnem:identifier "PID::@global.PID_realize::pid.ActualSpeed::1".
+VARIABLE32 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE32",
+    has grfnem:identifier "PID::@global.PID_realize::pid::1".
+VARIABLE33 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE33",
+    has grfnem:identifier "PID::@global.main.LOOP_0::pid::1".
+VARIABLE34 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE34",
+    has grfnem:identifier "PID::@global.main.loop_0::speed::0".
+VARIABLE35 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE35",
+    has grfnem:identifier "PID::@global.main.LOOP_0::count::1".
+VARIABLE36 is a grfnem:Variable,
+    has grfnem:data_type "boolean",
+    has grfnem:uid "VARIABLE36",
+    has grfnem:identifier "PID::@global.main.LOOP_0::COND_0_0::0".
+VARIABLE37 is a grfnem:Variable,
+    has grfnem:data_type "boolean",
+    has grfnem:uid "VARIABLE37",
+    has grfnem:identifier "PID::@global.main.LOOP_0::EXIT::0".
+VARIABLE38 is a grfnem:Variable,
+    has grfnem:data_type "object",
+    has grfnem:uid "VARIABLE38",
+    has grfnem:identifier "PID::@global.main::pid::1".
+VARIABLE39 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE39",
+    has grfnem:identifier "PID::@global.main::count::0".
+VARIABLE4 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE4",
+    has grfnem:identifier "PID::@global.PID_init::pid.setSpeed::0".
+VARIABLE40 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE40",
+    has grfnem:identifier "PID::@global.main.LOOP_0::pid::2".
+VARIABLE41 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE41",
+    has grfnem:identifier "PID::@global.main.LOOP_0::count::2".
+VARIABLE42 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE42",
+    has grfnem:identifier "PID::@global.main.LOOP_0::pid::3".
+VARIABLE43 is a grfnem:Variable,
+    has grfnem:data_type "integer",
+    has grfnem:uid "VARIABLE43",
+    has grfnem:identifier "PID::@global.main.LOOP_0::count::3".
+VARIABLE5 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE5",
+    has grfnem:identifier "PID::@global.PID_init::pid.ActualSpeed::0".
+VARIABLE6 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE6",
+    has grfnem:identifier "PID::@global.PID_init::pid.err::0".
+VARIABLE7 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE7",
+    has grfnem:identifier "PID::@global.PID_init::pid.err_last::0".
+VARIABLE8 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE8",
+    has grfnem:identifier "PID::@global.PID_init::pid.voltage::0".
+VARIABLE9 is a grfnem:Variable,
+    has grfnem:data_type "float",
+    has grfnem:uid "VARIABLE9",
+    has grfnem:identifier "PID::@global.PID_init::pid.integral::0".
+_1db53334-fb03-23a1-d576-d4155ec17dbe is a grfnem:GrFN,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE37,
+    with grfnem:inputs VARIABLE36,
+    with grfnem:function NODE28),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE25,
+    with grfnem:outputs VARIABLE24,
+    with grfnem:outputs VARIABLE23,
+    with grfnem:outputs VARIABLE22,
+    with grfnem:outputs VARIABLE21,
+    with grfnem:outputs VARIABLE20,
+    with grfnem:inputs VARIABLE18,
+    with grfnem:function NODE17),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE15,
+    with grfnem:function NODE14),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE18,
+    with grfnem:inputs VARIABLE33,
+    with grfnem:function NODE16),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE7,
+    with grfnem:function NODE6),
+    has grfnem:subgraphs SUBGRAPH2,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:inputs VARIABLE11,
+    with grfnem:inputs VARIABLE9,
+    with grfnem:function NODE12,
+    with grfnem:inputs VARIABLE10,
+    with grfnem:inputs VARIABLE8,
+    with grfnem:inputs VARIABLE12,
+    with grfnem:inputs VARIABLE5,
+    with grfnem:outputs VARIABLE13,
+    with grfnem:inputs VARIABLE4,
+    with grfnem:inputs VARIABLE6,
+    with grfnem:inputs VARIABLE7),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE6,
+    with grfnem:function NODE5),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE4,
+    with grfnem:function NODE3),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE39,
+    with grfnem:outputs VARIABLE38,
+    with grfnem:inputs VARIABLE43,
+    with grfnem:inputs VARIABLE42,
+    with grfnem:function NODE29),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE10,
+    with grfnem:function NODE9),
+    has grfnem:objects OBJECT1,
+    has grfnem:subgraphs SUBGRAPH3,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:inputs VARIABLE28,
+    with grfnem:inputs VARIABLE27,
+    with grfnem:function NODE24,
+    with grfnem:inputs VARIABLE31,
+    with grfnem:inputs VARIABLE26,
+    with grfnem:inputs VARIABLE24,
+    with grfnem:inputs VARIABLE30,
+    with grfnem:inputs VARIABLE29,
+    with grfnem:inputs VARIABLE23,
+    with grfnem:outputs VARIABLE32,
+    with grfnem:inputs VARIABLE22),
+    has grfnem:identifier "@container::PID::main",
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE36,
+    with grfnem:inputs VARIABLE35,
+    with grfnem:function NODE27),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE34,
+    with grfnem:outputs VARIABLE40,
+    with grfnem:inputs VARIABLE31,
+    with grfnem:inputs VARIABLE32,
+    with grfnem:function NODE25),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE35,
+    with grfnem:outputs VARIABLE33,
+    with grfnem:inputs VARIABLE41,
+    with grfnem:inputs VARIABLE40,
+    with grfnem:inputs VARIABLE17,
+    with grfnem:inputs VARIABLE16,
+    with grfnem:function NODE31),
+    has grfnem:date_created "2021-01-12T12:10:27.396415",
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE11,
+    with grfnem:function NODE10),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE5,
+    with grfnem:function NODE4),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE28,
+    with grfnem:inputs VARIABLE27,
+    with grfnem:inputs VARIABLE21,
+    with grfnem:function NODE20),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE26,
+    with grfnem:inputs VARIABLE19,
+    with grfnem:function NODE18),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE17,
+    with grfnem:outputs VARIABLE16,
+    with grfnem:inputs VARIABLE15,
+    with grfnem:inputs VARIABLE14,
+    with grfnem:function NODE15),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE8,
+    with grfnem:function NODE7),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE31,
+    with grfnem:inputs VARIABLE29,
+    with grfnem:function NODE23),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE9,
+    with grfnem:function NODE8),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE27,
+    with grfnem:inputs VARIABLE20,
+    with grfnem:inputs VARIABLE26,
+    with grfnem:function NODE19),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE12,
+    with grfnem:function NODE11),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE30,
+    with grfnem:inputs VARIABLE27,
+    with grfnem:function NODE22),
+    has grfnem:subgraphs SUBGRAPH1,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE41,
+    with grfnem:inputs VARIABLE35,
+    with grfnem:function NODE26),
+    has grfnem:subgraphs SUBGRAPH4,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE14,
+    with grfnem:inputs VARIABLE13,
+    with grfnem:function NODE13),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE43,
+    with grfnem:outputs VARIABLE42,
+    with grfnem:inputs VARIABLE41,
+    with grfnem:inputs VARIABLE40,
+    with grfnem:inputs VARIABLE35,
+    with grfnem:inputs VARIABLE33,
+    with grfnem:inputs VARIABLE37,
+    with grfnem:function NODE32),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE29,
+    with grfnem:inputs VARIABLE25,
+    with grfnem:inputs VARIABLE24,
+    with grfnem:inputs VARIABLE28,
+    with grfnem:inputs VARIABLE23,
+    with grfnem:inputs VARIABLE27,
+    with grfnem:inputs VARIABLE22,
+    with grfnem:function NODE21),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs VARIABLE19,
+    with grfnem:function NODE30).
