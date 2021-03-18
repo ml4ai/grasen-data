@@ -12,7 +12,6 @@
  	described by hyper_edges with values of type HyperEdge
  	described by subgraphs with values of type SubGraph
  	described by objects with values of type Object
-// 	described by usr_types with values of type Type
  .
  
  Function is a type of Node
@@ -33,7 +32,7 @@
  .
  
  SubGraph is a type of Node
- 	described by parent with a single value of type SubGraph //uid
+ 	described by parent with a single value of type SubGraph 
  	described by basename with a single value of type string 
  	described by namespace with a single value of type string 
  	described by scope with a single value of type string 
@@ -41,7 +40,7 @@
  	described by subgraph_type with a single value of type string 
  	described by exit with a single value of type string 
  	described by objects with values of type Object
- 	described by nodes with values of type {Variable or Function} //string List
+ 	described by nodes with values of type {Variable or Function} 
  .
  
  Object is a type of Node
@@ -68,4 +67,5 @@
 	described by operator with a single value of type string
 	described by node_value with values of type string
 	described by children with values of type ExpNode List
+	described by grfn_uid with values of type ExpNode
 . 	
