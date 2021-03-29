@@ -1,0 +1,111 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://jena.hpl.hp.com/schemas/2003/03/ont-manager#">
+  <j.0:OntologySpec>
+    <j.0:prefix>sadllistmodel</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/workspace_2020_12_ASKE/GraSEN/OwlModels/SadlListModel.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/sadllistmodel"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ExtractedModels/PID--GrFN_grfn_json.owl.sadl</j.0:sadlSourceURL>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/PID--GrFN_grfn_json.owl.owl"/>
+    <j.0:prefix>PID--GrFN_grfn_json</j.0:prefix>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/PID--GrFN_grfn_json"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/SemAnnotator.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>semannotator</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/SemAnnotator.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/SemAnnotator.sadl"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ExtractedModels/PID--expression-trees_grfn_json.owl.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>PID--expression-trees_grfn_json</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/PID--expression-trees_grfn_json.owl.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/PID--expression-trees_grfn_json"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:publicURI rdf:resource="http://sadl.org/sadlbasemodel"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/workspace_2020_12_ASKE/GraSEN/OwlModels/SadlBaseModel.owl"/>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:prefix>sadlbasemodel</j.0:prefix>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ExtractedModels/GrFNExtractionModel.sadl</j.0:sadlSourceURL>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/GrFNExtractionModel.owl"/>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:prefix>grfnem</j.0:prefix>
+    <j.0:publicURI rdf:resource="http://sadl.org/GrFNExtractionModel.sadl"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ImplicitModel/SadlBuiltinFunctions.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>builtinfunctions</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/SadlBuiltinFunctions.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/builtinfunctions"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ImplicitModel/SadlImplicitModel.sadl</j.0:sadlSourceURL>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/SadlImplicitModel.owl"/>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:prefix>sadlimplicitmodel</j.0:prefix>
+    <j.0:publicURI rdf:resource="http://sadl.org/sadlimplicitmodel"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/extractGrFN.dialog</j.0:sadlSourceURL>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:prefix>grfn</j.0:prefix>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/extractGrFN.dialog.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/grfn.dialog"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ExtractedModels/CodeExtractionModel.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>cem</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/CodeExtractionModel.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/CodeExtractionModel.sadl"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ExtractedModels/PID--GrFN_grfn_jsonCombined.owl.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>PID--GrFN_grfn_jsonCombined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/PID--GrFN_grfn_jsonCombined.owl.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/PID--GrFN_grfn_jsonCombined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:publicURI rdf:resource="http://sadl.org/testOwlimport.sadl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/workspace_2020_12_ASKE/GraSEN/ExtractedModels/Sources/testOwlimport.owl"/>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:createdBy>ExternalEmfResource</j.0:createdBy>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:prefix>defs</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/workspace_2020_12_ASKE/GraSEN/OwlModels/defaults.owl"/>
+    <j.0:publicURI rdf:resource="http://research.ge.com/Acuity/defaults.owl"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/extractExpTree.dialog</j.0:sadlSourceURL>
+    <j.0:altURL rdf:resource="file:/Users/alfredo/Documents/git/grasen-data/SemanticModels/GraSEN/OwlModels/extractExpTree.dialog.owl"/>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:publicURI rdf:resource="http://sadl.org/exptree.dialog"/>
+    <j.0:prefix>exptree</j.0:prefix>
+  </j.0:OntologySpec>
+</rdf:RDF>

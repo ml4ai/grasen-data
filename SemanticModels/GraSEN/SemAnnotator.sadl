@@ -1,0 +1,86 @@
+ uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
+ 
+ import "http://aske.ge.com/PID--GrFN_grfn_jsonCombined".
+// import "http://aske.ge.com/PID--expression-trees_grfn_json".
+ 
+LHS is a type of Variable
+	described by lhsfunction with values of type Node.
+Operand is a type of Variable.
+//NotaConstant is a type of Variable.
+Constant is a type of Variable. //is the same as not NotaConstant.
+samevar describes Variable with values of type Variable.
+vname describes Variable with values of type string.
+notconstant describes Variable with values of type boolean.
+notconstant of Variable has level 1 default false.
+
+Rule lhs1 
+if et is a Node
+   and he is a HyperEdge
+   and he function et
+   and et ftype "ASSIGN"
+   and he outputs op
+then 
+	op is a LHS
+	and op lhsfunction et.
+
+Rule lhs2 
+if et is a Node
+   and he is a HyperEdge
+   and he function et
+   and et ftype "LITERAL"
+   and he outputs op
+then 
+	op is a LHS
+	and op lhsfunction et.
+
+//Rule notconstant1:
+//if	x1 is a LHS
+//	and x2 is a LHS
+//	and x1 samevar x2
+//then
+//	x1 is a Variable
+//	and x1 is a NotaConstant.
+//	
+//Rule constantr:
+//if 	x is a LHS
+//	and x is not a NotaConstant
+//then
+//	x is a Constant.
+
+
+Rule constantr1:
+if	x1 is a LHS
+	and x2 is a LHS
+	and x1 samevar x2
+then
+	x1 notconstant true.
+
+//Rule constantr2:
+//if	x is a LHS
+//	and noValue(x, notconstant)
+//then
+//	x is a Constant.
+
+Rule vnamer:
+if x is a Variable
+	and x identifier id
+	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
+then
+	x vname xn.
+
+Rule samevarrule1:
+if 	x1 is a Variable
+	and x2 is a Variable
+	and x1 != x2
+	and vname of x1 == vname of x2
+then
+	x1 samevar x2.
+
+//Doesnt' work
+//Ask: select x,xn where x is a LHS and noValue(x, notconstant, true) and x vname xn.
+
+//Doesnt' work
+//Ask: select x,xn where x is a LHS and x notconstant nv and nv != true and x vname xn.
+
+//Ask: "select ?x ?xn where {?x a <LHS>. ?x <vname> ?xn. filter not exists{ ?x <notconstant> ?y}}".
+
