@@ -4,6 +4,7 @@
  	described by uid with a single value of type string
  	described by description with a single value of type string
   	described by identifier with a single value of type string
+  	described by metadata with a single value of type Metadata
  .
  
  GrFN is a type of Node
@@ -69,3 +70,8 @@
 	described by children with values of type ExpNode List
 	described by grfn_uid with values of type ExpNode
 . 	
+
+Metadata is a class
+	described by line_begin with a single value of type int
+	described by line_end with a single value of type int
+.

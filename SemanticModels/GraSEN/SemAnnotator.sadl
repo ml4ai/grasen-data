@@ -82,5 +82,7 @@ then
 //Doesnt' work
 //Ask: select x,xn where x is a LHS and x notconstant nv and nv != true and x vname xn.
 
+Ask: select x,xn where x is a LHS and x notconstant true and x vname xn.
+
 //Ask: "select ?x ?xn where {?x a <LHS>. ?x <vname> ?xn. filter not exists{ ?x <notconstant> ?y}}".
 
