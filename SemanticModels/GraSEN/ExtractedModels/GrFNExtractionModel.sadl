@@ -38,7 +38,7 @@
  	described by namespace with a single value of type string 
  	described by scope with a single value of type string 
  	described by occurrence_num with a single value of type string 
- 	described by subgraph_type with a single value of type string 
+ 	described by sg_type with a single value of type string 
  	described by exit with a single value of type string 
  	described by objects with values of type Object
  	described by nodes with values of type {Variable or Function} 

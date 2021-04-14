@@ -1,37 +1,78 @@
  uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
  
- import "http://aske.ge.com/PID--GrFN_grfn_jsonCombined".
-// import "http://aske.ge.com/PID--expression-trees_grfn_json".
+ import "http://aske.ge.com/PID--GrFN_grfn_jsonCombined14Apr".
  
 LHS is a type of Variable
 	described by lhsfunction with values of type Node.
 Operand is a type of Variable.
 //NotaConstant is a type of Variable.
-Constant is a type of Variable. //is the same as not NotaConstant.
+NotLiteralInitialized is a type of Variable. //is the same as not NotaConstant.
 samevar describes Variable with values of type Variable.
 vname describes Variable with values of type string.
 notconstant describes Variable with values of type boolean.
 notconstant of Variable has level 1 default false.
+influencedBy of Variable has values of type Variable.
+ReturnedValue is a type of Variable.
+within_loop describes Node with values of type boolean.
+within_loop of Node has level 1 default false.
+
+Rule influencer:
+if	he is a HyperEdge
+	and he inputs var1
+	and he outputs var2
+then
+	var2 influencedBy var1.
+
+Rule vnamer:
+if x is a Variable
+	and x identifier id
+	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
+then
+	x vname xn.
+
+Rule samevarr:
+if 	x1 is a Variable
+	and x2 is a Variable
+	and x1 != x2
+	and vname of x1 == vname of x2
+then
+	x1 samevar x2.
 
 Rule lhs1 
-if et is a Node
-   and he is a HyperEdge
-   and he function et
+if he function et
    and et ftype "ASSIGN"
    and he outputs op
 then 
 	op is a LHS
+	and op is a NotLiteralInitialized
 	and op lhsfunction et.
 
 Rule lhs2 
-if et is a Node
-   and he is a HyperEdge
-   and he function et
+if he function et
    and et ftype "LITERAL"
    and he outputs op
 then 
-	op is a LHS
-	and op lhsfunction et.
+	op is a LHS.
+//	and op is a LiteralInitialized.
+//	and op lhsfunction et.
+
+Rule returnvalue:
+if 	he function fun
+	and fun ftype "INTERFACE"
+	and he outputs var
+then
+	var is a ReturnedValue.
+
+Rule rhsFcall:
+if  var1 influencedBy var2
+//	and var2 is a ReturnedValue
+	and he outputs var2
+	and he function fun
+	and fun ftype ft
+	and ft != "LITERAL"
+	
+then
+	var1 notconstant true. 
 
 //Rule notconstant1:
 //if	x1 is a LHS
@@ -61,28 +102,30 @@ then
 //then
 //	x is a Constant.
 
-Rule vnamer:
-if x is a Variable
-	and x identifier id
-	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
+Rule inloopr:
+if	n1 parent n2
+	and n2 sg_type "LoopContainer"
+	and n1 nodes var
+	and var is a Variable
 then
-	x vname xn.
-
-Rule samevarrule1:
-if 	x1 is a Variable
-	and x2 is a Variable
-	and x1 != x2
-	and vname of x1 == vname of x2
+	var within_loop true.
+	
+Rule notconstr2:
+if	var is a LHS
+	and var is a NotLiteralInitialized
+	and var within_loop true
 then
-	x1 samevar x2.
-
+	var notconstant true.
+	
 //Doesnt' work
 //Ask: select x,xn where x is a LHS and noValue(x, notconstant, true) and x vname xn.
 
 //Doesnt' work
 //Ask: select x,xn where x is a LHS and x notconstant nv and nv != true and x vname xn.
 
-Ask: select x,xn where x is a LHS and x notconstant true and x vname xn.
+Ask: "select ?x ?xn where {?x a <LHS>. ?x <vname> ?xn. filter not exists{ ?x <notconstant> ?y}}".
 
-//Ask: "select ?x ?xn where {?x a <LHS>. ?x <vname> ?xn. filter not exists{ ?x <notconstant> ?y}}".
+//Ask: select n1,n2 where n1 parent n2 and n2 sg_type "LoopContainer".
+//Ask: select x,xn where x within_loop true and x vname xn.
 
+//Ask: select x where x is a ReturnedValue.
