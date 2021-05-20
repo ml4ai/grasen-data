@@ -1,131 +1,171 @@
  uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
  
- import "http://aske.ge.com/PID--GrFN_grfn_jsonCombined14Apr".
+//import "http://aske.ge.com/PID--GrFN_grfn_json".
+//import "http://aske.ge.com/PID--expression-trees_grfn_json".
+
+import "http://aske.ge.com/GE_simple_PI_controller--GrFN_grfn_jsonCombined". 
  
-LHS is a type of Variable
-	described by lhsfunction with values of type Node.
-Operand is a type of Variable.
-//NotaConstant is a type of Variable.
-NotLiteralInitialized is a type of Variable. //is the same as not NotaConstant.
+LoopBlock is a type of SubGraph.
+FunctionBlock is a type of SubGraph.
+LHS is a type of Variable.
+
 samevar describes Variable with values of type Variable.
 vname describes Variable with values of type string.
-notconstant describes Variable with values of type boolean.
-notconstant of Variable has level 1 default false.
-influencedBy of Variable has values of type Variable.
-ReturnedValue is a type of Variable.
-within_loop describes Node with values of type boolean.
-within_loop of Node has level 1 default false.
+inBlock describes Variable with values of type SubGraph.
+LiteralInitialized is a type of Variable.
+NotConstant is a type of Variable.
+Constant is a type of Variable. 
+ErrorSignal is a type of Variable
+	described by reference_signal with a single value of type ReferenceSignal
+	described by measurement_signal with a single value of type ReferenceSignal.
+ReferenceSignal is a type of Variable.
+MeasurementSignal is a type of Variable.
 
-Rule influencer:
-if	he is a HyperEdge
-	and he inputs var1
-	and he outputs var2
-then
-	var2 influencedBy var1.
-
-Rule vnamer:
-if x is a Variable
+Rule vnamer
+if 	x is a Variable
 	and x identifier id
 	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
 then
 	x vname xn.
 
-Rule samevarr:
+Rule samevarr
 if 	x1 is a Variable
 	and x2 is a Variable
+	and x1 inBlock block
+	and x2 inBlock block
+	and x1 != x2
+	and vname of x1 == vname of x2
+then
+	x1 samevar x2.
+	
+Rule samevarrInterface
+if 	x1 is a Variable
+	and x2 is a Variable
+	and edge inputs x1
+	and edge outputs x2
+	and edge function fun
+	and fun ftype "INTERFACE"
+	and x1 != x2
+	and vname of x1 == vname of x2
+then
+	x1 samevar x2
+and x2 samevar x1.	
+
+Rule samevarstructr
+if 	x1 is a Variable
+	and e1 function fun1
+	and fun1 ftype "PACK"
+	and e1 inputs x1
+	and x2 is a Variable
+	and e2 function fun2
+	and fun2 ftype "PACK"
+	and e2 inputs x2
 	and x1 != x2
 	and vname of x1 == vname of x2
 then
 	x1 samevar x2.
 
-Rule lhs1 
-if he function et
-   and et ftype "ASSIGN"
-   and he outputs op
-then 
-	op is a LHS
-	and op is a NotLiteralInitialized
-	and op lhsfunction et.
+//Ask: select id1 id2 where var1 samevar var2 and var1 identifier id1 and var2 identifier id2.
 
-Rule lhs2 
-if he function et
-   and et ftype "LITERAL"
-   and he outputs op
-then 
-	op is a LHS.
-//	and op is a LiteralInitialized.
-//	and op lhsfunction et.
 
-Rule returnvalue:
-if 	he function fun
-	and fun ftype "INTERFACE"
-	and he outputs var
-then
-	var is a ReturnedValue.
-
-Rule rhsFcall:
-if  var1 influencedBy var2
-//	and var2 is a ReturnedValue
-	and he outputs var2
-	and he function fun
-	and fun ftype ft
-	and ft != "LITERAL"
+Rule loopblockr
+if	node sg_type "LoopContainer"
+then node is a LoopBlock.
 	
-then
-	var1 notconstant true. 
-
-//Rule notconstant1:
-//if	x1 is a LHS
-//	and x2 is a LHS
-//	and x1 samevar x2
-//then
-//	x1 is a Variable
-//	and x1 is a NotaConstant.
-//	
-//Rule constantr:
-//if 	x is a LHS
-//	and x is not a NotaConstant
-//then
-//	x is a Constant.
-
-
-Rule constantr1:
-if	x1 is a LHS
-	and x2 is a LHS
-	and x1 samevar x2
-then
-	x1 notconstant true.
-
-//Rule constantr2:
-//if	x is a LHS
-//	and noValue(x, notconstant)
-//then
-//	x is a Constant.
-
-Rule inloopr:
-if	n1 parent n2
-	and n2 sg_type "LoopContainer"
-	and n1 nodes var
-	and var is a Variable
-then
-	var within_loop true.
+Rule funcblockr
+if	node sg_type "FuncContainer"
+then node is a FunctionBlock.
 	
-Rule notconstr2:
+Rule varinblockr
+if	var is a Variable
+	and b is a SubGraph
+	and b nodes var
+then
+	var inBlock b.
+	
+//Ask: select vn b where var inBlock b and var vname vn.
+
+
+Rule lhs 
+if 	edge is a HyperEdge
+   	and edge outputs var
+   	and edge function fun
+   	and ftyp of fun != "INTERFACE"
+then 
+	var is a LHS.
+	
+//Ask: select vn vid where var is a LHS and var vname vn and var identifier vid.
+	
+Rule litinitr
+if edge function f
+   and f ftype "LITERAL"
+   and edge outputs var
+then 
+	var is a LiteralInitialized.
+	
+//Ask: select vn where var is a LiteralInitialized and var vname vn.
+
+
+Rule notconstantr1
+if	var1 is a LHS
+	and var2 is a LHS
+	and var1 samevar var2
+then
+	var1 is a NotConstant.
+
+//Comment out if not using---negation slows things down
+Rule notconstantr2
 if	var is a LHS
-	and var is a NotLiteralInitialized
-	and var within_loop true
+	and var is not a LiteralInitialized 
+	and var inBlock block
+	and block is a LoopBlock
 then
-	var notconstant true.
+	var is a NotConstant.
+
+
+Rule notconstantr3
+if	var1 is a NotConstant
+	and var1 samevar var2
+then
+	var2 is a NotConstant.
+
+//Ask: select distinct vn vid where var is a NotConstant and var vname vn and var identifier vid.
+
+//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is not a NotConstant.
+
+Rule constantr
+if	var is a LHS
+	and var is not a NotConstant
+then
+	var is a Constant.
+
+//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is not a NotConstant . 
+
 	
-//Doesnt' work
-//Ask: select x,xn where x is a LHS and noValue(x, notconstant, true) and x vname xn.
+Rule ErrorSignalCandidate
+if 	fun is an ExpressionTree
+	and fun nodes op
+	and op operator "Sub"
+	and op children clist
+	and 2 is length of clist          //this may not be sufficient--if subtract nested expressions, Sub may still have only two children
+	and edge function fun  
+	and edge outputs var
+	and rs is element 0 of clist
+	and ms is element 1 of clist
+then
+	var is an ErrorSignal
+	and rs is a ReferenceSignal 
+	and ms is a MeasurementSignal
+	and var reference_signal rs
+	and var measurement_signal ms
+.
 
-//Doesnt' work
-//Ask: select x,xn where x is a LHS and x notconstant nv and nv != true and x vname xn.
-
-Ask: "select ?x ?xn where {?x a <LHS>. ?x <vname> ?xn. filter not exists{ ?x <notconstant> ?y}}".
-
-//Ask: select n1,n2 where n1 parent n2 and n2 sg_type "LoopContainer".
-//Ask: select x,xn where x within_loop true and x vname xn.
-
-//Ask: select x where x is a ReturnedValue.
+//Ask: select esn rsn msn 
+//where 
+//es is a ErrorSignal 
+//and es reference_signal rs
+//and es measurement_signal ms
+//and es vname esn
+//and rs var_name rsn
+//and ms var_name msn 
+//.
