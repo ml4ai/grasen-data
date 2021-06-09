@@ -561,7 +561,7 @@ ebe21368-98c7-5205-1e01-a934402d0baf is a grfnem:GrFN,
     with grfnem:inputs _2f120554-4a53-08cc-3dfa-bc08935ddd72,
     with grfnem:inputs _5129fb7c-6288-e1a5-cc45-782198a6416d,
     with grfnem:function _0fa07a3f-2e29-5065-6fa2-31e959acdd98),
-    has grfnem:date_created "2021-05-14",
+    has date_created "2021-05-14",
     has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs _8d723104-f773-83c1-3458-a748e9bb17bc,
     with grfnem:function _5f3f5638-3870-1a14-b490-b6081dfc8352),

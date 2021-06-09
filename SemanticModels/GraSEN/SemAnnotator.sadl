@@ -7,52 +7,61 @@ import "http://aske.ge.com/GE_simple_PI_controller--GrFN_grfn_jsonCombined".
  
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
-LHS is a type of Variable.
+LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
 
-samevar describes Variable with values of type Variable.
-vname describes Variable with values of type string.
+sameVar describes Variable with values of type Variable.
+varName describes Variable with values of type string.
 inBlock describes Variable with values of type SubGraph.
 LiteralInitialized is a type of Variable.
 NotConstant is a type of Variable.
 Constant is a type of Variable. 
+ExplicitVariable is a type of Variable.
 ErrorSignal is a type of Variable
-	described by reference_signal with a single value of type ReferenceSignal
-	described by measurement_signal with a single value of type ReferenceSignal.
+	described by referenceSignal with a single value of type ReferenceSignal
+	described by measurementSignal with a single value of type ReferenceSignal.
 ReferenceSignal is a type of Variable.
 MeasurementSignal is a type of Variable.
 
-Rule vnamer
-if 	x is a Variable
+Rule varNameR
+if 		x is a Variable
 	and x identifier id
 	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
 then
-	x vname xn.
+	x varName xn.
 
-Rule samevarr
-if 	x1 is a Variable
+Rule implicitVarR
+if		x is a Variable
+	and line_begin of metadata of x is lb
+then
+	x is an ExplicitVariable.
+
+//Ask: select distinct vn where x is an ExplicitVariable and x vname vn.
+
+Rule sameVarR
+if 		x1 is a Variable
 	and x2 is a Variable
 	and x1 inBlock block
 	and x2 inBlock block
 	and x1 != x2
-	and vname of x1 == vname of x2
+	and varName of x1 == varName of x2
 then
-	x1 samevar x2.
+	x1 sameVar x2.
 	
-Rule samevarrInterface
-if 	x1 is a Variable
+Rule sameVarInterfaceR
+if 		x1 is a Variable
 	and x2 is a Variable
 	and edge inputs x1
 	and edge outputs x2
 	and edge function fun
 	and fun ftype "INTERFACE"
 	and x1 != x2
-	and vname of x1 == vname of x2
+	and varName of x1 == varName of x2
 then
-	x1 samevar x2
-and x2 samevar x1.	
+	x1 sameVar x2
+and x2 sameVar x1.	
 
-Rule samevarstructr
-if 	x1 is a Variable
+Rule sameVarStructureR
+if 		x1 is a Variable
 	and e1 function fun1
 	and fun1 ftype "PACK"
 	and e1 inputs x1
@@ -61,60 +70,60 @@ if 	x1 is a Variable
 	and fun2 ftype "PACK"
 	and e2 inputs x2
 	and x1 != x2
-	and vname of x1 == vname of x2
+	and varName of x1 == varName of x2
 then
-	x1 samevar x2.
+	x1 sameVar x2.
 
 //Ask: select id1 id2 where var1 samevar var2 and var1 identifier id1 and var2 identifier id2.
 
 
-Rule loopblockr
+Rule loopBlockR
 if	node sg_type "LoopContainer"
 then node is a LoopBlock.
 	
-Rule funcblockr
+Rule funcBlockR
 if	node sg_type "FuncContainer"
 then node is a FunctionBlock.
 	
-Rule varinblockr
+Rule varInBlockR
 if	var is a Variable
 	and b is a SubGraph
 	and b nodes var
 then
 	var inBlock b.
 	
-//Ask: select vn b where var inBlock b and var vname vn.
+//Ask: select distinct vn bt where var inBlock b and var vname vn and b sg_type bt.
 
 
-Rule lhs 
+Rule lhsR 
 if 	edge is a HyperEdge
    	and edge outputs var
    	and edge function fun
-   	and ftyp of fun != "INTERFACE"
+   	and ftype of fun != "INTERFACE"
 then 
 	var is a LHS.
 	
 //Ask: select vn vid where var is a LHS and var vname vn and var identifier vid.
 	
-Rule litinitr
+Rule literalInitializedR
 if edge function f
    and f ftype "LITERAL"
    and edge outputs var
 then 
-	var is a LiteralInitialized.
+	var is a LiteralInitialized .
 	
-//Ask: select vn where var is a LiteralInitialized and var vname vn.
+//Ask: select vn where var vname vn and var is a LiteralInitialized.
 
 
-Rule notconstantr1
+Rule notConstantR1
 if	var1 is a LHS
 	and var2 is a LHS
-	and var1 samevar var2
+	and var1 sameVar var2
 then
 	var1 is a NotConstant.
 
 //Comment out if not using---negation slows things down
-Rule notconstantr2
+Stage 2 Rule notConstantR2
 if	var is a LHS
 	and var is not a LiteralInitialized 
 	and var inBlock block
@@ -122,10 +131,18 @@ if	var is a LHS
 then
 	var is a NotConstant.
 
+//Ask: select var vn where
+////	var is a LHS
+//	var inBlock block
+//	and block is a LoopBlock
+//	and var vname vn
+//	and var literalInitialized 0
+//	.
 
-Rule notconstantr3
+
+Stage 3 Rule notConstantR3
 if	var1 is a NotConstant
-	and var1 samevar var2
+	and var1 sameVar var2
 then
 	var2 is a NotConstant.
 
@@ -133,13 +150,17 @@ then
 
 //Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is not a NotConstant.
 
-Rule constantr
+Stage 4 Rule constantR
 if	var is a LHS
 	and var is not a NotConstant
 then
 	var is a Constant.
 
-//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is not a NotConstant . 
+
+//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is a Constant . 
+//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is a NotConstant.
+
+//Ask: select distinct vn where var is a Variable and var vname vn and var identifier vid and var is a Constant.
 
 	
 Rule ErrorSignalCandidate
@@ -156,8 +177,8 @@ then
 	var is an ErrorSignal
 	and rs is a ReferenceSignal 
 	and ms is a MeasurementSignal
-	and var reference_signal rs
-	and var measurement_signal ms
+	and var referenceSignal rs
+	and var measurementSignal ms
 .
 
 //Ask: select esn rsn msn 

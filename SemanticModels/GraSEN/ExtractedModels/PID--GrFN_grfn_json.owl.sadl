@@ -629,7 +629,7 @@ b3969057-425c-b200-105a-da6b720299e3 is a grfnem:GrFN,
     with grfnem:inputs _46743741-9466-e472-6b5f-5241f323ca74,
     with grfnem:inputs a425799a-a905-d750-7e1e-a9c573581a81,
     with grfnem:function df26f517-66fa-f989-0813-5d586a1689ad),
-    has grfnem:date_created "2021-04-08",
+    has date_created "2021-04-08",
     has grfnem:subgraphs _878b9f6b-57a1-cb71-2975-d279d86dbf11,
     has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs _0870e15c-2fcd-81b5-d24b-ace4307bf326,

@@ -68,7 +68,7 @@
 	described by operator with a single value of type string
 	described by node_value with values of type string
 	described by children with values of type ExpNode List
-	described by grfn_uid with values of type ExpNode
+	described by grfn_uid with values of type Variable
 . 	
 
 Metadata is a class
