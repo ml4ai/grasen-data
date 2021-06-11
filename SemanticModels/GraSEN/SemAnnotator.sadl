@@ -1,9 +1,8 @@
  uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
- 
-//import "http://aske.ge.com/PID--GrFN_grfn_json".
-//import "http://aske.ge.com/PID--expression-trees_grfn_json".
 
-import "http://aske.ge.com/GE_simple_PI_controller--GrFN_grfn_jsonCombined". 
+// select the C code file for processing
+import "http://aske.ge.com/PID--GrFN_grfn_jsonCombined".
+//import "http://aske.ge.com/GE_simple_PI_controller--GrFN_grfn_jsonCombined". 
  
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
@@ -35,7 +34,7 @@ if		x is a Variable
 then
 	x is an ExplicitVariable.
 
-//Ask: select distinct vn where x is an ExplicitVariable and x vname vn.
+//Ask: select distinct vn where x is an ExplicitVariable and x varName vn.
 
 Rule sameVarR
 if 		x1 is a Variable
@@ -74,7 +73,7 @@ if 		x1 is a Variable
 then
 	x1 sameVar x2.
 
-//Ask: select id1 id2 where var1 samevar var2 and var1 identifier id1 and var2 identifier id2.
+//Ask: select id1 id2 where var1 sameVar var2 and var1 identifier id1 and var2 identifier id2.
 
 
 Rule loopBlockR
@@ -92,7 +91,7 @@ if	var is a Variable
 then
 	var inBlock b.
 	
-//Ask: select distinct vn bt where var inBlock b and var vname vn and b sg_type bt.
+//Ask: select distinct vn bt where var inBlock b and var varName vn and b sg_type bt.
 
 
 Rule lhsR 
@@ -102,8 +101,8 @@ if 	edge is a HyperEdge
    	and ftype of fun != "INTERFACE"
 then 
 	var is a LHS.
-	
-//Ask: select vn vid where var is a LHS and var vname vn and var identifier vid.
+
+//Ask: select vn vid where var is a LHS and var varName vn and var identifier vid.
 	
 Rule literalInitializedR
 if edge function f
@@ -112,7 +111,7 @@ if edge function f
 then 
 	var is a LiteralInitialized .
 	
-//Ask: select vn where var vname vn and var is a LiteralInitialized.
+//Ask: select vn where var varName vn and var is a LiteralInitialized.
 
 
 Rule notConstantR1
@@ -131,11 +130,12 @@ if	var is a LHS
 then
 	var is a NotConstant.
 
+//AM: need to modify / update the following!!!
 //Ask: select var vn where
 ////	var is a LHS
 //	var inBlock block
 //	and block is a LoopBlock
-//	and var vname vn
+//	and var varName vn
 //	and var literalInitialized 0
 //	.
 
@@ -146,9 +146,9 @@ if	var1 is a NotConstant
 then
 	var2 is a NotConstant.
 
-//Ask: select distinct vn vid where var is a NotConstant and var vname vn and var identifier vid.
+Ask: select distinct vn vid where var is a NotConstant and var varName vn and var identifier vid.
 
-//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is not a NotConstant.
+Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is not a NotConstant.
 
 Stage 4 Rule constantR
 if	var is a LHS
@@ -156,11 +156,11 @@ if	var is a LHS
 then
 	var is a Constant.
 
+// the first and third Ask below give RETURN_VAL - that should go away when we get the metadata tag from GrFN
+Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is a Constant . 
+Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is a NotConstant.
 
-//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is a Constant . 
-//Ask: select distinct vn vid where var is a Variable and var vname vn and var identifier vid and var is a NotConstant.
-
-//Ask: select distinct vn where var is a Variable and var vname vn and var identifier vid and var is a Constant.
+Ask: select distinct vn where var is a Variable and var varName vn and var identifier vid and var is a Constant.
 
 	
 Rule ErrorSignalCandidate
@@ -181,12 +181,12 @@ then
 	and var measurementSignal ms
 .
 
-//Ask: select esn rsn msn 
-//where 
-//es is a ErrorSignal 
-//and es reference_signal rs
-//and es measurement_signal ms
-//and es vname esn
-//and rs var_name rsn
-//and ms var_name msn 
-//.
+Ask: select esn rsn msn 
+where 
+es is a ErrorSignal 
+and es referenceSignal rs
+and es measurementSignal ms
+and es varName esn
+and rs var_name rsn
+and ms var_name msn 
+.
