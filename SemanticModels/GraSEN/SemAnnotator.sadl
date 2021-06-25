@@ -3,7 +3,9 @@
 // select the C code file for processing
 //import "http://sadl.org/PID.sadl".
 import "http://sadl.org/GE_simple_PI_controller.sadl".
- 
+
+ControllerConstruct is a class. 
+
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
 LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
@@ -15,14 +17,25 @@ LiteralInitialized is a type of Variable.
 NotConstant is a type of Variable.
 Constant is a type of Variable. 
 ExplicitVariable is a type of Variable.
+
 ErrorSignal is a type of Variable
 	described by referenceSignal with a single value of type ReferenceSignal
-	described by measurementSignal with a single value of type ReferenceSignal.
+	described by measurementSignal with a single value of type MeasurementSignal.
 ReferenceSignal is a type of Variable.
 MeasurementSignal is a type of Variable.
 
-semanticallyAnnotated describes Variable with a single value of type boolean.
-semanticAnnotationType describes Variable with a single value of type string.
+semanticExpression describes Variable with a single value of type string.
+
+ErrorSignal is a type of ControllerConstruct.
+ReferenceSignal is a type of ControllerConstruct.
+MeasurementSignal is a type of ControllerConstruct.
+
+
+Rule instanceOfSubclassR
+if	x is a SubClass
+	and SubClass is a type of SuperClass
+then
+	x is a SuperClass.
 
 Rule varNameR
 if 		x is a Variable
@@ -31,8 +44,9 @@ if 		x is a Variable
 then
 	x varName xn.
 
-Rule implicitVarR
-if		x is a Variable
+
+Rule explicitVarR
+if	x is a Variable
 	and line_begin of metadata of x is lb
 then
 	x is an ExplicitVariable.
@@ -178,19 +192,45 @@ if 	fun is an ExpressionTree
 	and ms_et is element 1 of clist
 	and rs_et grfn_uid rs
 	and ms_et grfn_uid ms
+	and fun lambda expr
 then
 	var is an ErrorSignal
 	and rs is a ReferenceSignal 
 	and ms is a MeasurementSignal
 	and var referenceSignal rs
 	and var measurementSignal ms
-	and semanticallyAnnotated of var is true
-	and semanticAnnotationType of var is "ErrorSignal"
-	and semanticallyAnnotated of rs is true
-	and semanticAnnotationType of rs is "ReferenceSignal"
-	and semanticallyAnnotated of ms is true
-	and semanticAnnotationType of ms is "MeasurementSignal"	
+	and var semanticExpression expr
 .
+
+Rule lineEndR
+if	x metadata md
+	and noValue(md,line_end)
+	and md line_begin lb
+then
+	md line_end lb.
+
+//Ask: select vname vtype loc_start loc_end qual_name 
+//where
+//	vtype is a type of ControllerConstruct
+//	and x is a vtype
+//	and x varName vname
+//	and x identifier qual_name
+//	and loc_start is line_begin of metadata of x
+//	and loc_end is line_begin of metadata of x
+//.
+
+Ask: "select ?name ?annotationType ?loc_start ?loc_end ?qual_name ?expr
+where {
+  ?annotationType <rdfs:subClassOf> <ControllerConstruct> .
+  ?x <rdf:type> ?annotationType .
+  ?x <varName> ?name .
+  ?x <identifier> ?qual_name .
+  ?x <metadata> ?md .
+  ?md <line_begin> ?loc_start .
+  ?md <line_end> ?loc_end.
+  optional {?x <semanticExpression> ?expr}
+}".
+
 
 //Ask: "select ?name ?annotationType ?loc_start ?loc_end ?qual_name 
 //where {
@@ -204,7 +244,7 @@ then
 //. OPTIONAL{?md <line_end> ?loc_end}
 //}".
 
-//Ask: select esn rsn msn 
+//Ask: select esn rsn msn lexpr
 //where 
 //es is a ErrorSignal 
 //and es referenceSignal rs
@@ -212,4 +252,5 @@ then
 //and es varName esn
 //and rs varName rsn
 //and ms varName msn 
+//and es semanticExpression lexpr
 //.
