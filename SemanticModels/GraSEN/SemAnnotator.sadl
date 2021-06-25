@@ -2,7 +2,7 @@
  
 // select the C code file for processing
 //import "http://sadl.org/PID.sadl".
-//import "http://sadl.org/GE_simple_PI_controller.sadl".
+import "http://sadl.org/GE_simple_PI_controller.sadl".
  
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
@@ -20,6 +20,9 @@ ErrorSignal is a type of Variable
 	described by measurementSignal with a single value of type ReferenceSignal.
 ReferenceSignal is a type of Variable.
 MeasurementSignal is a type of Variable.
+
+semanticallyAnnotated describes Variable with a single value of type boolean.
+semanticAnnotationType describes Variable with a single value of type string.
 
 Rule varNameR
 if 		x is a Variable
@@ -171,15 +174,35 @@ if 	fun is an ExpressionTree
 	and 2 is length of clist          //this may not be sufficient--if subtract nested expressions, Sub may still have only two children
 	and edge function fun  
 	and edge outputs var
-	and rs is element 0 of clist
-	and ms is element 1 of clist
+	and rs_et is element 0 of clist
+	and ms_et is element 1 of clist
+	and rs_et grfn_uid rs
+	and ms_et grfn_uid ms
 then
 	var is an ErrorSignal
 	and rs is a ReferenceSignal 
 	and ms is a MeasurementSignal
 	and var referenceSignal rs
 	and var measurementSignal ms
+	and semanticallyAnnotated of var is true
+	and semanticAnnotationType of var is "ErrorSignal"
+	and semanticallyAnnotated of rs is true
+	and semanticAnnotationType of rs is "ReferenceSignal"
+	and semanticallyAnnotated of ms is true
+	and semanticAnnotationType of ms is "MeasurementSignal"	
 .
+
+//Ask: "select ?name ?annotationType ?loc_start ?loc_end ?qual_name 
+//where {
+//  ?x <semanticallyAnnotated> true
+//. ?x <semanticAnnotationType> ?annotationType 
+//. ?x <varName> ?name
+//. ?x <identifier> ?qual_name
+//. ?x <metadata> ?md 
+//. ?md <line_begin> ?loc_start
+//. LET(?loc_end := ?loc_start)
+//. OPTIONAL{?md <line_end> ?loc_end}
+//}".
 
 //Ask: select esn rsn msn 
 //where 
@@ -187,6 +210,6 @@ then
 //and es referenceSignal rs
 //and es measurementSignal ms
 //and es varName esn
-//and rs var_name rsn
-//and ms var_name msn 
+//and rs varName rsn
+//and ms varName msn 
 //.
