@@ -1,0 +1,11 @@
+"Name","AnnotationType","Description","Loc_start","Loc_end","Qual_name","Equation"
+"Ki_M","Constant","This is a constant.","31","31","GE_simple_PI_controller::GE_simple_PI_controller.main::Ki_M::0",null
+"Kp_M","Constant","This is a constant.","32","32","GE_simple_PI_controller::GE_simple_PI_controller.main::Kp_M::0",null
+"desired_output","Constant","This is a constant.","36","36","GE_simple_PI_controller::GE_simple_PI_controller.main::desired_output::0",null
+"plant_gain","Constant","This is a constant.","41","41","GE_simple_PI_controller::GE_simple_PI_controller.main::plant_gain::0",null
+"t_final","Constant","This is a constant.","28","28","GE_simple_PI_controller::GE_simple_PI_controller.main::t_final::0",null
+"time_step","Constant","This is a constant.","29","29","GE_simple_PI_controller::GE_simple_PI_controller.main::time_step::0",null
+"error","ErrorSignal","This is an error signal candidate.","10","10","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::error::0"," (Input_dmd - Input_sensed)"
+"Input_sensed","MeasurementSignal","This is a measurement signal candidate.","8","8","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_sensed::-1",null
+"Input_dmd","ReferenceSignal","This is a reference signal candidate.","8","8","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-1",null
+

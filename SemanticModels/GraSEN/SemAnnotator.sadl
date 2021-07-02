@@ -8,7 +8,8 @@ import "http://aske.ge.com/GE_simple_PI_controller".
 //import "http://aske.ge.com/PID".
 //import "http://aske.ge.com/GE_simple_PI_controller_saturation".
 
-ControllerConstruct is a class. 
+ControllerConstruct is a class
+  described by description with a single value of type string. 
 
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
@@ -30,9 +31,14 @@ MeasurementSignal is a type of Variable.
 
 semanticExpression describes Variable with a single value of type string.
 
+Constant is a type of ControllerConstruct.
+description of Constant is "This is a constant.".
 ErrorSignal is a type of ControllerConstruct.
+description of ErrorSignal is "This is an error signal candidate.".
 ReferenceSignal is a type of ControllerConstruct.
+description of ReferenceSignal is "This is a reference signal candidate.".
 MeasurementSignal is a type of ControllerConstruct.
+description of MeasurementSignal is "This is a measurement signal candidate.".
 
 
 Stage 2 Rule instanceOfSubclassR
@@ -151,6 +157,15 @@ if	var is a LHS
 then
 	var is a NotConstant.
 
+// GrFN labels the main function as a FuncContainer so num_steps is no longer output as a constant in GE Simple PI code 	
+Stage 2 Rule notConstantR2A
+if	var is a LHS
+	and var is not a LiteralInitialized 
+	and var inBlock block
+	and block is a FunctionBlock
+then
+	var is a NotConstant.	
+
 //Ask: select vid vn where
 //	var is a LHS
 //	and var inBlock block
@@ -181,6 +196,8 @@ then
 //Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
 //Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a NotConstant.
 
+//Ask: select distinct vn where var is a Variable and var varName vn and var identifier vid and var is a Constant.
+
 Rule ErrorSignalCandidate
 if 	fun is an ExpressionTree
 	and fun nodes op
@@ -204,6 +221,21 @@ then
 	and var semanticExpression expr
 .
 
+Rule ReferenceSignalCandidate  // works if the error computation is inlined
+if 	fun is an ExpressionTree
+	and fun nodes op
+	and op operator "Sub"
+	and op children clist
+	and edge function fun 
+	and countMatches(edge,inputs) = 2
+	and rs_et is element 0 of clist
+	and ms_et is element 1 of clist
+	and rs_et grfn_uid rs
+	and ms_et grfn_uid ms 
+then rs is a ReferenceSignal 
+	and ms is a MeasurementSignal
+.
+
 Rule lineEndR
 if	x metadata md
 	and noValue(md,line_end)
@@ -224,20 +256,21 @@ then
 //.
 
 
-//Write: data 
-//{
-//Ask: "select ?Name ?AnnotationType ?Loc_start ?Loc_end ?Qual_name ?Equation  
-//where {
-//  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-//. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
-//. ?x <varName> ?Name
-//. ?x <identifier> ?Qual_name
-//. ?x <metadata> ?md
-//. ?md <line_begin> ?Loc_start 
-//. ?md <line_end> ?Loc_end
-//. OPTIONAL{?x <semanticExpression> ?Equation}
-//}".
-//} to "SemAnnotation.csv".
+Write: data 
+{
+Ask: "select ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
+where {
+  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
+. ?x <varName> ?Name
+. ?AnnotationType <description> ?Description
+. ?x <identifier> ?Qual_name
+. ?x <metadata> ?md
+. ?md <line_begin> ?Loc_start 
+. ?md <line_end> ?Loc_end
+. OPTIONAL{?x <semanticExpression> ?Equation}
+} order by ?AnnotationType ?Name".
+} to "SemAnnotation.csv".
 
 
 //Ask: select esn rsn msn lexpr
