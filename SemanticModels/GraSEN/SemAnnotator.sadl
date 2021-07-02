@@ -12,6 +12,7 @@ ControllerConstruct is a class.
 
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
+NestedBlock is a type of SubGraph.
 LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
 
 sameVar describes Variable with values of type Variable.
@@ -36,7 +37,7 @@ MeasurementSignal is a type of ControllerConstruct.
 
 
 Stage 2 Rule instanceOfSubclassR
-if	x is a SubClass
+if		x is a SubClass
 	and SubClass is a type of SuperClass
 then
 	x is a SuperClass.
@@ -50,7 +51,7 @@ then
 
 
 Rule explicitVarR
-if	x is a Variable
+if		x is a Variable
 	and from_source of metadata of x is true
 then
 	x is an ExplicitVariable.
@@ -105,8 +106,14 @@ Rule funcBlockR
 if	node sg_type "FuncContainer"
 then node is a FunctionBlock.
 	
+Rule nestedBlockR
+if		node is a SubGraph
+	and node parent par
+then 
+	node is a NestedBlock.
+	
 Rule varInBlockR
-if	var is a Variable
+if		var is a Variable
 	and b is a SubGraph
 	and b nodes var
 then
@@ -116,7 +123,7 @@ then
 
 
 Rule lhsR 
-if 	edge is a HyperEdge
+if 		edge is a HyperEdge
    	and edge outputs var
    	and edge function fun
    	and ftype of fun != "INTERFACE"
@@ -126,7 +133,7 @@ then
 //Ask: select vn vid where var is a LHS and var varName vn and var identifier vid.
 	
 Rule literalInitializedR
-if edge function f
+if 	   edge function f
    and f ftype "LITERAL"
    and edge outputs var
 then 
@@ -136,7 +143,7 @@ then
 
 
 Rule notConstantR1
-if	var1 is a LHS
+if		var1 is a LHS
 	and var2 is a LHS
 	and var1 sameVar var2
 then
@@ -144,10 +151,18 @@ then
 
 //Comment out if not using---negation slows things down
 Stage 2 Rule notConstantR2
-if	var is a LHS
+if		var is a LHS
 	and var is not a LiteralInitialized 
 	and var inBlock block
 	and block is a LoopBlock
+then
+	var is a NotConstant.
+
+Stage 2 Rule notConstantR2A
+if		var is a LHS
+	and var is not a LiteralInitialized 
+	and var inBlock block
+	and block is a NestedBlock
 then
 	var is a NotConstant.
 
@@ -162,7 +177,7 @@ then
 
 
 Stage 3 Rule notConstantR3
-if	var1 is a NotConstant
+if		var1 is a NotConstant
 	and var1 sameVar var2
 then
 	var2 is a NotConstant.
@@ -172,17 +187,17 @@ then
 //Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is not a NotConstant.
 
 Stage 4 Rule constantR
-if	var is a LHS
+if		var is a LHS
 	and var is not a NotConstant
 then
 	var is a Constant.
 
 
-//Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
+Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
 //Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a NotConstant.
 
 Rule ErrorSignalCandidate
-if 	fun is an ExpressionTree
+if 		fun is an ExpressionTree
 	and fun nodes op
 	and op operator "Sub"
 	and op children clist
@@ -196,7 +211,7 @@ if 	fun is an ExpressionTree
     and fun lambda expr0
     and expr is strafter(expr0,":")
 then
-	var is an ErrorSignal
+		var is an ErrorSignal
 	and rs is a ReferenceSignal 
 	and ms is a MeasurementSignal
 	and var referenceSignal rs
@@ -205,7 +220,7 @@ then
 .
 
 Rule lineEndR
-if	x metadata md
+if		x metadata md
 	and noValue(md,line_end)
 	and md line_begin lb
 then
