@@ -1,6 +1,7 @@
- uri "http://sadl.org/PID.sadl" alias PID.
- 
- import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
+uri "http://aske.ge.com/PID" alias PID
+    (note "This ontology was created by extraction from GrFN json by the GraSEN GrFNModelExtractor.").
+
+import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
 
 
 // Individuals:
@@ -60,10 +61,10 @@ _1846d424-c17c-6279-23c6-612f48268673 is a grfnem:SubGraph,
     has grfnem:nodes e3e70682-c209-4cac-629f-6fbed82c07cd,
     has grfnem:nodes _8c1745a7-9a6a-5f92-cca7-4147f6be1f72,
     has grfnem:scope "PID",
-    has grfnem:uid "_1846d424-c17c-6279-23c6-612f48268673",
     has grfnem:metadata (a grfnem:Metadata
     with grfnem:line_end 52,
     with grfnem:line_begin 41),
+    has grfnem:uid "_1846d424-c17c-6279-23c6-612f48268673",
     has grfnem:nodes f728b4fa-4248-5e3a-0a5d-2f346baa9455,
     has grfnem:nodes f7c1bd87-4da5-e709-d471-3d60c8a70639,
     has grfnem:sg_type "FuncContainer",
@@ -96,125 +97,10 @@ _2648ee38-e074-05eb-2156-63abc1f254b8 is a grfnem:Variable,
     has grfnem:identifier "PID::PID.main.LOOP_0::speed::-1".
 _27460f22-403d-1f83-a859-890cd670f668 is a grfnem:GrFN,
     has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _30bcab0e-d857-0102-55d4-4936a1515607,
-    with grfnem:inputs _5306f3f5-1516-6570-5b7c-709acb175a5a,
-    with grfnem:function _9edfa3da-6cf5-5b15-8b53-031d05d51433),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _2f120554-4a53-08cc-3dfa-bc08935ddd72,
-    with grfnem:function fb82860d-eabc-a8d0-b341-facdff0ac0f1),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _0870e15c-2fcd-81b5-d24b-ace4307bf326,
-    with grfnem:outputs _1775336d-71ea-cd05-49a3-e80e966e1277,
-    with grfnem:inputs f728b4fa-4248-5e3a-0a5d-2f346baa9455,
-    with grfnem:inputs eb1167b3-67a9-c378-7c65-c1e582e2e662,
-    with grfnem:function a425799a-a905-d750-7e1e-a9c573581a81),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _5a921187-19c7-8df4-8f4f-f31e78de5857,
-    with grfnem:function _247a8333-f7b0-b7d2-cda8-056c3d15eef7),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs d450fe4a-ec4f-217b-b306-d1a8e5eeac76,
-    with grfnem:inputs _5129fb7c-6288-e1a5-cc45-782198a6416d,
-    with grfnem:function ebe21368-98c7-5205-1e01-a934402d0baf),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _31d0b664-0589-f877-9b02-52440950fd13,
-    with grfnem:inputs _1db53334-fb03-23a1-d576-d4155ec17dbe,
-    with grfnem:function e6fd68e8-d69c-91c2-7860-1602bb4a06cb),
-    has grfnem:subgraphs ba26d851-35e8-579a-7aaf-0e891fb797fa,
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _1db53334-fb03-23a1-d576-d4155ec17dbe,
-    with grfnem:inputs d480865f-9b38-fe80-3042-e325a28f5ab0,
-    with grfnem:function e786ab37-5bca-47be-4298-17c53308fb2e),
-    has grfnem:subgraphs _46743741-9466-e472-6b5f-5241f323ca74,
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _5129fb7c-6288-e1a5-cc45-782198a6416d,
-    with grfnem:inputs _148b2758-d7ab-7928-09e4-69e6ec62b2c8,
-    with grfnem:function _878b9f6b-57a1-cb71-2975-d279d86dbf11),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs b4862b21-fb97-d435-8856-1712e8e5216a,
-    with grfnem:function d3fbf47a-7e5b-1e7f-9ca5-499d004ae545),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _85940927-468f-f53d-864a-7a50b48d73f1,
-    with grfnem:inputs _148b2758-d7ab-7928-09e4-69e6ec62b2c8,
-    with grfnem:function _28805c5d-ad1b-8f60-c9e4-dab20edc6d2b),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:inputs _5487ce1e-af19-922a-d9b8-a714e61a441c,
-    with grfnem:inputs _259f4329-e6f4-590b-9a16-4106cf6a659e,
-    with grfnem:inputs b4862b21-fb97-d435-8856-1712e8e5216a,
-    with grfnem:inputs _8d723104-f773-83c1-3458-a748e9bb17bc,
-    with grfnem:outputs _17e0aa3c-0398-3ca8-ea7e-9d498c778ea6,
-    with grfnem:inputs fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c,
-    with grfnem:inputs _12e0c8b2-bad6-40fb-1948-8dec4f65d4d9,
-    with grfnem:inputs _85776e9a-dd84-f39e-7154-5a137a1d5006,
-    with grfnem:function _552f233a-8c25-166a-1ff3-9849b4e1357d,
-    with grfnem:inputs a3f2c9bf-9c63-16b9-50f2-44556f25e2a2,
-    with grfnem:inputs eb2083e6-ce16-4dba-0ff1-8e0242af9fc3,
-    with grfnem:inputs _5a921187-19c7-8df4-8f4f-f31e78de5857),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
     with grfnem:inputs _4562be7f-bb42-e0b2-0426-465e3e37952d,
     with grfnem:inputs _30bcab0e-d857-0102-55d4-4936a1515607,
     with grfnem:function _4d125e7f-a59c-ec98-126c-bc8f38884479),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _12e0c8b2-bad6-40fb-1948-8dec4f65d4d9,
-    with grfnem:function _101fbccc-ded7-33e8-b421-eaeb534097ca),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs c87a7463-19c1-6a0d-0feb-d845d0dfae43,
-    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
-    with grfnem:inputs _6d16ee18-5521-16dd-2ba4-b180cb69ca38,
-    with grfnem:function _0fa07a3f-2e29-5065-6fa2-31e959acdd98),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c,
-    with grfnem:inputs e3e70682-c209-4cac-629f-6fbed82c07cd,
-    with grfnem:function a0116be5-ab0c-1681-c8f8-e3d0d3290a4c),
-    has grfnem:subgraphs _1846d424-c17c-6279-23c6-612f48268673,
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _8d723104-f773-83c1-3458-a748e9bb17bc,
-    with grfnem:function e005b860-51ef-1922-fe43-c49e149818d1),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs e443df78-9558-867f-5ba9-1faf7a024204,
-    with grfnem:outputs f7c1bd87-4da5-e709-d471-3d60c8a70639,
-    with grfnem:inputs d3447490-96fd-35d0-adf2-0806e5214606,
-    with grfnem:inputs _37176e84-d977-e993-3c49-d76fcfc6e625,
-    with grfnem:function eae2025e-8233-9e23-dff3-334b91b15f5d),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _259f4329-e6f4-590b-9a16-4106cf6a659e,
-    with grfnem:function baf3897a-3e70-f16a-5548-5822de1b372a),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _5487ce1e-af19-922a-d9b8-a714e61a441c,
-    with grfnem:function _38c1962e-9148-624f-eac1-c14f30e9c5cc),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:inputs _1db53334-fb03-23a1-d576-d4155ec17dbe,
-    with grfnem:outputs b7d6467b-2f5a-522a-f87f-43fdf6062541,
-    with grfnem:function b29c467d-2b5f-6932-91dc-59efeb21a3f6,
-    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
-    with grfnem:inputs c87a7463-19c1-6a0d-0feb-d845d0dfae43,
-    with grfnem:inputs _30bcab0e-d857-0102-55d4-4936a1515607,
-    with grfnem:inputs _964a870c-7c87-9b74-1d87-8f9f9cdf5a86,
-    with grfnem:inputs _176ea1b1-6426-4cd5-1ea4-5cd69371a71f,
-    with grfnem:inputs d480865f-9b38-fe80-3042-e325a28f5ab0),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs d480865f-9b38-fe80-3042-e325a28f5ab0,
-    with grfnem:inputs _1fdb8b32-06d5-99e8-12f1-75ffae3b16ec,
-    with grfnem:inputs _9a27d858-88c1-32ad-efbf-c19ee8f6cf32,
-    with grfnem:inputs c87a7463-19c1-6a0d-0feb-d845d0dfae43,
-    with grfnem:inputs a25b59fd-92e8-e269-d12e-cbc40b9475b1,
-    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
-    with grfnem:inputs _38018b47-b29a-8b06-daf6-6c5f2577bffa,
-    with grfnem:function _98b33c6e-0a14-b90a-7795-e98680ee526e),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _85776e9a-dd84-f39e-7154-5a137a1d5006,
-    with grfnem:function _7d41e602-eece-328b-ff7b-118e820865d6),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs a3f2c9bf-9c63-16b9-50f2-44556f25e2a2,
-    with grfnem:function _1759edc3-72ae-2244-8b01-63c1cd9d2b7d),
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _176ea1b1-6426-4cd5-1ea4-5cd69371a71f,
-    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
-    with grfnem:function _642aad48-fcfc-fa81-b306-d70019d5f970),
-    has grfnem:date_created "2021-06-16",
-    has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs eb1167b3-67a9-c378-7c65-c1e582e2e662,
-    with grfnem:function _8c1745a7-9a6a-5f92-cca7-4147f6be1f72),
     has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs _42930b33-a81a-d477-fb36-75b89cdeb3e6,
     with grfnem:outputs _148b2758-d7ab-7928-09e4-69e6ec62b2c8,
@@ -224,25 +110,65 @@ _27460f22-403d-1f83-a859-890cd670f668 is a grfnem:GrFN,
     with grfnem:inputs _1775336d-71ea-cd05-49a3-e80e966e1277,
     with grfnem:function e66cd36e-68ef-8f5f-ae68-690a78bc7175),
     has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs d67e55fd-642b-fa42-aef9-c00b8a64c1b9,
-    with grfnem:outputs _2648ee38-e074-05eb-2156-63abc1f254b8,
-    with grfnem:inputs b7d6467b-2f5a-522a-f87f-43fdf6062541,
-    with grfnem:inputs _31d0b664-0589-f877-9b02-52440950fd13,
-    with grfnem:function c470f0e7-f76f-bfb8-3412-fc12ac322c12),
+    with grfnem:outputs _31d0b664-0589-f877-9b02-52440950fd13,
+    with grfnem:inputs _1db53334-fb03-23a1-d576-d4155ec17dbe,
+    with grfnem:function e6fd68e8-d69c-91c2-7860-1602bb4a06cb),
     has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs _964a870c-7c87-9b74-1d87-8f9f9cdf5a86,
-    with grfnem:outputs _5306f3f5-1516-6570-5b7c-709acb175a5a,
-    with grfnem:inputs _42930b33-a81a-d477-fb36-75b89cdeb3e6,
-    with grfnem:inputs _2f120554-4a53-08cc-3dfa-bc08935ddd72,
-    with grfnem:function ade9b2b4-efdd-35f8-0fa3-4266ccfdba9b),
-    has grfnem:subgraphs b5d32b16-6619-4cb1-d710-37d1b83e90ec,
+    with grfnem:outputs _5129fb7c-6288-e1a5-cc45-782198a6416d,
+    with grfnem:inputs _148b2758-d7ab-7928-09e4-69e6ec62b2c8,
+    with grfnem:function _878b9f6b-57a1-cb71-2975-d279d86dbf11),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _0870e15c-2fcd-81b5-d24b-ace4307bf326,
+    with grfnem:outputs _1775336d-71ea-cd05-49a3-e80e966e1277,
+    with grfnem:inputs f728b4fa-4248-5e3a-0a5d-2f346baa9455,
+    with grfnem:inputs eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    with grfnem:function a425799a-a905-d750-7e1e-a9c573581a81),
     has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs f728b4fa-4248-5e3a-0a5d-2f346baa9455,
     with grfnem:inputs _17e0aa3c-0398-3ca8-ea7e-9d498c778ea6,
     with grfnem:function _3405095c-8a50-06c1-ec18-8efbd080e66e),
     has grfnem:hyper_edges (a grfnem:HyperEdge
-    with grfnem:outputs eb2083e6-ce16-4dba-0ff1-8e0242af9fc3,
-    with grfnem:function _4a84eb03-8d1f-d9b7-4d2b-9deb1beb3711),
+    with grfnem:outputs b4862b21-fb97-d435-8856-1712e8e5216a,
+    with grfnem:function d3fbf47a-7e5b-1e7f-9ca5-499d004ae545),
+    has grfnem:subgraphs ba26d851-35e8-579a-7aaf-0e891fb797fa,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs e443df78-9558-867f-5ba9-1faf7a024204,
+    with grfnem:outputs f7c1bd87-4da5-e709-d471-3d60c8a70639,
+    with grfnem:inputs d3447490-96fd-35d0-adf2-0806e5214606,
+    with grfnem:inputs _37176e84-d977-e993-3c49-d76fcfc6e625,
+    with grfnem:function eae2025e-8233-9e23-dff3-334b91b15f5d),
+    has grfnem:subgraphs _46743741-9466-e472-6b5f-5241f323ca74,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _1db53334-fb03-23a1-d576-d4155ec17dbe,
+    with grfnem:inputs d480865f-9b38-fe80-3042-e325a28f5ab0,
+    with grfnem:function e786ab37-5bca-47be-4298-17c53308fb2e),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _5487ce1e-af19-922a-d9b8-a714e61a441c,
+    with grfnem:function _38c1962e-9148-624f-eac1-c14f30e9c5cc),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs a3f2c9bf-9c63-16b9-50f2-44556f25e2a2,
+    with grfnem:function _1759edc3-72ae-2244-8b01-63c1cd9d2b7d),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _30bcab0e-d857-0102-55d4-4936a1515607,
+    with grfnem:inputs _5306f3f5-1516-6570-5b7c-709acb175a5a,
+    with grfnem:function _9edfa3da-6cf5-5b15-8b53-031d05d51433),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _8d723104-f773-83c1-3458-a748e9bb17bc,
+    with grfnem:function e005b860-51ef-1922-fe43-c49e149818d1),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c,
+    with grfnem:inputs e3e70682-c209-4cac-629f-6fbed82c07cd,
+    with grfnem:function a0116be5-ab0c-1681-c8f8-e3d0d3290a4c),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs d67e55fd-642b-fa42-aef9-c00b8a64c1b9,
+    with grfnem:outputs _2648ee38-e074-05eb-2156-63abc1f254b8,
+    with grfnem:inputs b7d6467b-2f5a-522a-f87f-43fdf6062541,
+    with grfnem:inputs _31d0b664-0589-f877-9b02-52440950fd13,
+    with grfnem:function c470f0e7-f76f-bfb8-3412-fc12ac322c12),
+    has grfnem:subgraphs _1846d424-c17c-6279-23c6-612f48268673,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _5a921187-19c7-8df4-8f4f-f31e78de5857,
+    with grfnem:function _247a8333-f7b0-b7d2-cda8-056c3d15eef7),
     has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs d3447490-96fd-35d0-adf2-0806e5214606,
     with grfnem:outputs _37176e84-d977-e993-3c49-d76fcfc6e625,
@@ -253,6 +179,37 @@ _27460f22-403d-1f83-a859-890cd670f668 is a grfnem:GrFN,
     with grfnem:inputs d450fe4a-ec4f-217b-b306-d1a8e5eeac76,
     with grfnem:function _0361524c-2cc0-f859-aa65-24ab713b7e05),
     has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs c87a7463-19c1-6a0d-0feb-d845d0dfae43,
+    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
+    with grfnem:inputs _6d16ee18-5521-16dd-2ba4-b180cb69ca38,
+    with grfnem:function _0fa07a3f-2e29-5065-6fa2-31e959acdd98),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _259f4329-e6f4-590b-9a16-4106cf6a659e,
+    with grfnem:function baf3897a-3e70-f16a-5548-5822de1b372a),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _85776e9a-dd84-f39e-7154-5a137a1d5006,
+    with grfnem:function _7d41e602-eece-328b-ff7b-118e820865d6),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _12e0c8b2-bad6-40fb-1948-8dec4f65d4d9,
+    with grfnem:function _101fbccc-ded7-33e8-b421-eaeb534097ca),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs d450fe4a-ec4f-217b-b306-d1a8e5eeac76,
+    with grfnem:inputs _5129fb7c-6288-e1a5-cc45-782198a6416d,
+    with grfnem:function ebe21368-98c7-5205-1e01-a934402d0baf),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _176ea1b1-6426-4cd5-1ea4-5cd69371a71f,
+    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
+    with grfnem:function _642aad48-fcfc-fa81-b306-d70019d5f970),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _964a870c-7c87-9b74-1d87-8f9f9cdf5a86,
+    with grfnem:outputs _5306f3f5-1516-6570-5b7c-709acb175a5a,
+    with grfnem:inputs _42930b33-a81a-d477-fb36-75b89cdeb3e6,
+    with grfnem:inputs _2f120554-4a53-08cc-3dfa-bc08935ddd72,
+    with grfnem:function ade9b2b4-efdd-35f8-0fa3-4266ccfdba9b),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    with grfnem:function _8c1745a7-9a6a-5f92-cca7-4147f6be1f72),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
     with grfnem:outputs _1fdb8b32-06d5-99e8-12f1-75ffae3b16ec,
     with grfnem:outputs _9a27d858-88c1-32ad-efbf-c19ee8f6cf32,
     with grfnem:outputs a25b59fd-92e8-e269-d12e-cbc40b9475b1,
@@ -260,7 +217,51 @@ _27460f22-403d-1f83-a859-890cd670f668 is a grfnem:GrFN,
     with grfnem:outputs _6d16ee18-5521-16dd-2ba4-b180cb69ca38,
     with grfnem:outputs _4562be7f-bb42-e0b2-0426-465e3e37952d,
     with grfnem:inputs _964a870c-7c87-9b74-1d87-8f9f9cdf5a86,
-    with grfnem:function _11ebcd49-428a-1c22-d5fd-b76a19fbeb1d).
+    with grfnem:function _11ebcd49-428a-1c22-d5fd-b76a19fbeb1d),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _2f120554-4a53-08cc-3dfa-bc08935ddd72,
+    with grfnem:function fb82860d-eabc-a8d0-b341-facdff0ac0f1),
+    has grfnem:date_created "2021-06-16",
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _85940927-468f-f53d-864a-7a50b48d73f1,
+    with grfnem:inputs _148b2758-d7ab-7928-09e4-69e6ec62b2c8,
+    with grfnem:function _28805c5d-ad1b-8f60-c9e4-dab20edc6d2b),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs eb2083e6-ce16-4dba-0ff1-8e0242af9fc3,
+    with grfnem:function _4a84eb03-8d1f-d9b7-4d2b-9deb1beb3711),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs d480865f-9b38-fe80-3042-e325a28f5ab0,
+    with grfnem:inputs _1fdb8b32-06d5-99e8-12f1-75ffae3b16ec,
+    with grfnem:inputs _9a27d858-88c1-32ad-efbf-c19ee8f6cf32,
+    with grfnem:inputs c87a7463-19c1-6a0d-0feb-d845d0dfae43,
+    with grfnem:inputs a25b59fd-92e8-e269-d12e-cbc40b9475b1,
+    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
+    with grfnem:inputs _38018b47-b29a-8b06-daf6-6c5f2577bffa,
+    with grfnem:function _98b33c6e-0a14-b90a-7795-e98680ee526e),
+    has grfnem:subgraphs b5d32b16-6619-4cb1-d710-37d1b83e90ec,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs b7d6467b-2f5a-522a-f87f-43fdf6062541,
+    with grfnem:inputs d480865f-9b38-fe80-3042-e325a28f5ab0,
+    with grfnem:inputs _1db53334-fb03-23a1-d576-d4155ec17dbe,
+    with grfnem:inputs _964a870c-7c87-9b74-1d87-8f9f9cdf5a86,
+    with grfnem:inputs _5f3f5638-3870-1a14-b490-b6081dfc8352,
+    with grfnem:inputs _176ea1b1-6426-4cd5-1ea4-5cd69371a71f,
+    with grfnem:inputs _30bcab0e-d857-0102-55d4-4936a1515607,
+    with grfnem:function b29c467d-2b5f-6932-91dc-59efeb21a3f6,
+    with grfnem:inputs c87a7463-19c1-6a0d-0feb-d845d0dfae43),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:inputs _5a921187-19c7-8df4-8f4f-f31e78de5857,
+    with grfnem:inputs b4862b21-fb97-d435-8856-1712e8e5216a,
+    with grfnem:inputs a3f2c9bf-9c63-16b9-50f2-44556f25e2a2,
+    with grfnem:inputs _85776e9a-dd84-f39e-7154-5a137a1d5006,
+    with grfnem:inputs eb2083e6-ce16-4dba-0ff1-8e0242af9fc3,
+    with grfnem:inputs _5487ce1e-af19-922a-d9b8-a714e61a441c,
+    with grfnem:inputs fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c,
+    with grfnem:inputs _12e0c8b2-bad6-40fb-1948-8dec4f65d4d9,
+    with grfnem:inputs _8d723104-f773-83c1-3458-a748e9bb17bc,
+    with grfnem:function _552f233a-8c25-166a-1ff3-9849b4e1357d,
+    with grfnem:outputs _17e0aa3c-0398-3ca8-ea7e-9d498c778ea6,
+    with grfnem:inputs _259f4329-e6f4-590b-9a16-4106cf6a659e).
 _28805c5d-ad1b-8f60-c9e4-dab20edc6d2b is a grfnem:Function,
     has grfnem:metadata (a grfnem:Metadata
     with grfnem:line_begin 49),
@@ -328,12 +329,12 @@ _46743741-9466-e472-6b5f-5241f323ca74 is a grfnem:SubGraph,
     has grfnem:nodes _1775336d-71ea-cd05-49a3-e80e966e1277,
     has grfnem:nodes _148b2758-d7ab-7928-09e4-69e6ec62b2c8,
     has grfnem:nodes _878b9f6b-57a1-cb71-2975-d279d86dbf11,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 49),
     has grfnem:nodes e66cd36e-68ef-8f5f-ae68-690a78bc7175,
     has grfnem:nodes _85940927-468f-f53d-864a-7a50b48d73f1,
     has grfnem:nodes _2f120554-4a53-08cc-3dfa-bc08935ddd72,
-    has grfnem:scope "PID.main",
-    has grfnem:metadata (a grfnem:Metadata
-    with grfnem:line_end 49).
+    has grfnem:scope "PID.main".
 _4a84eb03-8d1f-d9b7-4d2b-9deb1beb3711 is a grfnem:Function,
     has grfnem:metadata (a grfnem:Metadata
     with grfnem:line_begin 25),
@@ -431,32 +432,12 @@ _9edfa3da-6cf5-5b15-8b53-031d05d51433 is a grfnem:Function,
     has grfnem:lambda "lambda speed: speed".
 __sFILE is a grfnem:Type,
     has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "_blksize"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "List",
-    with grfnem:name "_ubuf"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "List",
-    with grfnem:name "_read"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "List",
-    with grfnem:name "_seek"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "List",
-    with grfnem:name "_close"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "object$__sbuf",
-    with grfnem:name "_lb"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "_file"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "List",
-    with grfnem:name "_write"),
-    has grfnem:fields (a grfnem:Field
     with grfnem:data_type "List",
     with grfnem:name "_extra"),
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_ur"),
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
     with grfnem:name "_lbfsize"),
@@ -464,34 +445,54 @@ __sFILE is a grfnem:Type,
     with grfnem:data_type "List",
     with grfnem:name "_p"),
     has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_cookie"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_file"),
+    has grfnem:fields (a grfnem:Field
     with grfnem:data_type "object$__sbuf",
     with grfnem:name "_ub"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "object$__sbuf",
+    with grfnem:name "_bf"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_offset"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_read"),
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
     with grfnem:name "_r"),
     has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "_w"),
+    with grfnem:data_type "object$__sbuf",
+    with grfnem:name "_lb"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_seek"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_close"),
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "List",
     with grfnem:name "_nbuf"),
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
-    with grfnem:name "_offset"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "object$__sbuf",
-    with grfnem:name "_bf"),
+    with grfnem:name "_w"),
     has grfnem:name "__sFILE",
     has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_flags"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_blksize"),
+    has grfnem:fields (a grfnem:Field
     with grfnem:data_type "List",
-    with grfnem:name "_cookie"),
+    with grfnem:name "_write"),
     has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "_ur"),
-    has grfnem:metadata (a grfnem:Metadata),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "_flags").
+    with grfnem:data_type "List",
+    with grfnem:name "_ubuf").
 __sFILEX is a grfnem:Type,
     has grfnem:metadata (a grfnem:Metadata),
     has grfnem:name "__sFILEX".
@@ -507,21 +508,7 @@ __sbuf is a grfnem:Type,
 _pid is a grfnem:Type,
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
-    with grfnem:name "integral"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
     with grfnem:name "Ki"),
-    has grfnem:metadata (a grfnem:Metadata),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "voltage"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "Kp"),
-    has grfnem:fields (a grfnem:Field
-    with grfnem:data_type "Number",
-    with grfnem:name "ActualSpeed"),
-    has grfnem:name "_pid",
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
     with grfnem:name "err_last"),
@@ -530,10 +517,24 @@ _pid is a grfnem:Type,
     with grfnem:name "SetSpeed"),
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
+    with grfnem:name "ActualSpeed"),
+    has grfnem:name "_pid",
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
     with grfnem:name "Kd"),
     has grfnem:fields (a grfnem:Field
     with grfnem:data_type "Number",
-    with grfnem:name "err").
+    with grfnem:name "err"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "voltage"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "Kp"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "integral"),
+    has grfnem:metadata (a grfnem:Metadata).
 a0116be5-ab0c-1681-c8f8-e3d0d3290a4c is a grfnem:Function,
     has grfnem:metadata (a grfnem:Metadata),
     has grfnem:ftype "INTERFACE",
@@ -585,14 +586,14 @@ b5d32b16-6619-4cb1-d710-37d1b83e90ec is a grfnem:SubGraph,
     has grfnem:nodes _5a921187-19c7-8df4-8f4f-f31e78de5857,
     has grfnem:nodes d3fbf47a-7e5b-1e7f-9ca5-499d004ae545,
     has grfnem:scope "PID",
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 27,
+    with grfnem:line_begin 15),
     has grfnem:nodes _259f4329-e6f4-590b-9a16-4106cf6a659e,
     has grfnem:sg_type "FuncContainer",
     has grfnem:parent _1846d424-c17c-6279-23c6-612f48268673,
     has grfnem:nodes e005b860-51ef-1922-fe43-c49e149818d1,
     has grfnem:nodes a3f2c9bf-9c63-16b9-50f2-44556f25e2a2,
-    has grfnem:metadata (a grfnem:Metadata
-    with grfnem:line_end 27,
-    with grfnem:line_begin 15),
     has grfnem:nodes _101fbccc-ded7-33e8-b421-eaeb534097ca,
     has grfnem:nodes _247a8333-f7b0-b7d2-cda8-056c3d15eef7,
     has grfnem:nodes a0116be5-ab0c-1681-c8f8-e3d0d3290a4c.
@@ -613,6 +614,9 @@ ba26d851-35e8-579a-7aaf-0e891fb797fa is a grfnem:SubGraph,
     has grfnem:nodes b7d6467b-2f5a-522a-f87f-43fdf6062541,
     has grfnem:nodes _30bcab0e-d857-0102-55d4-4936a1515607,
     has grfnem:nodes _9a27d858-88c1-32ad-efbf-c19ee8f6cf32,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 38,
+    with grfnem:line_begin 30),
     has grfnem:nodes _1db53334-fb03-23a1-d576-d4155ec17dbe,
     has grfnem:scope "PID",
     has grfnem:nodes _31d0b664-0589-f877-9b02-52440950fd13,
@@ -621,9 +625,6 @@ ba26d851-35e8-579a-7aaf-0e891fb797fa is a grfnem:SubGraph,
     has grfnem:nodes c470f0e7-f76f-bfb8-3412-fc12ac322c12,
     has grfnem:nodes e6fd68e8-d69c-91c2-7860-1602bb4a06cb,
     has grfnem:nodes _6d16ee18-5521-16dd-2ba4-b180cb69ca38,
-    has grfnem:metadata (a grfnem:Metadata
-    with grfnem:line_end 38,
-    with grfnem:line_begin 30),
     has grfnem:namespace "PID",
     has grfnem:nodes ade9b2b4-efdd-35f8-0fa3-4266ccfdba9b,
     has grfnem:nodes _176ea1b1-6426-4cd5-1ea4-5cd69371a71f,
@@ -737,9 +738,8 @@ fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c is a grfnem:Variable,
     has grfnem:metadata (a grfnem:Metadata),
     has grfnem:uid "fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c",
     has grfnem:identifier "PID::PID.PID_init::pid::-1".
- 
- 
- 
+
+    
 // Individuals:
 _01aa7d0d-bb42-bd97-3175-136052eaa885 is a grfnem:ExpNode,
     has grfnem:children [a02be4a3-841c-8daf-ac60-abd433cc6b4d],
@@ -2146,4 +2146,4 @@ ffdd4417-54f6-e79d-0917-0d2c28f22b60 is a grfnem:ExpNode,
     has grfnem:children [_2916a1fe-2cd7-6f7e-cb70-3eaa3c66856e],
     has grfnem:exp_node_type "VALUE",
     has grfnem:node_value "integral".
- 
+    
