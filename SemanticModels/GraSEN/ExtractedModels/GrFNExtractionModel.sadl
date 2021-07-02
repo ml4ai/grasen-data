@@ -1,5 +1,5 @@
  uri "http://sadl.org/GrFNExtractionModel.sadl" alias grfnem.
- 
+
  Node is a class
  	described by uid with a single value of type string
  	described by description with a single value of type string
@@ -72,6 +72,7 @@
 . 	
 
 Metadata is a class
+	described by from_source with a single value of type boolean 
 	described by line_begin with a single value of type int
 	described by line_end with a single value of type int
 .

@@ -3,8 +3,10 @@
 import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
 // select the C code file for processing
+import "http://aske.ge.com/GE_simple_PI_controller".
+
 //import "http://aske.ge.com/PID".
-import "http://sadl.org/GE_simple_PI_controller.sadl".
+//import "http://aske.ge.com/GE_simple_PI_controller_saturation".
 
 ControllerConstruct is a class. 
 
@@ -49,7 +51,7 @@ then
 
 Rule explicitVarR
 if	x is a Variable
-	and line_begin of metadata of x is lb
+	and from_source of metadata of x is true
 then
 	x is an ExplicitVariable.
 
@@ -176,12 +178,9 @@ then
 	var is a Constant.
 
 
-//Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is a Constant . 
-//Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is a NotConstant.
+//Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
+//Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a NotConstant.
 
-//Ask: select distinct vn where var is a Variable and var varName vn and var identifier vid and var is a Constant.
-
-	
 Rule ErrorSignalCandidate
 if 	fun is an ExpressionTree
 	and fun nodes op
@@ -225,20 +224,20 @@ then
 //.
 
 
-Write: data 
-{
-Ask: "select ?Name ?AnnotationType ?Loc_start ?Loc_end ?Qual_name ?Equation  
-where {
-  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
-. ?x <varName> ?Name
-. ?x <identifier> ?Qual_name
-. ?x <metadata> ?md
-. ?md <line_begin> ?Loc_start 
-. ?md <line_end> ?Loc_end
-. OPTIONAL{?x <semanticExpression> ?Equation}
-}".
-} to "SemAnnotation.csv".
+//Write: data 
+//{
+//Ask: "select ?Name ?AnnotationType ?Loc_start ?Loc_end ?Qual_name ?Equation  
+//where {
+//  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+//. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
+//. ?x <varName> ?Name
+//. ?x <identifier> ?Qual_name
+//. ?x <metadata> ?md
+//. ?md <line_begin> ?Loc_start 
+//. ?md <line_end> ?Loc_end
+//. OPTIONAL{?x <semanticExpression> ?Equation}
+//}".
+//} to "SemAnnotation.csv".
 
 
 //Ask: select esn rsn msn lexpr
