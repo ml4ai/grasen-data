@@ -4,12 +4,12 @@ import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
 // select the C code file for processing
 import "http://aske.ge.com/GE_simple_PI_controller".
+//import "http://aske.ge.com/GE_simple_PI_controller_inline".
 
 //import "http://aske.ge.com/PID".
 //import "http://aske.ge.com/GE_simple_PI_controller_saturation".
 
-ControllerConstruct is a class
-  described by description with a single value of type string. 
+ControllerConstruct is a class. 
 
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
@@ -30,6 +30,12 @@ ErrorSignal is a type of Variable
 ReferenceSignal is a type of Variable.
 MeasurementSignal is a type of Variable.
 
+Increment is a type of Variable. // the only assignment to it is of the form x = x +/-/* y
+Counter is a type of Variable. // It is an Increment where y is a constant value or a literal
+Accumulator is a type of Variable. // It is an Increment where y is not a constant or a literal
+Integrator is a type of Variable. // It is an Accumulator where y is proportional to (ref signal - measured signal)
+PI-Controller is a type of Node //Do I want it as node??????
+	described by 
 semanticExpression describes Variable with a single value of type string.
 
 Constant is a type of ControllerConstruct.
@@ -40,13 +46,23 @@ ReferenceSignal is a type of ControllerConstruct.
 description of ReferenceSignal is "This is a reference signal candidate.".
 MeasurementSignal is a type of ControllerConstruct.
 description of MeasurementSignal is "This is a measurement signal candidate.".
+Integrator is a type of ControllerConstruct.
+description of Integrator is "This is an Integrator.".
+IntegratorConstant is a type of ControllerConstruct.
+description of IntegratorConstant is "This is the constant multiplier for the Integrator.".
+ProportionalConstant is a type of ControllerConstruct.
+description of ProportionalConstant is "This is the constant multiplier for the Proportional term.".
+PI-Controller is a type of ControllerConstruct.
+description of PI-Controller is "This is a PI Controller.".
+
+multiplicand describes ExpressionTree with values of type ExpNode.
 
 
-Stage 2 Rule instanceOfSubclassR
-if		x is a SubClass
-	and SubClass is a type of SuperClass
-then
-	x is a SuperClass.
+//Stage 6 Rule instanceOfSubclassR
+//if		x is a SubClass
+//	and SubClass is a type of SuperClass
+//then
+//	x is a SuperClass.
 
 Rule varNameR
 if 		x is a Variable
@@ -105,11 +121,11 @@ then
 
 
 Rule loopBlockR
-if	node sg_type "LoopContainer"
+if	 node sg_type "LoopContainer"
 then node is a LoopBlock.
 	
 Rule funcBlockR
-if	node sg_type "FuncContainer"
+if	 node sg_type "FuncContainer"
 then node is a FunctionBlock.
 	
 Rule nestedBlockR
@@ -127,10 +143,18 @@ then
 	
 //Ask: select distinct vn bt where var inBlock b and var varName vn and b sg_type bt.
 
+Rule lineEndR
+if		x metadata md
+	and noValue(md,line_end)
+	and md line_begin lb
+then
+	md line_end lb.
+
 
 Rule lhsR 
-if 		edge is a HyperEdge
+if		edge is a HyperEdge
    	and edge outputs var
+   	and from_source of metadata of var is true //only look at explicit vars
    	and edge function fun
    	and ftype of fun != "INTERFACE"
 then 
@@ -139,16 +163,16 @@ then
 //Ask: select vn vid where var is a LHS and var varName vn and var identifier vid.
 	
 Rule literalInitializedR
-if 	   edge function f
-   and f ftype "LITERAL"
-   and edge outputs var
+if		edge function f
+	and f ftype "LITERAL"
+	and edge outputs var
 then 
 	var is a LiteralInitialized .
 	
 //Ask: select vn where var varName vn and var is a LiteralInitialized.
 
 
-Rule notConstantR1
+Stage 1 Rule notConstantR1
 if		var1 is a LHS
 	and var2 is a LHS
 	and var1 sameVar var2
@@ -156,7 +180,7 @@ then
 	var1 is a NotConstant.
 
 //Comment out if not using---negation slows things down
-Stage 2 Rule notConstantR2
+Stage 1 Rule notConstantR2
 if		var is a LHS
 	and var is not a LiteralInitialized 
 	and var inBlock block
@@ -164,7 +188,7 @@ if		var is a LHS
 then
 	var is a NotConstant.
 
-Stage 2 Rule notConstantR2A
+Stage 1 Rule notConstantR2A
 if		var is a LHS
 	and var is not a LiteralInitialized 
 	and var inBlock block
@@ -172,19 +196,19 @@ if		var is a LHS
 then
 	var is a NotConstant.
 
-//Ask: select vid vn where
+//Ask: select var vname
+//where
 //	var is a LHS
 //	and var inBlock block
-//	and block is a LoopBlock
-//	and var varName vn
-//	and var identifier vid
-//	and var is not a LiteralInitialized
-//	.
+//	and block is a NestedBlock
+//	and var varName vname
+//	and var is not a LiteralInitialized 
+//.
 
-
-Stage 3 Rule notConstantR3
+Stage 2 Rule notConstantR3
 if		var1 is a NotConstant
 	and var1 sameVar var2
+	and var2 is an ExplicitVariable
 then
 	var2 is a NotConstant.
 
@@ -192,14 +216,25 @@ then
 
 //Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is not a NotConstant.
 
-Stage 4 Rule constantR
+Stage 3 Rule constantR
 if		var is a LHS
+	and var is a ExplicitVariable
 	and var is not a NotConstant
 then
 	var is a Constant.
 
+// We may need this for future rules (not queries). It generates more constants.
+//Stage 4 Rule constantR2
+//if	var1 is a LHS
+//	and var1 is not a NotConstant
+//	and var1 sameVar var2
+//then
+//	var2 is a Constant.
 
-Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
+
+//Ask: select distinct var vn vid where var is a Constant and var varName vn and var identifier vid . 
+
+//Ask: select distinct var vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
 //Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a NotConstant.
 
 //Ask: select distinct vn where var is a Variable and var varName vn and var identifier vid and var is a Constant.
@@ -242,41 +277,222 @@ then rs is a ReferenceSignal
 	and ms is a MeasurementSignal
 .
 
-Rule lineEndR
-if		x metadata md
-	and noValue(md,line_end)
-	and md line_begin lb
-then
-	md line_end lb.
+Stage 2 Rule IntegratorCandidate
+if  x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
+    and fun is an Function
+    and fun ftype "ASSIGN"
+    and he function fun
+    and he is a HyperEdge
+    and he outputs out
+    and out varName out_name
+    and he inputs in1
+    and in1 varName out_name
+//    and he inputs in2
+//    and in1 != in2
+//    and in2 is a ErrorSignal
+//    and in2 varName in2_name
+    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
+    and expNode is an ExpNode
+    and expNode exp_node_type "OPERATOR"
+    and expNode children clist
+    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
+    and n1 operator "Add" // one child should be Mult and one should be what is in LHS in our example
+    and n1 children clist2
+    and c1 is element 0 of clist2 // c1 and c2 do not have varName but have var_name
+    and c2 is element 1 of clist2
+    and c2 var_name out_name // so LHS is repeated in the RHS
+    
+//    and countMatches(clist2, ) how do I iterate over the elements of a list, is there "member" or something?
+    
+    and c1 operator "Mult" // now check for ErrorSignal in rest of the RHS
+    and c1 children clist3
+    and cc2 is element 1 of clist3
+    
+    and x varName error_signal_name
+    and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
 
+then //print("x on both sides of = ", out_name) and
+     out is an Integrator.    
 
-//Ask: select var vname vtype //loc_start loc_end 
-//qual_name 
+//Ask: select var vname
 //where
-//	vtype is a type of ControllerConstruct
-//	and var is a vtype
-//	and var varName vname
-//	and var identifier qual_name
-////	and loc_start is line_begin of metadata of var
-////	and loc_end is line_begin of metadata of var
+// var is an Integrator
+// and var varName vname.
+
+
+Stage 1 Rule Multiplicands
+if	
+    exp is an ExpressionTree
+    and exp nodes return_node
+    and return_node operator "RETURN"
+    and return_node children clist1
+    and c1 is element 0 of clist1
+    and c1 operator "Add"
+    and c1 children clist2
+    and d1 is element 0 of clist2
+    and d2 is element 1 of clist2
+    and d1 operator "Mult" 
+    and d2 operator "Mult"
+then
+		exp multiplicand d1
+	and exp multiplicand d2
+.
+
+//Ask: select d1
+//where
+//	exp multiplicand d1
 //.
 
+ConstTimesError is a type of ExpNode.
+proportionalConstant describes ExpNode with values of type Constant.
 
-Write: data 
-{
-Ask: "select ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
+Stage 4 Rule ConstTimesErrorR
+if  
+	exp multiplicand d1
+    and d1 children clist3 // has 2 children
+    and err_cand is element 0 of clist3 
+	and err_cand grfn_uid err
+	and err is an ErrorSignal
+    and kp_cand is element 1 of clist3
+	and kp is a Constant
+	and varName of kp == var_name of kp_cand
+then 
+     d1 is a ConstTimesError
+     and d1 proportionalConstant kp
+     and kp is a ProportionalConstant
+.
+
+
+ConstTimesIntegrator is a type of ExpNode.
+integratorConstant describes ExpNode with values of type Constant.
+
+Stage 4 Rule ConstTimesIntegratorR
+if  
+	exp multiplicand d1
+    and d1 children clist3 // has 2 children
+    and f1 is element 0 of clist3 
+	and f1 grfn_uid err
+	and ki is a Constant
+	and varName of ki == var_name of f1
+    and f2 is element 1 of clist3
+    and f2 grfn_uid integrator
+    and integrator is an Integrator
+then 
+     d1 is a ConstTimesIntegrator 
+     and d1 integratorConstant ki
+     and ki is a IntegratorConstant
+.
+
+//Ask: select  var kp
+//where 
+// var is a ConstTimesIntegrator
+// and var integratorConstant kp 
+//.
+
+Stage 5 Rule PI-ControllerCandidate
+if  	exp multiplicand d1
+	and exp multiplicand d2
+	and d1 is a ConstTimesError
+	and d1 proportionalConstant kp
+	and d2 is a ConstTimesIntegrator
+	and d2 integratorConstant ki
+then
+    exp is a PI-Controller // instead of exp have the entire module
+	and exp proportionalConstant kp
+	and exp integratorConstant ki
+.
+
+Ask: select distinct propConst integrConst equation  
+where 
+ 	exp is a PI-Controller
+	and exp proportionalConstant kp 
+	and kp varName propConst
+	and exp integratorConstant ki
+	and ki varName integrConst
+ 	and exp lambda equation 
+.
+
+
+//Stage 2 Rule PI-ControllerCandidate
+//if  
+//    exp is an ExpressionTree
+//    and exp nodes return_node
+//    and return_node operator "RETURN"
+//    and return_node children clist1
+//    and c1 is element 0 of clist1
+//    and c1 operator "Add"
+//    and c1 children clist2
+//    and d1 is element 0 of clist2
+//    and d2 is element 1 of clist2
+//    and d1 operator "Mult" 
+//    and d2 operator "Mult"
+//    and d1 children clist3 // has 2 children
+//    and err_cand is element 0 of clist3 
+//	and err_cand grfn_uid err
+//////	and err is an ErrorSignal
+//    and kp_cand is element 1 of clist3
+//////	and kp is a Constant
+//////	and varName of kp == var_name of kp_cand
+//         
+//    and d2 children clist4
+//    and f1 is element 0 of clist4
+//    and f1 var_name f1n
+////    and ki is an ExplicitVariable
+////    and ki varName kin
+////    and kin == f1n
+//////    and ki is a Constant
+////
+////    and f2 is element 1 of clist4
+////    and f2 grfn_uid integrator
+//////    and integrator is an Integrator
+//    
+////    and f1 var_name f1_name
+////    and f2 var_name f2_name
+//then print(err_cand, f1) and 
+//     exp is a PI-Controller // instead of exp have the entire module
+////     and kp is a ProportionalConstant
+////     and f1 is an IntegratorConstant
+//.
+    
+Write: data{
+Ask: "select distinct ?AnnotationType ?x ?Name ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
 where {
-  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
+{  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+. ?x a ?AnnotationType 
+. ?x a <ExplicitVariable>
 . ?x <varName> ?Name
 . ?AnnotationType <description> ?Description
 . ?x <identifier> ?Qual_name
 . ?x <metadata> ?md
-. ?md <line_begin> ?Loc_start 
-. ?md <line_end> ?Loc_end
-. OPTIONAL{?x <semanticExpression> ?Equation}
-} order by ?AnnotationType ?Name".
-} to "SemAnnotation.csv".
+. OPTIONAL{?md <line_begin> ?Loc_start} 
+. OPTIONAL{?md <line_end> ?Loc_end}
+. OPTIONAL{?x <semanticExpression> ?Equation} 
+} union {
+ ?x a <PI-Controller>
+. ?x a ?AnnotationType
+. ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+. OPTIONAL{?x <description> ?Description}
+. OPTIONAL{?x <lambda> ?Equation} 
+}
+} order by ?AnnotationType ?Name".     
+}to "SemAnnotation.csv".
+
+//Write: data 
+//{
+//Ask: "select ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
+//where {
+//  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+//. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
+//. ?x a <ExplicitVariable>
+//. ?x <varName> ?Name
+//. ?AnnotationType <description> ?Description
+//. ?x <identifier> ?Qual_name
+//. ?x <metadata> ?md
+//. optional{?md <line_begin> ?Loc_start} 
+//. optional{?md <line_end> ?Loc_end}
+//. OPTIONAL{?x <semanticExpression> ?Equation}
+//} order by ?AnnotationType ?Name".
+//} to "SemAnnotation.csv".
 
 
 //Ask: select esn rsn msn lexpr
