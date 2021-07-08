@@ -2,9 +2,6 @@
  
 import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
-//import "http://aske.ge.com/GE_simple_PI_controller_GrFN".
-//import "http://aske.ge.com/GE_simple_PI_controller_ExpTree".
- 
 // select the C code file for processing
 import "http://aske.ge.com/GE_simple_PI_controller".
 //import "http://aske.ge.com/GE_simple_PI_controller_inline".
@@ -12,7 +9,11 @@ import "http://aske.ge.com/GE_simple_PI_controller".
 //import "http://aske.ge.com/PID".
 //import "http://aske.ge.com/GE_simple_PI_controller_saturation".
 
-ControllerConstruct is a class. 
+ControllerConstruct is a class
+	described by constructName with values of type string
+	described by linebegin with values of type int
+	described by lineend with values of type int
+	. 
 
 LoopBlock is a type of SubGraph.
 FunctionBlock is a type of SubGraph.
@@ -265,6 +266,7 @@ then
 	and var semanticExpression expr
 .
 
+//Doesn't work because edge has many inputs/outputs for complex expression
 Rule ReferenceSignalCandidate  // works if the error computation is inlined
 if 	fun is an ExpressionTree
 	and fun nodes op
@@ -323,7 +325,7 @@ then //print("x on both sides of = ", out_name) and
 // and var varName vname.
 
 
-Stage 1 Rule Multiplicands
+Stage 1 Rule Multiplications
 if	
     exp is an ExpressionTree
     and exp nodes return_node
@@ -405,18 +407,83 @@ then
 	and exp integratorConstant ki
 .
 
-//Ask: select distinct propConst integrConst equation  
-//where 
-// 	exp is a PI-Controller
+Stage 5 Rule PI-ControllerName
+if 	sg nodes exp
+	and exp is a PI-Controller
+	and sg is a SubGraph
+ 	and sg nodes somenode
+ 	and somenode identifier id	
+ 	and exp_name is strbefore(strafter(id,"::"),"::")
+ then
+ 	exp constructName exp_name
+. 	
+
+//Stage 5 Rule PI-ControllerMetadata
+//if 	sg is a SubGraph
+//	and sg nodes pic
+//	and pic is a PI-Controller
+//	and sg metadata md
+// 	and md line_begin lbeg
+// 	and md line_end lend
+//then 
+//	there exists a Metadata picmetadata
+//	and pic has metadata picmetadata
+//	and picmetadata has line_begin lbeg
+//	and picmetadata has line_end lend
+//.
+
+Stage 5 Rule PI-ControllerMetadata
+if 	sg is a SubGraph
+	and sg nodes pic
+	and pic is a PI-Controller
+	and sg metadata md
+ 	and md line_begin lbeg
+ 	and md line_end lend
+then 
+	pic linebegin lbeg
+	and pic lineend lend
+.
+
+
+//Ask: select md lbeg lend
+//where
+//	sg is a SubGraph
+//	and sg nodes pic
+//	and pic is a PI-Controller
+//	and sg metadata md
+// 	and md line_begin lbeg
+// 	and md line_end lend
+//.
+//Ask: select distinct p pmd beg end
+//where
+//	p is a PI-Controller
+//	and p constructName pname
+//	and p metadata pmd
+//	and pmd line_begin beg
+//	and pmd line_end end
+////	and p linebegin beg
+////	and p lineend end
+//	.
+
+
 //	and exp proportionalConstant kp 
 //	and kp varName propConst
 //	and exp integratorConstant ki
 //	and ki varName integrConst
 // 	and exp lambda equation 
+
+
+//Ask: select distinct id sg //propConst integrConst equation  
+//where 
+//	sg is a SubGraph
+//	and sg nodes exp
+// 	and exp is a PI-Controller
+// 	and sg nodes somenode
+// 	and somenode identifier id
 //.
 
 Write: data{
-Ask: "select distinct ?AnnotationType ?x ?Name ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
+Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
 where {
 {  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
 . ?x a ?AnnotationType 
@@ -435,6 +502,9 @@ where {
  ?x a <PI-Controller>
 . ?x a ?AnnotationType
 . ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+. ?x <constructName> ?Name
+. OPTIONAL{?x <linebegin> ?Loc_start.}
+. OPTIONAL{?x <lineend> ?Loc_end.}
 . OPTIONAL{?x <description> ?Description}
 . OPTIONAL{?x <lambda> ?Equation} 
 }
