@@ -505,12 +505,40 @@ where {
 . ?x <constructName> ?Name
 . OPTIONAL{?x <linebegin> ?Loc_start.}
 . OPTIONAL{?x <lineend> ?Loc_end.}
-. OPTIONAL{?x <description> ?Description}
+. OPTIONAL{?AnnotationType <description> ?Description}
 . OPTIONAL{?x <lambda> ?Equation} 
 }
 } order by ?AnnotationType ?Name".     
 }to "SemAnnotation.csv".
 
+//Write: data{
+//Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
+//where {
+//{  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
+//. ?x a ?AnnotationType 
+//.  filter not exists {
+//       ?C <rdfs:subClassOf> ?AnnotationType.
+//       ?x a ?C.
+//     }
+//. ?x <varName> ?Name
+//. ?AnnotationType <description> ?Description
+//. ?x <identifier> ?Qual_name
+//. ?x <metadata> ?md
+//. OPTIONAL{?md <line_begin> ?Loc_start} 
+//. OPTIONAL{?md <line_end> ?Loc_end}
+//. OPTIONAL{?x <semanticExpression> ?Equation} 
+//} union {
+// ?x a <PI-Controller>
+//. ?x a ?AnnotationType
+//. ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+//. ?x <constructName> ?Name
+//. OPTIONAL{?x <metadata> ?md. ?md <line_begin> ?Loc_start.}
+//. OPTIONAL{?x <metadata> ?md. ?md <line_end> ?Loc_end.}
+//. OPTIONAL{?AnnotationType <description> ?Description}
+//. OPTIONAL{?x <lambda> ?Equation} 
+//}
+//} order by ?AnnotationType ?Name".     
+//}to "SemAnnotation.csv".
 
 
 
