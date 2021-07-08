@@ -3,7 +3,7 @@
 import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
 // select the C code file for processing
-import "http://aske.ge.com/GE_simple_PI_controller".
+import "http://aske.ge.com/GE_simple_PI_controller_combined".
 //import "http://aske.ge.com/GE_simple_PI_controller_inline".
 
 //import "http://aske.ge.com/PID".
