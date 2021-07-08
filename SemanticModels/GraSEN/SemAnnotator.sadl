@@ -2,6 +2,9 @@
  
 import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
+//import "http://aske.ge.com/GE_simple_PI_controller_GrFN".
+//import "http://aske.ge.com/GE_simple_PI_controller_ExpTree".
+ 
 // select the C code file for processing
 import "http://aske.ge.com/GE_simple_PI_controller".
 //import "http://aske.ge.com/GE_simple_PI_controller_inline".
@@ -48,14 +51,14 @@ MeasurementSignal is a type of ControllerConstruct.
 description of MeasurementSignal is "This is a measurement signal candidate.".
 Integrator is a type of ControllerConstruct.
 description of Integrator is "This is an Integrator.".
-IntegratorConstant is a type of ControllerConstruct.
+IntegratorConstant is a type of Constant.
 description of IntegratorConstant is "This is the constant multiplier for the Integrator.".
-ProportionalConstant is a type of ControllerConstruct.
+ProportionalConstant is a type of Constant.
 description of ProportionalConstant is "This is the constant multiplier for the Proportional term.".
 PI-Controller is a type of ControllerConstruct.
 description of PI-Controller is "This is a PI Controller.".
 
-multiplicand describes ExpressionTree with values of type ExpNode.
+multiplication describes ExpressionTree with values of type ExpNode.
 
 
 //Stage 6 Rule instanceOfSubclassR
@@ -334,8 +337,8 @@ if
     and d1 operator "Mult" 
     and d2 operator "Mult"
 then
-		exp multiplicand d1
-	and exp multiplicand d2
+		exp multiplication d1
+	and exp multiplication d2
 .
 
 //Ask: select d1
@@ -348,7 +351,7 @@ proportionalConstant describes ExpNode with values of type Constant.
 
 Stage 4 Rule ConstTimesErrorR
 if  
-	exp multiplicand d1
+	exp multiplication d1
     and d1 children clist3 // has 2 children
     and err_cand is element 0 of clist3 
 	and err_cand grfn_uid err
@@ -368,7 +371,7 @@ integratorConstant describes ExpNode with values of type Constant.
 
 Stage 4 Rule ConstTimesIntegratorR
 if  
-	exp multiplicand d1
+	exp multiplication d1
     and d1 children clist3 // has 2 children
     and f1 is element 0 of clist3 
 	and f1 grfn_uid err
@@ -390,8 +393,8 @@ then
 //.
 
 Stage 5 Rule PI-ControllerCandidate
-if  	exp multiplicand d1
-	and exp multiplicand d2
+if  	exp multiplication d1
+	and exp multiplication d2
 	and d1 is a ConstTimesError
 	and d1 proportionalConstant kp
 	and d2 is a ConstTimesIntegrator
@@ -402,15 +405,43 @@ then
 	and exp integratorConstant ki
 .
 
-Ask: select distinct propConst integrConst equation  
-where 
- 	exp is a PI-Controller
-	and exp proportionalConstant kp 
-	and kp varName propConst
-	and exp integratorConstant ki
-	and ki varName integrConst
- 	and exp lambda equation 
-.
+//Ask: select distinct propConst integrConst equation  
+//where 
+// 	exp is a PI-Controller
+//	and exp proportionalConstant kp 
+//	and kp varName propConst
+//	and exp integratorConstant ki
+//	and ki varName integrConst
+// 	and exp lambda equation 
+//.
+
+Write: data{
+Ask: "select distinct ?AnnotationType ?x ?Name ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
+where {
+{  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
+. ?x a ?AnnotationType 
+.  filter not exists {
+       ?C <rdfs:subClassOf> ?AnnotationType.
+       ?x a ?C.
+     }
+. ?x <varName> ?Name
+. ?AnnotationType <description> ?Description
+. ?x <identifier> ?Qual_name
+. ?x <metadata> ?md
+. OPTIONAL{?md <line_begin> ?Loc_start} 
+. OPTIONAL{?md <line_end> ?Loc_end}
+. OPTIONAL{?x <semanticExpression> ?Equation} 
+} union {
+ ?x a <PI-Controller>
+. ?x a ?AnnotationType
+. ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+. OPTIONAL{?x <description> ?Description}
+. OPTIONAL{?x <lambda> ?Equation} 
+}
+} order by ?AnnotationType ?Name".     
+}to "SemAnnotation.csv".
+
+
 
 
 //Stage 2 Rule PI-ControllerCandidate
@@ -453,29 +484,25 @@ where
 ////     and kp is a ProportionalConstant
 ////     and f1 is an IntegratorConstant
 //.
-    
-Write: data{
-Ask: "select distinct ?AnnotationType ?x ?Name ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
-where {
-{  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-. ?x a ?AnnotationType 
-. ?x a <ExplicitVariable>
-. ?x <varName> ?Name
-. ?AnnotationType <description> ?Description
-. ?x <identifier> ?Qual_name
-. ?x <metadata> ?md
-. OPTIONAL{?md <line_begin> ?Loc_start} 
-. OPTIONAL{?md <line_end> ?Loc_end}
-. OPTIONAL{?x <semanticExpression> ?Equation} 
-} union {
- ?x a <PI-Controller>
-. ?x a ?AnnotationType
-. ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-. OPTIONAL{?x <description> ?Description}
-. OPTIONAL{?x <lambda> ?Equation} 
-}
-} order by ?AnnotationType ?Name".     
-}to "SemAnnotation.csv".
+
+ 
+//Ask: "select distinct ?AnnotationType ?Name ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
+//where {
+//  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct> 
+//. ?x a ?AnnotationType 
+//.  filter not exists {
+//       ?C <rdfs:subClassOf> ?AnnotationType.
+//       ?x a ?C.
+//     }
+//. ?x <varName> ?Name
+//. ?AnnotationType <description> ?Description
+//. ?x <identifier> ?Qual_name
+//. ?x <metadata> ?md
+//. OPTIONAL{?md <line_begin> ?Loc_start} 
+//. OPTIONAL{?md <line_end> ?Loc_end}
+//. OPTIONAL{?x <semanticExpression> ?Equation} 
+//} ".
+
 
 //Write: data 
 //{
