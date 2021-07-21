@@ -4,10 +4,10 @@ import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
 // select the C code file for processing
 import "http://aske.ge.com/GE_simple_PI_controller_combined".
-//import "http://aske.ge.com/GE_simple_PI_controller_inline".
 
-//import "http://aske.ge.com/PID".
-//import "http://aske.ge.com/GE_simple_PI_controller_saturation".
+//import "http://aske.ge.com/GE_simple_PI_controller_inline_combined". // need to refine / add rules
+//import "http://aske.ge.com/PID_combined".
+//import "http://aske.ge.com/GE_simple_PI_controller_saturation_combined".
 
 ControllerConstruct is a class
 	described by constructName with values of type string
@@ -34,11 +34,11 @@ ErrorSignal is a type of Variable
 ReferenceSignal is a type of Variable.
 MeasurementSignal is a type of Variable.
 
-Increment is a type of Variable. // the only assignment to it is of the form x = x +/-/* y
-Counter is a type of Variable. // It is an Increment where y is a constant value or a literal
-Accumulator is a type of Variable. // It is an Increment where y is not a constant or a literal
-Integrator is a type of Variable. // It is an Accumulator where y is proportional to (ref signal - measured signal)
-PI-Controller is a type of Node //Do I want it as node??????
+Increment is a type of Variable. 
+Counter is a type of Variable. 
+Accumulator is a type of Variable. 
+Integrator is a type of Variable. 
+PI-Controller is a type of Node 
 	described by 
 semanticExpression describes Variable with a single value of type string.
 
@@ -266,23 +266,23 @@ then
 	and var semanticExpression expr
 .
 
-//Doesn't work because edge has many inputs/outputs for complex expression
-Rule ReferenceSignalCandidate  // works if the error computation is inlined
-if 	fun is an ExpressionTree
-	and fun nodes op
-	and op operator "Sub"
-	and op children clist
-	and edge function fun 
-	and countMatches(edge,inputs) = 2
-	and rs_et is element 0 of clist
-	and ms_et is element 1 of clist
-	and rs_et grfn_uid rs
-	and ms_et grfn_uid ms 
-then rs is a ReferenceSignal 
-	and ms is a MeasurementSignal
-.
+//Doesn't work because edge has many inputs/outputs for complex expression; so needs to be refined
+//Rule ReferenceSignalCandidate  
+//if 	fun is an ExpressionTree
+//	and fun nodes op
+//	and op operator "Sub"
+//	and op children clist
+//	and edge function fun 
+//	and countMatches(edge,inputs) = 2
+//	and rs_et is element 0 of clist
+//	and ms_et is element 1 of clist
+//	and rs_et grfn_uid rs
+//	and ms_et grfn_uid ms 
+//then rs is a ReferenceSignal 
+//	and ms is a MeasurementSignal
+//.
 
-Stage 2 Rule IntegratorCandidate
+Stage 2 Rule IntegratorCandidate // make it more robust
 if  x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
     and fun is an Function
     and fun ftype "ASSIGN"
@@ -292,10 +292,6 @@ if  x is an ErrorSignal // will be using it later, this will "sequence" this rul
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
-//    and he inputs in2
-//    and in1 != in2
-//    and in2 is a ErrorSignal
-//    and in2 varName in2_name
     and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
     and expNode is an ExpNode
     and expNode exp_node_type "OPERATOR"
@@ -307,8 +303,6 @@ if  x is an ErrorSignal // will be using it later, this will "sequence" this rul
     and c2 is element 1 of clist2
     and c2 var_name out_name // so LHS is repeated in the RHS
     
-//    and countMatches(clist2, ) how do I iterate over the elements of a list, is there "member" or something?
-    
     and c1 operator "Mult" // now check for ErrorSignal in rest of the RHS
     and c1 children clist3
     and cc2 is element 1 of clist3
@@ -318,12 +312,6 @@ if  x is an ErrorSignal // will be using it later, this will "sequence" this rul
 
 then //print("x on both sides of = ", out_name) and
      out is an Integrator.    
-
-//Ask: select var vname
-//where
-// var is an Integrator
-// and var varName vname.
-
 
 Stage 1 Rule Multiplications
 if	
@@ -511,122 +499,3 @@ where {
 } order by ?AnnotationType ?Name".     
 }to "SemAnnotation.csv".
 
-//Write: data{
-//Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
-//where {
-//{  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
-//. ?x a ?AnnotationType 
-//.  filter not exists {
-//       ?C <rdfs:subClassOf> ?AnnotationType.
-//       ?x a ?C.
-//     }
-//. ?x <varName> ?Name
-//. ?AnnotationType <description> ?Description
-//. ?x <identifier> ?Qual_name
-//. ?x <metadata> ?md
-//. OPTIONAL{?md <line_begin> ?Loc_start} 
-//. OPTIONAL{?md <line_end> ?Loc_end}
-//. OPTIONAL{?x <semanticExpression> ?Equation} 
-//} union {
-// ?x a <PI-Controller>
-//. ?x a ?AnnotationType
-//. ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-//. ?x <constructName> ?Name
-//. OPTIONAL{?x <metadata> ?md. ?md <line_begin> ?Loc_start.}
-//. OPTIONAL{?x <metadata> ?md. ?md <line_end> ?Loc_end.}
-//. OPTIONAL{?AnnotationType <description> ?Description}
-//. OPTIONAL{?x <lambda> ?Equation} 
-//}
-//} order by ?AnnotationType ?Name".     
-//}to "SemAnnotation.csv".
-
-
-
-//Stage 2 Rule PI-ControllerCandidate
-//if  
-//    exp is an ExpressionTree
-//    and exp nodes return_node
-//    and return_node operator "RETURN"
-//    and return_node children clist1
-//    and c1 is element 0 of clist1
-//    and c1 operator "Add"
-//    and c1 children clist2
-//    and d1 is element 0 of clist2
-//    and d2 is element 1 of clist2
-//    and d1 operator "Mult" 
-//    and d2 operator "Mult"
-//    and d1 children clist3 // has 2 children
-//    and err_cand is element 0 of clist3 
-//	and err_cand grfn_uid err
-//////	and err is an ErrorSignal
-//    and kp_cand is element 1 of clist3
-//////	and kp is a Constant
-//////	and varName of kp == var_name of kp_cand
-//         
-//    and d2 children clist4
-//    and f1 is element 0 of clist4
-//    and f1 var_name f1n
-////    and ki is an ExplicitVariable
-////    and ki varName kin
-////    and kin == f1n
-//////    and ki is a Constant
-////
-////    and f2 is element 1 of clist4
-////    and f2 grfn_uid integrator
-//////    and integrator is an Integrator
-//    
-////    and f1 var_name f1_name
-////    and f2 var_name f2_name
-//then print(err_cand, f1) and 
-//     exp is a PI-Controller // instead of exp have the entire module
-////     and kp is a ProportionalConstant
-////     and f1 is an IntegratorConstant
-//.
-
- 
-//Ask: "select distinct ?AnnotationType ?Name ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
-//where {
-//  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct> 
-//. ?x a ?AnnotationType 
-//.  filter not exists {
-//       ?C <rdfs:subClassOf> ?AnnotationType.
-//       ?x a ?C.
-//     }
-//. ?x <varName> ?Name
-//. ?AnnotationType <description> ?Description
-//. ?x <identifier> ?Qual_name
-//. ?x <metadata> ?md
-//. OPTIONAL{?md <line_begin> ?Loc_start} 
-//. OPTIONAL{?md <line_end> ?Loc_end}
-//. OPTIONAL{?x <semanticExpression> ?Equation} 
-//} ".
-
-
-//Write: data 
-//{
-//Ask: "select ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation  
-//where {
-//  ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
-//. ?x ?y ?AnnotationType . FILTER(regex(str(?y),'type'))
-//. ?x a <ExplicitVariable>
-//. ?x <varName> ?Name
-//. ?AnnotationType <description> ?Description
-//. ?x <identifier> ?Qual_name
-//. ?x <metadata> ?md
-//. optional{?md <line_begin> ?Loc_start} 
-//. optional{?md <line_end> ?Loc_end}
-//. OPTIONAL{?x <semanticExpression> ?Equation}
-//} order by ?AnnotationType ?Name".
-//} to "SemAnnotation.csv".
-
-
-//Ask: select esn rsn msn lexpr
-//where 
-//es is a ErrorSignal 
-//and es referenceSignal rs
-//and es measurementSignal ms
-//and es varName esn
-//and rs varName rsn
-//and ms varName msn 
-//and es semanticExpression lexpr
-//.
