@@ -1,0 +1,106 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:j.0="http://jena.hpl.hp.com/schemas/2003/03/ont-manager#">
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_PI_controller_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_PI_controller_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_PI_controller_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_PI_controller_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_PI_controller_inline_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_PI_controller_inline_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_PI_controller_inline_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_PI_controller_inline_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/SemAnnotator.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>semannotator</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/SemAnnotator.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/SemAnnotator.sadl"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:prefix>sadllistmodel</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/SadlListModel.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/sadllistmodel"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/ExtractedModels/GrFNExtractionModel.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>grfnem</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GrFNExtractionModel.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/GrFNExtractionModel.sadl"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_PD_controller_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_PD_controller_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_PD_controller_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_PD_controller_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_PI_controller-with-typo_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_PI_controller-with-typo_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_PI_controller-with-typo_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_PI_controller-with-typo_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_PI_controller_withptr_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_PI_controller_withptr_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_PI_controller_withptr_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_PI_controller_withptr_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:prefix>sadlbasemodel</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/SadlBaseModel.owl"/>
+    <j.0:publicURI rdf:resource="http://sadl.org/sadlbasemodel"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/PID_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>PID_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/PID_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/PID_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/PID-Simplified_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>PID-Simplified_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/PID-Simplified_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/PID-Simplified_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_PI_controller_saturation_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_PI_controller_saturation_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_PI_controller_saturation_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_PI_controller_saturation_combined"/>
+  </j.0:OntologySpec>
+  <j.0:OntologySpec>
+    <j.0:sadlSourceURL>platform:/resource/GraSEN/GE_simple_P_controller_combined.sadl</j.0:sadlSourceURL>
+    <j.0:prefix>GE_simple_P_controller_combined</j.0:prefix>
+    <j.0:createdBy>SADL</j.0:createdBy>
+    <j.0:language rdf:resource="http://www.w3.org/2002/07/owl"/>
+    <j.0:altURL rdf:resource="file:/C:/Users/200001866/Documents/GitHub/grasen-data/SemanticModels/GraSEN/OwlModels/GE_simple_P_controller_combined.owl"/>
+    <j.0:publicURI rdf:resource="http://aske.ge.com/GE_simple_P_controller_combined"/>
+  </j.0:OntologySpec>
+</rdf:RDF>

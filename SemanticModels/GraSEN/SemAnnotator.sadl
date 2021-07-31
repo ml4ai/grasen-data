@@ -1,106 +1,141 @@
- uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
+ // can I identify some of the constants missing in PID and PID-simplified that I was getting originally???
  
+ // We do not identify "PI-Controller with saturation"
+ // not properly handling PI inline
+ // can I get qualified name for controller?
+ // note in PI with typo, we identify a type and then say it is P-Controller; I could refine the rule
+
+// TBD: test and refine as needed ig multiple controllers present in a file.
+
+// ISSUES upstream
+// 		in PI with ptr, integrator_state is being identified as a constant
+// 		for RETURN_VAL, the json incorrectly says that it is from source; similarly for PID_realize_ARG_0
+
+// Not what I can handle
+// 		error_last does not have line begin; is it present in json file? once this is resolved then
+//			need to check for "error_last = error" is present
+//		not checking error_last = error as it does not seem to be present correctly in the input file
+ 
+uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
+
+import "http://www.w3.org/1999/02/22-rdf-syntax-ns".
+//import "http://www.w3.org/2000/01/rdf-schema".
 import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
  
 // select the C code file for processing
-import "http://aske.ge.com/GE_simple_PI_controller_combined".
-//import "http://aske.ge.com/GE_simple_PI_controller_inline".
-//import "http://aske.ge.com/GE_simple_PI_controller_typo_combined".
 
-//import "http://aske.ge.com/PID".
-//import "http://aske.ge.com/GE_simple_PI_controller_saturation".
+// PI controller and its variants
+import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
+//import "http://aske.ge.com/GE_simple_PI_controller_saturation_combined". //4
+//import "http://aske.ge.com/GE_simple_PI_controller-with-typo_combined". //5
+//import "http://aske.ge.com/GE_simple_PI_controller_withptr_combined". //6
+//import "http://aske.ge.com/GE_simple_PI_controller_inline_combined". // need to refine / add rules //7
 
-ControllerConstruct is a class
-	described by constructName with values of type string
-	described by linebegin with values of type int
-	described by lineend with values of type int
-	. 
+//import "http://aske.ge.com/GE_simple_PID_controller_combined". //2
+//import "http://aske.ge.com/GE_simple_P_controller_combined". //3
+//import "http://aske.ge.com/GE_simple_PD_controller_combined". //10
 
-LoopBlock is a type of SubGraph.
-FunctionBlock is a type of SubGraph.
-NestedBlock is a type of SubGraph.
+//import "http://aske.ge.com/PID_combined". //8
+//import "http://aske.ge.com/PID-Simplified_combined". //9
+
+// classes and properties to analyze core concepts
+{FunctionBlock, LoopBlock, NestedBlock} are types of SubGraph.
+
 LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
+{Constant, ExplicitVariable, LiteralInitialized, NotConstant, Structure} are types of Variable.
+Multiplication is a type of ExpNode
+	described by multiplicand with values of type ExpNode.
+Subtraction is a type of ExpNode
+	described by minuend with values of type ExpNode
+	described by subtrahend with values of type ExpNode.
+Summation is a type of ExpNode
+	described by summand with values of type ExpNode.
 
+inBlock describes Variable with values of type SubGraph.
+sameStruct describes Variable with values of type Variable.
 sameVar describes Variable with values of type Variable.
 varName describes Variable with values of type string.
-inBlock describes Variable with values of type SubGraph.
-LiteralInitialized is a type of Variable.
-NotConstant is a type of Variable.
-Constant is a type of Variable. 
-ExplicitVariable is a type of Variable.
-Structure is a type of Variable.
 
-ErrorSignal is a type of Variable
+// domain specific concepts related to core concepts
+{ErrorSignal, ErrorSignalCandidate} are types of Variable
 	described by referenceSignal with a single value of type ReferenceSignal
-	described by measurementSignal with a single value of type MeasurementSignal.
-ReferenceSignal is a type of Variable.
-MeasurementSignal is a type of Variable.
+	described by measurementSignal with a single value of type MeasurementSignal
+    described by referenceSignalCandidate with a single value of type ReferenceSignal
+	described by measurementSignalCandidate with a single value of type MeasurementSignal.
+{MeasurementSignal, MeasurementSignalCandidate} are types of Variable.
 
-Increment is a type of Variable. // the only assignment to it is of the form x = x +/-/* y
-Counter is a type of Variable. // It is an Increment where y is a constant value or a literal
-Accumulator is a type of Variable. // It is an Increment where y is not a constant or a literal
-Integrator is a type of Variable. // It is an Accumulator where y is proportional to (ref signal - measured signal)
-PI-Controller is a type of Node //Do I want it as node??????
-	described by 
-semanticExpression describes Variable with a single value of type string.
+errorVariable describes ExpNode with values of type ErrorSignal.
+proportionalConstant describes ExpNode with values of type Constant.
+derivativeConstant describes ExpNode with values of type Constant.
+integratorVariable describes ExpNode with values of type Integrator.
+integratorConstant describes ExpNode with values of type Constant.
+derivativeVariable describes ExpNode with values of type Derivative.
+derivativeConstant describes ExpNode with values of type Constant.
 
+{Integrator, IntegratorTypo} are types of Variable. 
+{PrevError, PrevErrorCandidate} are types of Variable.
+{DerivativeCandidate, Derivative} are types of Variable
+	described by error with a single value of type ErrorSignal
+	described by prevError with a single value of type PrevError
+    described by errorCandidate with a single value of type ErrorSignalCandidate 
+	described by prevErrorCandidate with a single value of type PrevErrorCandidate.
+{PropExpNode, IntExpNode, DervExpNode} are types of ExpNode. // structure corresponding to Kp_M * (error - error_last) etc.
+{P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Node 
+	described by semanticExpression describes Variable with a single value of type string.	
+
+// classes and properties we will use to print out results in the csv file
+ControllerConstruct is a class // this will be what we write out to csv file
+	described by constructName with values of type string
+	described by linebegin with values of type int
+	described by lineend with values of type int. 
+	
 Constant is a type of ControllerConstruct.
-description of Constant is "This is a constant.".
-ErrorSignal is a type of ControllerConstruct.
-description of ErrorSignal is "This is an error signal candidate.".
-ReferenceSignal is a type of ControllerConstruct.
-description of ReferenceSignal is "This is a reference signal candidate.".
-MeasurementSignal is a type of ControllerConstruct.
-description of MeasurementSignal is "This is a measurement signal candidate.".
-Integrator is a type of ControllerConstruct.
-description of Integrator is "This is an Integrator.".
-IntegratorConstant is a type of Constant.
-description of IntegratorConstant is "This is the constant multiplier for the Integrator.".
-ProportionalConstant is a type of Constant.
+{DerivativeConstant, IntegratorConstant, ProportionalConstant, ReferenceSignal, ReferenceSignalCandidate} are types of Constant.
+{DerivativeConstant, IntegratorConstant, ProportionalConstant} are types of ControllerConstruct.
+
+Controller is a class.
+{P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Controller.
+
+{Derivative, ErrorSignal, Integrator, IntegratorTypo, MeasurementSignal, PrevError, ReferenceSignal,
+ P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of ControllerConstruct.
+
+description of Constant             is "This is a constant.".
+description of Derivative           is "This is an Derivative.".
+description of DerivativeConstant   is "This is the constant multiplier for the Derivative.".
+description of ErrorSignal          is "This is an error signal.".
+description of Integrator           is "This is an Integrator.".
+description of IntegratorConstant   is "This is the constant multiplier for the Integrator.".
+description of IntegratorTypo       is "This is close to being an Integrator - is there a typo?.".
+description of MeasurementSignal    is "This is a measurement signal.".
+description of PrevError            is "This is previour error.".
 description of ProportionalConstant is "This is the constant multiplier for the Proportional term.".
-PI-Controller is a type of ControllerConstruct.
-description of PI-Controller is "This is a PI Controller.".
+description of ReferenceSignal      is "This is a reference signal.".
+description of P-Controller         is "This is a P Controller.".
+description of PI-Controller        is "This is a PI Controller.".
+description of PD-Controller        is "This is a PD Controller.".
+description of PID-Controller       is "This is a PID Controller.".
 
-//multiplication describes ExpressionTree with values of type ExpNode.
-
-
-//Stage 6 Rule instanceOfSubclassR
-//if		x is a SubClass
-//	and SubClass is a type of SuperClass
-//then
-//	x is a SuperClass.
+// Do we need the transitive rules, Transitive1 needs to be modified is needed?
+// Rule Transitive1 
+// if cls1 rdfs:subClassOf cls2
+// and cls2 rdfs:subClassOf cls3
+// then cls1 rdfs:subClassOf cls3.
+ 
+ Rule Transitive2  
+if inst is a cls
+   and cls is a type of cls2
+then inst is a cls2.
 
 Rule varNameR
-if 		x is a Variable
+if 	    x is a Variable
 	and x identifier id
 	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
-then
-	x varName xn.
-
+then x varName xn.
 
 Rule explicitVarR
-if		x is a Variable
+if	    x is a Variable
 	and from_source of metadata of x is true
-then
-	x is an ExplicitVariable.
-
-//Ask: select distinct vn where x is an ExplicitVariable and x varName vn.
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <ExplicitVariable>.
-// ?var <varName> ?vn.
-//}".
-
-////Ask: "select count(concat(str(?var1),str(?var2))) 
-//Ask: "select ?id1 ?id2 
-//where{
-// ?var2 a <ExplicitVariable>.
-// ?var1 <sameVar> ?var2.
-// ?var1 <identifier> ?id1.
-// ?var2 <identifier> ?id2.
-// filter(str(?var1) < str(?var2))
-//}".
-
+then x is an ExplicitVariable.
 
 Rule sameVarR
 if 		x1 is a Variable
@@ -109,8 +144,7 @@ if 		x1 is a Variable
 	and x2 inBlock block
 	and x1 != x2
 	and varName of x1 == varName of x2
-then
-	x1 sameVar x2.
+then x1 sameVar x2.
 
 Rule sameVarR2
 if 		x1 is a Variable
@@ -119,11 +153,8 @@ if 		x1 is a Variable
 	and x2 inBlock block2
 	and block2 parent block1
 	and varName of x1 == varName of x2
-then
-	x1 sameVar x2
-	and x2 sameVar x1
-	.
-
+then    x1 sameVar x2
+	and x2 sameVar x1.
 	
 Rule sameVarInterfaceR
 if 		x1 is a Variable
@@ -134,11 +165,8 @@ if 		x1 is a Variable
 	and fun ftype "INTERFACE"
 	and x1 != x2
 	and varName of x1 == varName of x2
-then
-	x1 sameVar x2
-and x2 sameVar x1.	
-
-sameStruct describes Variable with values of type Variable.
+then    x1 sameVar x2
+    and x2 sameVar x1.	
 
 Rule sameVarStructureR1
 if 		x1 is a Variable
@@ -151,10 +179,7 @@ if 		x1 is a Variable
 	and e2 inputs x2
 	and x1 != x2
 	and varName of x1 == varName of x2
-then
-	x1 sameVar x2
-//and	x1 sameStruct x2
-	.
+then x1 sameVar x2.
 
 Rule sameVarStructureR2
 if 		x1 is a Variable
@@ -170,28 +195,14 @@ if 		x1 is a Variable
 	and varName of struct1 == varName of struct2
 	and x1 != x2
 	and varName of x1 == varName of x2
-then
-	x1 sameVar x2
-and x2 sameVar x1
-//and	x1 sameStruct x2
-	.
+then    x1 sameVar x2
+    and x2 sameVar x1.
 
-//Ask: select id1 id2 where var1 sameStruct var2 and var1 identifier id1 and var2 identifier id2.
-//Ask: "select count(concat(str(?id1),str(?id2)))
-//where{
-// ?var1 <sameStruct> ?var2.
-// ?var1 <identifier> ?id1.
-// ?var2 <identifier> ?id2.
-//}".
-
-Rule structureVariable
+Rule structureVariableR
 if	edge function fun
 	and fun ftype "PACK"
 	and edge outputs var
-then
-	var is a Structure.
-	
-//Ask: select vn id where var is a Structure and var varName vn and var identifier id.
+then var is a Structure.
 
 Rule loopBlockR
 if	 node sg_type "LoopContainer"
@@ -204,25 +215,19 @@ then node is a FunctionBlock.
 Rule nestedBlockR
 if		node is a SubGraph
 	and node parent par
-then 
-	node is a NestedBlock.
+then node is a NestedBlock.
 	
 Rule varInBlockR
 if		var is a Variable
 	and b is a SubGraph
 	and b nodes var
-then
-	var inBlock b.
-	
-//Ask: select distinct vn bt where var inBlock b and var varName vn and b sg_type bt.
+then var inBlock b.
 
 Rule lineEndR
 if		x metadata md
 	and noValue(md,line_end)
 	and md line_begin lb
-then
-	md line_end lb.
-
+then md line_end lb.
 
 Rule lhsR 
 if		edge is a HyperEdge
@@ -231,145 +236,78 @@ if		edge is a HyperEdge
    	and edge function fun
    	and ftype of fun != "INTERFACE"
    	and ftype of fun != "PACK"
-then 
-	var is a LHS.
-	
-//Ask: select vn vid where var is a LHS and var varName vn and var identifier vid.
+then var is a LHS.
 	
 Rule literalInitializedR1
 if		edge function f
 	and f ftype "LITERAL"
 	and edge outputs var
 	and var is an ExplicitVariable
-then 
-	var is a LiteralInitialized .
+then  var is a LiteralInitialized .
 
 Rule literalInitializedR2
-if	var1 is an ExplicitVariable
+if	    var1 is an ExplicitVariable
 	and var2 is LiteralInitialized
 	and var1 sameVar var2
-then 
-	var1 is a LiteralInitialized .
-
+then  var1 is a LiteralInitialized .
 	
-//Ask: select distinct vn vid where var varName vn and var is a LiteralInitialized and var identifier vid.
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <LiteralInitialized>.
-//# ?var <identifier> ?vid.
-//?var <varName> ?vn.
-//}".
+Rule MultiplicationR
+if	    nd is an ExpNode
+	and nd operator "Mult"
+	and nd children clist
+	and mxx is an ExpNode
+	and index of mxx in clist is idx
+then    nd is a Multiplication
+	and nd multiplicand mxx.
 
+Rule SummationR
+if	    nd is an ExpNode
+	and nd operator "Add"
+	and nd children clist
+	and mxx is an ExpNode
+	and index of mxx in clist is idx
+then    nd is a Summation
+	and nd summand mxx.
 
-Stage 1 
-Rule notConstantR1
-if		var1 is a LHS
+Rule SubtractionR
+if	    nd is an ExpNode
+	and nd operator "Sub"
+	and nd children clist
+	and m is element 0 of clist
+	and s is element 1 of clist
+then    nd is a Subtraction
+	and nd minuend m
+	and nd subtrahend s.
+
+// I think we can drop "Stage 1" from the "notConstant" rules and reduce other stage numbers by 1.
+Stage 1 Rule notConstantR1
+if	    var1 is a LHS
 	and var2 is a LHS
 	and var1 sameVar var2
-then
-	var1 is a NotConstant.
+then var1 is a NotConstant.
 
-Stage 1 
-Rule notConstantR2
+Stage 1 Rule notConstantR2
 if		var is a LHS
 	and var is not a LiteralInitialized 
 	and var inBlock block
 	and block is a LoopBlock
-then
-	var is a NotConstant.
+then var is a NotConstant.
 
-Stage 1 
-Rule notConstantR2A
+Stage 1 Rule notConstantR3
 if		var is a LHS
 	and var is not a LiteralInitialized 
 	and var inBlock block
 	and block is a NestedBlock
-then
-	var is a NotConstant.
+then var is a NotConstant.
 
-//Ask: select var,vid
-//where
-//	fun is an Function
-//	and fun ftype "INTERFACE"
-//	and fun nodes argument
-//	and argument grfn_uid arg_expnode
-//	and edge function fun
-//	and edge inputs arg_expnode
-//	and edge outputs 
-	
-
-
-
-//Ask: "select ?vn ?var ?block 
-//where{
-//	?var a <LHS>.
-//	 filter not exists {?var a <LiteralInitialized>}. 
-//	 ?var <inBlock> ?block.
-//	 ?block a <NestedBlock>.
-//	?var <varName> ?vn.
-//}".
-
-//Ask: select var vname
-//where
-//	var is a LHS
-//	and var inBlock block
-//	and block is a NestedBlock
-//	and var varName vname
-//	and var is not a LiteralInitialized 
-//.
-
-//Stage 2
-////Stage 1 
-//Rule notConstantR3
-//if		var1 is a NotConstant
-//	and var1 sameVar var2
-//	and var2 is an ExplicitVariable
-//then
-//	var2 is a NotConstant.
-
-//Ask: select distinct vn vid where var is a NotConstant and var varName vn and var identifier vid.
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <NotConstant>.
-// ?var <varName> ?vn.
-//}".
-
-
-//Ask: select distinct vn vid where var is a Variable and var varName vn and var identifier vid and var is not a NotConstant.
-
-//Stage 3 
-Stage 2
-Rule constantR
+Stage 2 Rule constantR
 if		var is a LHS
 	and var is a ExplicitVariable
 	and var is not a NotConstant
-then
-	var is a Constant.
+then var is a Constant.
 
-// We may need this for future rules (not queries). It generates more constants.
-//Stage 2
-//Rule constantR2
-//if	var1 is a LHS
-//	and var1 is not a NotConstant
-//	and var1 sameVar var2
-//then
-//	var2 is a Constant.
-
-
-//Ask: select distinct vn vid var where var is a Constant and var varName vn and var identifier vid . 
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <Constant>.
-// ?var <varName> ?vn.
-//}".
-
-
-//Ask: select distinct var vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a Constant . 
-//Ask: select distinct vn vid where var is a ExplicitVariable and var varName vn and var identifier vid and var is a NotConstant.
-
-//Ask: select distinct vn where var is a Variable and var varName vn and var identifier vid and var is a Constant.
-
-Rule ErrorSignalCandidate
+// this still uses element 0 etc., can we re-write it?
+Rule ErrorSignalCandidateR
 if 		fun is an ExpressionTree
 	and fun nodes op
 	and op operator "Sub"
@@ -383,58 +321,55 @@ if 		fun is an ExpressionTree
 	and ms_et grfn_uid ms
     and fun lambda expr0
     and expr is strafter(expr0,":")
-then
-		var is an ErrorSignal
-	and rs is a ReferenceSignal 
-	and ms is a MeasurementSignal
-	and var referenceSignal rs
-	and var measurementSignal ms
-	and var semanticExpression expr
-.
+then    var is an ErrorSignalCandidate
+	and rs is a ReferenceSignalCandidate 
+	and ms is a MeasurementSignalCandidate
+	and var referenceSignalCandidate rs  
+	and var measurementSignalCandidate ms
+	and var semanticExpression expr.
 
-//Doesn't work because edge has many inputs/outputs for complex expression
-Rule ReferenceSignalCandidate  // works if the error computation is inlined
-if 	fun is an ExpressionTree
-	and fun nodes op
-	and op operator "Sub"
-	and op children clist
-	and edge function fun 
-	and countMatches(edge,inputs) = 2
-	and rs_et is element 0 of clist
-	and ms_et is element 1 of clist
-	and rs_et grfn_uid rs
-	and ms_et grfn_uid ms 
-then rs is a ReferenceSignal 
-	and ms is a MeasurementSignal
-.
+Stage 2 Rule ErrorSignalR  // turning a ErrorSignalCandidate into a ErrorSignal
+if es1 is an ErrorSignalCandidate
+   and es2 is an ErrorSignalCandidate
+   and md1 is metadata of es1
+   and md2 is metadata of es2
+   and md1 line_begin l1
+   and md2 line_begin l2
+   and l1 < l2
+   and rs is referenceSignalCandidate of es1
+   and ms is measurementSignalCandidate of es1
+   and rs2 is referenceSignalCandidate of es2
+   and ms2 is measurementSignalCandidate of es2
+then   es1 is an ErrorSignal
+   and rs is referenceSignal of es1
+   and ms is measurementSignal of es1
+   and rs is a ReferenceSignal
+   and ms is a MeasurementSignal
+   and es2 is a DerivativeCandidate
+   and rs2 is errorCandidate of es2
+   and ms2 is prevErrorCandidate of es2.
 
+Stage 2 Rule ErrorSignalR2 
+if     countMatches(es, rdf:type, ErrorSignalCandidate) = 1 
+   and es1 is an ErrorSignalCandidate
+   and rs is referenceSignalCandidate of es1
+   and ms is measurementSignalCandidate of es1   
+then   es1 is an ErrorSignal
+   and rs is a ReferenceSignal
+   and ms is a MeasurementSignal.
 
-//Ask: select distinct vn where var is a ErrorSignal and var varName vn.
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <ErrorSignal>.
-// ?var <varName> ?vn.
-//}".
-//
-//Ask: select distinct vn where var is a ReferenceSignal and var varName vn.
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <ReferenceSignal>.
-// ?var <varName> ?vn.
-//}".
-//
-//Ask: select distinct vn where var is a MeasurementSignal and var varName vn.
-//Ask: "select count(distinct ?vn) 
-//where{
-// ?var a <MeasurementSignal>.
-// ?var <varName> ?vn.
-//}".
+// we need to check that we have "error_last = error" however the json / sadl representation does not seem to be correct   
+Stage 2 Rule DerivativeR 
+if     es is a ErrorSignal
+   and der is a DerivativeCandidate
+   and ec is errorCandidate of der
+   and pec is prevErrorCandidate of der
+   and ec is a ErrorSignal
+then   der is a Derivative
+   and pec is a PrevError.
 
-
-
-Stage 2 
-Rule IntegratorCandidate
-if  x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
+Stage 2 Rule IntegratorCandidateR
+if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
     and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
@@ -451,27 +386,16 @@ if  x is an ErrorSignal // will be using it later, this will "sequence" this rul
     and n1 is a Summation // one child should be Mult and one should be what is in LHS in our example
 	and n1 summand c1
 	and n1 summand c2
-    and c2 var_name out_name // so LHS is repeated in the RHS
-    
+    and c2 var_name out_name // so LHS is repeated in the RHS    
     and c1 is a Multiplication
-    and c1 multiplicand cc2
-    
+    and c1 multiplicand cc2   
     and x varName error_signal_name
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
+then out is an Integrator.    
 
-then //print("x on both sides of = ", out_name) and
-     out is an Integrator.    
-
-//Ask: select distinct vn vid where var is a Integrator and var varName vn and var identifier vid.
-
-
-IntegratorBug is a type of Variable.
-
-
-// This rule is still dependent on a particular order in the subtraction
-Stage 2 
-Rule IntegratorCandidateBug
-if  x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
+// no multiplier
+Stage 2 Rule IntegratorCandidateR2 // make it more robust
+if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
     and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
@@ -485,83 +409,42 @@ if  x is an ErrorSignal // will be using it later, this will "sequence" this rul
     and expNode exp_node_type "OPERATOR"
     and expNode children clist
     and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
+    and n1 is a Summation // one child should be Mult and one should be what is in LHS in our example
+	and n1 summand c1
+	and n1 summand c2
+    and c2 var_name out_name // so LHS is repeated in the RHS    
+    and x varName error_signal_name
+    and c1 var_name error_signal_name  // so ErrorSignal present in RHS
+then out is an Integrator.    
 
+// This rule is still dependent on a particular order in the subtraction
+Stage 2 Rule IntegratorTypoR
+if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
+    and fun is an Function
+    and fun ftype "ASSIGN"
+    and he function fun
+    and he is a HyperEdge
+    and he outputs out
+    and out varName out_name
+    and he inputs in1
+    and in1 varName out_name
+    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
+    and expNode is an ExpNode
+    and expNode exp_node_type "OPERATOR"
+    and expNode children clist
+    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
 	and n1 is a Subtraction
 	and n1 minuend c2
 	and n1 subtrahend c1 
-    and c2 var_name out_name // so LHS is repeated in the RHS
-    
+    and c2 var_name out_name // so LHS is repeated in the RHS    
     and c1 is a Multiplication
-    and c1 multiplicand cc2
-    
+    and c1 multiplicand cc2    
     and x varName error_signal_name
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
+then out is an IntegratorTypo.    
 
-then //print("x on both sides of = ", out_name) and
-     out is an IntegratorBug.    
-
-
-//Ask: select distinct vn vid where var is a IntegratorBug and var varName vn and var identifier vid.
-
-Multiplication is a type of ExpNode
-	described by multiplicand with values of type ExpNode.
-
-Rule MultiplicationR
-if	nd is an ExpNode
-	and nd operator "Mult"
-	and nd children clist
-	and mxx is an ExpNode
-	and index of mxx in clist is idx
-then
-	nd is a Multiplication
-	and nd multiplicand mxx
-	.
-
-//Ask: select nd m mn where nd multiplicand m and m var_name mn.
-
-Summation is a type of ExpNode
-	described by summand with values of type ExpNode.
-
-Rule SummationR
-if	nd is an ExpNode
-	and nd operator "Add"
-	and nd children clist
-	and mxx is an ExpNode
-	and index of mxx in clist is idx
-then
-	nd is a Summation
-	and nd summand mxx
-.
-
-//Ask: select nd m mn where nd summand m and m var_name mn.
-
-
-Subtraction is a type of ExpNode
-	described by minuend with values of type ExpNode
-	described by subtrahend with values of type ExpNode.
-
-Rule SubtractionR
-if	nd is an ExpNode
-	and nd operator "Sub"
-	and nd children clist
-	and m is element 0 of clist
-	and s is element 1 of clist
-then
-	nd is a Subtraction
-	and nd minuend m
-	and nd subtrahend s
-.
-
-//Ask: select nd m s where nd minuend m and nd subtrahend s.
-
-
-ConstTimesError is a type of ExpNode.
-errorVariable describes ExpNode with values of type ErrorSignal.
-proportionalConstant describes ExpNode with values of type Constant.
-
-Stage 2
-Rule ConstTimesErrorR
-if  m is a Multiplication
+Stage 2 Rule PropExpNodeR 
+if      m is a Multiplication
 	and m multiplicand err_var
 	and err_var grfn_uid err
 	and err is an ErrorSignal
@@ -569,34 +452,15 @@ if  m is a Multiplication
 	and kp_var grfn_uid kp_cand
 	and kp is a Constant
 	and varName of kp == varName of kp_cand
-then 
-     m is a ConstTimesError
-     and m proportionalConstant kp //kp_cand
-     and m errorVariable err
+	and err != kp // I THINK I NEED TO SAY varName NOT SAME!!!!!!!!!!
+then    m is a PropExpNode //ConstTimesError
+    and m proportionalConstant kp //kp_cand
+    and m errorVariable err
 //     and kp_cand is a ProportionalConstant //once we line up parameters and arguments, kp_cand should replace kp here
-     and kp is a ProportionalConstant
-.
+    and kp is a ProportionalConstant.
 
-//Ask: select distinct errid kpid
-//where
-//	nd is a ConstTimesError
-//	and nd proportionalConstant kp
-//	and kp varName kpn
-//	and kp identifier kpid
-//	and nd errorVariable err
-//	and err varName errn
-//	and err identifier errid
-//.
-
-
-
-ConstTimesIntegrator is a type of ExpNode.
-integratorVariable describes ExpNode with values of type Integrator.
-integratorConstant describes ExpNode with values of type Constant.
-
-Stage 2
-Rule ConstTimesIntegratorR
-if  m is a Multiplication
+Stage 2 Rule IntExpNodeR // matches constant * integrator value
+if      m is a Multiplication
 	and m multiplicand int_var
 	and int_var grfn_uid int_cand
 	and int_cand is an Integrator
@@ -604,107 +468,152 @@ if  m is a Multiplication
 	and ki_var grfn_uid ki_cand
 	and ki is a Constant
 	and varName of ki == varName of ki_cand
-then 
-     m is a ConstTimesIntegrator 
-     and m integratorConstant ki //ki_cand
-//     and ki_cand is a IntegratorConstant //once we line up parameters and arguments, ki_cand should replace ki
-     and ki is a IntegratorConstant
-     and m integratorVariable int_cand
-.
+	and varName of int_cand != varName of ki
+then     m is a IntExpNode 
+    and m integratorConstant ki 
+    and ki is a IntegratorConstant
+    and m integratorVariable int_cand.
 
-//Ask: select distinct intid kiid
-//where
-//	nd is a ConstTimesIntegrator
-//	and nd integratorConstant ki
-//	and ki varName kin
-//	and ki identifier kiid
-//	and nd integratorVariable intvar
-//	and intvar varName intn
-//	and intvar identifier intid
-//.
+Stage 2 Rule DervExpNodeR
+if      m is a Multiplication
+	and m multiplicand derv_var
+	and derv_var grfn_uid derv_cand
+	and derv_cand is an Derivative
+	and m multiplicand kd_var
+	and kd_var grfn_uid kd_cand
+	and kd is a Constant
+	and varName of kd == varName of kd_cand
+	and varName of derv_cand != varName of kd
+then    m is a DervExpNode 
+    and m derivativeConstant kd //ki_cand
+//     and ki_cand is a IntegratorConstant //once we line up parameters and arguments, ki_cand should replace ki
+    and kd is a DerivativeConstant
+    and m derivativeVariable derv_cand.
+	
+Stage 2 Rule ControllerNameR
+if 	    sg nodes exp
+	and exp is a Controller
+	and sg is a SubGraph
+ 	and sg nodes somenode
+ 	and somenode identifier id	
+ 	and exp_name is strbefore(strafter(id,"::"),"::")
+ then exp constructName exp_name. 	
+
+Stage 2 Rule ControllerMetadataR
+if 	sg is a SubGraph
+	and sg nodes pic
+	and pic is a Controller
+	and sg metadata md
+ 	and md line_begin lbeg
+ 	and md line_end lend
+then    pic linebegin lbeg
+	and pic lineend lend.
+
+// we use staged rules to first try for PID and then {PI, PD} and then P      
+// 3 rules for PID-Controller to take into account different order of operations
+Stage 2 Rule PID-ControllerR1 
+if     et is an ExpressionTree
+   and et nodes n1
+   and n1 is a DervExpNode
+   and et nodes n2
+   and n2 is an IntExpNode
+   and et nodes n3
+   and n3 is a PropExpNode
+   and et nodes exp
+   and exp is a Summation
+   and exp summand m1
+   and exp summand m2
+   and m1 is a DervExpNode
+   and m2 is a Summation
+   and m2 summand o1
+   and m2 summand o2
+   and o1 is a IntExpNode
+   and o2 is a PropExpNode
+then et is a PID-Controller.
+
+Stage 2 Rule PID-ControllerR2 
+if     et is an ExpressionTree
+   and et nodes n1
+   and n1 is a DervExpNode
+   and et nodes n2
+   and n2 is an IntExpNode
+   and et nodes n3
+   and n3 is a PropExpNode
+   and et nodes exp
+   and exp is a Summation
+   and exp summand m1
+   and exp summand m2
+   and m1 is a IntExpNode
+   and m2 is a Summation
+   and m2 summand o1
+   and m2 summand o2
+   and o1 is a DervExpNode
+   and o2 is a PropExpNode
+then et is a PID-Controller.
+
+Stage 2 Rule PID-ControllerR3 
+if     et is an ExpressionTree
+   and et nodes n1
+   and n1 is a DervExpNode
+   and et nodes n2
+   and n2 is an IntExpNode
+   and et nodes n3
+   and n3 is a PropExpNode
+   and et nodes exp
+   and exp is a Summation
+   and exp summand m1
+   and exp summand m2
+   and m1 is a PropExpNode
+   and m2 is a Summation
+   and m2 summand o1
+   and m2 summand o2
+   and o1 is a DervExpNode
+   and o2 is a PropExpNode
+then et is a PID-Controller.
 
 //This definition works for any expression ordering
-Stage 2
-Rule PI-ControllerCandidate
-if  et is an ExpressionTree
+Stage 3 Rule PI-ControllerR
+if      et is an ExpressionTree
+    and et is not a PID-Controller
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
 	and exp summand m2
-	and m1 is a ConstTimesError
+	and m1 is a PropExpNode 
 	and m1 proportionalConstant kp
-	and m2 is a ConstTimesIntegrator
+	and m2 is a IntExpNode 
 	and m2 integratorConstant ki
-then
-    et is a PI-Controller // instead of exp have the entire module
-	and et proportionalConstant kp
-	and et integratorConstant ki
-.
+then et is a PI-Controller. // instead of exp have the entire module
 
-//Ask: select distinct kiid kpid
-//where
-//	et is a PI-Controller
-//	and et integratorConstant ki
-//	and ki varName kin
-//	and ki identifier kiid
-//	and et proportionalConstant kp
-//	and kp varName kpn
-//	and kp identifier kpid
-//.
+Stage 3 Rule PD-ControllerR
+if  et is an ExpressionTree
+    and et is not a PID-Controller
+	and et nodes exp
+	and exp is a Summation 
+	and exp summand m1
+	and exp summand m2
+	and m1 is a PropExpNode
+	and m1 proportionalConstant kp
+	and m2 is a DervExpNode
+	and m2 derivativeConstant kd
+then et is a PD-Controller. // instead of exp have the entire module
 
-//Ask: select distinct var where var is a PI-Controller.
-//Ask: "select count(distinct ?var) 
-//where{
-// ?var a <PI-Controller>.
-//}".
+Stage 4 Rule P-ControllerR
+if  et is an ExpressionTree
+    and et is not a PI-Controller
+    and et is not a PD-Controller
+    and et is not a PID-Controller
+	and et nodes exp
+	and exp is a PropExpNode
+	and exp is a Multiplication 
+	and exp multiplicand m1
+	and exp multiplicand m2
+then et is a P-Controller. // instead of exp have the entire module
 
-
-
-Stage 2
-Rule PI-ControllerName
-if 	sg is a SubGraph
-	and sg nodes et
-	and et is a PI-Controller
- 	and sg nodes somenode
- 	and somenode identifier id	
- 	and exp_name is strbefore(strafter(id,"::"),"::")
- then
- 	et constructName exp_name
-. 	
-//Ask: select distinct pic_name where pic is a PI-Controller and pic constructName pic_name.
-
-
-Stage 2
-Rule PI-ControllerMetadata
-if 	sg is a SubGraph
-	and sg nodes pic
-	and pic is a PI-Controller
-	and sg metadata md
- 	and md line_begin lbeg
- 	and md line_end lend
-then 
-	pic linebegin lbeg
-	and pic lineend lend
-.
-
-
-//Ask: select distinct pname beg end
-//where
-//	p is a PI-Controller
-//	and p constructName pname
-//	and p metadata pmd
-////	and pmd line_begin beg
-////	and pmd line_end end
-//	and p linebegin beg
-//	and p lineend end
-//	.
-
-
-
-//Write: data{
+Write: data{
 Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
 where {
-{  ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
+{ ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
 . ?x a ?AnnotationType 
 .  filter not exists {
        ?C <rdfs:subClassOf> ?AnnotationType.
@@ -718,15 +627,22 @@ where {
 . OPTIONAL{?md <line_end> ?Loc_end}
 . OPTIONAL{?x <semanticExpression> ?Equation} 
 } union {
- ?x a <PI-Controller>
-. ?x a ?AnnotationType
-. ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+?sg <rdf:type> <SubGraph>
+. ?sg <nodes> ?x
+. ?x <rdf:type> <Controller>
 . ?x <constructName> ?Name
+#. ?x <rdfs:subClassOf> <Controller>
+. ?x a ?AnnotationType
+.  filter not exists {
+       ?C <rdfs:subClassOf> ?AnnotationType.
+       ?x a ?C.
+     }
+. FILTER(regex(str(?AnnotationType),'Controller')) # I need this but can I avoid it
 . OPTIONAL{?x <linebegin> ?Loc_start.}
 . OPTIONAL{?x <lineend> ?Loc_end.}
 . OPTIONAL{?AnnotationType <description> ?Description}
-. OPTIONAL{?x <lambda> ?Equation} 
-}
+. OPTIONAL{?x <lambda> ?Eq . LET(?Equation := replace(str(?Eq),'^.*: ',''))}
+} 
 } order by ?AnnotationType ?Name".     
-//}to "SemAnnotation.csv".
+}to "SemAnnotation.csv".   
 

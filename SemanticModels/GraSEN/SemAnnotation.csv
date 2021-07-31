@@ -1,14 +1,14 @@
-"AnnotationType","x","Name","Description","Loc_start","Loc_end","Qual_name","Equation"
-"Constant","a005b3fc-b9ee-2c85-ccb0-c81d6ac983fe","desired_output","This is a constant.","36","36","GE_simple_PI_controller::GE_simple_PI_controller.main::desired_output::0",null
-"Constant","_491d1be2-11f2-4a6c-e779-c3b8c205450a","num_steps","This is a constant.","34","34","GE_simple_PI_controller::GE_simple_PI_controller.main::num_steps::0",null
-"Constant","_933c54cf-b5b8-3480-0021-30669222bce6","plant_gain","This is a constant.","41","41","GE_simple_PI_controller::GE_simple_PI_controller.main::plant_gain::0",null
-"Constant","_5fe78746-ceab-48d8-b63c-b6ead06df343","t_final","This is a constant.","28","28","GE_simple_PI_controller::GE_simple_PI_controller.main::t_final::0",null
-"Constant","a2e2dcba-4f03-f008-0746-c92e5bb59384","time_step","This is a constant.","29","29","GE_simple_PI_controller::GE_simple_PI_controller.main::time_step::0",null
-"ErrorSignal","df368e45-d152-cfd1-a0b9-64751e61bff6","error","This is an error signal candidate.","10","10","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::error::0"," (Input_dmd - Input_sensed)"
-"Integrator","_623765cb-ec23-23eb-cf38-0f2beb913435","integrator_state","This is an Integrator.","12","12","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::integrator_state::0",null
-"IntegratorConstant","a7844773-5807-b37d-607c-bc2e21621b62","Ki_M","This is the constant multiplier for the Integrator.","31","31","GE_simple_PI_controller::GE_simple_PI_controller.main::Ki_M::0",null
-"MeasurementSignal","_67b578cd-9097-d4c1-af42-2d64cbbde748","Input_sensed","This is a measurement signal candidate.","8","8","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_sensed::-1",null
-"PI-Controller","_1d05a347-a2f1-3e9f-cd0a-d80b14e72b97",null,null,null,null,null,"lambda error,Kp_M,Ki_M,integrator_state: ((error * Kp_M) + (Ki_M * integrator_state))"
-"ProportionalConstant","f399ea12-c016-d4a6-4159-a57cd236337c","Kp_M","This is the constant multiplier for the Proportional term.","32","32","GE_simple_PI_controller::GE_simple_PI_controller.main::Kp_M::0",null
-"ReferenceSignal","b713068c-2bd4-bb74-c382-f6b830ea7cfd","Input_dmd","This is a reference signal candidate.","8","8","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-1",null
+"Name","AnnotationType","Description","Loc_start","Loc_end","Qual_name","Equation"
+"desired_output","Constant","This is a constant.","36","36","GE_simple_PI_controller::GE_simple_PI_controller.main::desired_output::0",null
+"num_steps","Constant","This is a constant.","34","34","GE_simple_PI_controller::GE_simple_PI_controller.main::num_steps::0",null
+"plant_gain","Constant","This is a constant.","41","41","GE_simple_PI_controller::GE_simple_PI_controller.main::plant_gain::0",null
+"t_final","Constant","This is a constant.","28","28","GE_simple_PI_controller::GE_simple_PI_controller.main::t_final::0",null
+"time_step","Constant","This is a constant.","29","29","GE_simple_PI_controller::GE_simple_PI_controller.main::time_step::0",null
+"error","ErrorSignal","This is an error signal candidate.","10","10","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::error::0"," (Input_dmd - Input_sensed)"
+"integrator_state","Integrator","This is an Integrator.","12","12","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::integrator_state::0",null
+"Ki_M","IntegratorConstant","This is the constant multiplier for the Integrator.","31","31","GE_simple_PI_controller::GE_simple_PI_controller.main::Ki_M::0",null
+"Input_sensed","MeasurementSignal","This is a measurement signal candidate.","8","8","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_sensed::-1",null
+"GE_simple_PI_controller.PI_calc","PI-Controller","This is a PI Controller.","9","15",null,"((error * Kp_M) + (Ki_M * integrator_state))"
+"Kp_M","ProportionalConstant","This is the constant multiplier for the Proportional term.","32","32","GE_simple_PI_controller::GE_simple_PI_controller.main::Kp_M::0",null
+"Input_dmd","ReferenceSignal","This is a reference signal candidate.","8","8","GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-1",null
 

@@ -1,0 +1,1807 @@
+uri "http://aske.ge.com/GE_simple_PI_controller_withptr_combined" alias GE_simple_PI_controller_withptr_combined
+    (note "This ontology was created by extraction from GrFN json by the GraSEN SemanticAnnotator.").
+
+import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
+
+
+// Individuals:
+_03067aaf-b4a7-33f7-7547-229e2be26acd is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 18,
+    with grfnem:from_source true),
+    has grfnem:uid "_03067aaf-b4a7-33f7-7547-229e2be26acd",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.plant_model::gain::-1".
+_043cc1e1-8f3b-b0f4-38df-e99966c8ebb7 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 6,
+    with grfnem:from_source true),
+    has grfnem:uid "_043cc1e1-8f3b-b0f4-38df-e99966c8ebb7",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::integrator_state::-1".
+_06303211-21e0-aaf9-93c0-89e06d6077a9 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 38),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.01".
+_066092c5-1f25-5630-129f-1e065d776c70 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda RETURN_VAL,integrator_state:(RETURN_VAL,integrator_state)".
+_07feb98d-adca-88ff-bf31-741de8c7f6e4 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 20),
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda input,gain: (input * gain)".
+_083a44f1-8b6f-1bbb-4766-77fd0e694cb9 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 51),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0".
+_0905cb73-6f29-c63d-15a4-aa7838a97ab5 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 39,
+    with grfnem:from_source true),
+    has grfnem:uid "_0905cb73-6f29-c63d-15a4-aa7838a97ab5",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::integrator_state::0".
+_0ab51d95-2751-bfd0-3132-52f5f80e922e is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 39),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+_0e4e27cf-3e7c-b373-357f-6108b3765ebc is a grfnem:SubGraph,
+    has grfnem:scope "GE_simple_PI_controller_withptr",
+    has grfnem:sg_type "FuncContainer",
+    has grfnem:nodes b58b1c2b-21c9-2572-65c0-fa24032cf161,
+    has grfnem:nodes _427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507,
+    has grfnem:nodes _07feb98d-adca-88ff-bf31-741de8c7f6e4,
+    has grfnem:parent _408dda57-e78f-907a-6c34-13a8ff393255,
+    has grfnem:nodes _03067aaf-b4a7-33f7-7547-229e2be26acd,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 21,
+    with grfnem:line_begin 19),
+    has grfnem:nodes ef7781d1-9b07-7ef0-12d9-1010afd70b4b,
+    has grfnem:nodes f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc,
+    has grfnem:namespace "GE_simple_PI_controller_withptr",
+    has grfnem:uid "_0e4e27cf-3e7c-b373-357f-6108b3765ebc".
+_1092530c-148b-2570-9f8d-fd8f6a347188 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_1092530c-148b-2570-9f8d-fd8f6a347188",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::i::1".
+_16a63363-688c-b55a-ced1-60325fb87eb1 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 25,
+    with grfnem:from_source true),
+    has grfnem:uid "_16a63363-688c-b55a-ced1-60325fb87eb1",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::t_final::0".
+_19151d8f-cb93-b13b-19fc-6a89da3393a3 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 41,
+    with grfnem:from_source true),
+    has grfnem:uid "_19151d8f-cb93-b13b-19fc-6a89da3393a3",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::sensed_output::-1".
+_1a45f1c3-6c94-cebf-83fc-f8fab2ac8181 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_1a45f1c3-6c94-cebf-83fc-f8fab2ac8181",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::i::-1".
+_255f4a03-5cdc-22ce-e746-b350f44e42d3 is a grfnem:SubGraph,
+    has grfnem:nodes _0ab51d95-2751-bfd0-3132-52f5f80e922e,
+    has grfnem:nodes _4b333a11-cff5-ae07-24ec-90d574f949e2,
+    has grfnem:nodes _3f2a4248-cf7e-9f33-6f80-9eeb4a0c9850,
+    has grfnem:nodes e21617da-1df2-9cd9-25b6-dd22469d08fe,
+    has grfnem:nodes _1092530c-148b-2570-9f8d-fd8f6a347188,
+    has grfnem:nodes _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    has grfnem:nodes _7c9156df-2179-1930-efc3-64a14d9773b5,
+    has grfnem:nodes f4988d38-6b45-b637-0108-a64ce94021c1,
+    has grfnem:nodes _083a44f1-8b6f-1bbb-4766-77fd0e694cb9,
+    has grfnem:nodes _0905cb73-6f29-c63d-15a4-aa7838a97ab5,
+    has grfnem:nodes _885173d5-935f-ffc0-4605-73f407456143,
+    has grfnem:nodes _59fcf3b2-895c-011c-c451-7bb77227b5e4,
+    has grfnem:nodes cb7d626a-a22a-a62b-f548-7403b5cf3ebe,
+    has grfnem:nodes e8fe3246-e22d-bd82-fa5f-a43ae4733c97,
+    has grfnem:nodes ecbe5980-34c8-8ab6-00a7-14a4da318911,
+    has grfnem:nodes _06303211-21e0-aaf9-93c0-89e06d6077a9,
+    has grfnem:nodes _3291cdc8-97f4-f686-1254-49fc3ed2bcce,
+    has grfnem:nodes _9452a30a-3466-a2bc-6203-1c8605fb77ba,
+    has grfnem:scope "GE_simple_PI_controller_withptr",
+    has grfnem:uid "_255f4a03-5cdc-22ce-e746-b350f44e42d3",
+    has grfnem:nodes _4ec18545-c962-b5a7-d985-82c873f7fe91,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 51,
+    with grfnem:line_begin 24),
+    has grfnem:nodes _2746439a-e9e0-041c-a278-2f98f9d95ab8,
+    has grfnem:nodes c8105953-1b88-8564-e0a4-c0a5ff3dffe2,
+    has grfnem:nodes d708f04f-b6e3-fb2a-19e4-357bf54eb548,
+    has grfnem:nodes _16a63363-688c-b55a-ced1-60325fb87eb1,
+    has grfnem:sg_type "FuncContainer",
+    has grfnem:namespace "GE_simple_PI_controller_withptr",
+    has grfnem:nodes _80279176-4fa0-2853-6c43-bb526218f592 .
+_2746439a-e9e0-041c-a278-2f98f9d95ab8 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 25),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 100.5".
+_28dc8f72-e134-bdad-751b-6041d5ed4d76 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "CONDITION",
+    has grfnem:lambda "lambda i,num_steps: not (i >= num_steps)".
+_2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::EXIT::-1".
+_2c8978c9-f814-1ab6-e5fe-8710ecf90cfb is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 12,
+    with grfnem:from_source true),
+    has grfnem:uid "_2c8978c9-f814-1ab6-e5fe-8710ecf90cfb",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::RETURN_VAL::-1".
+_3291cdc8-97f4-f686-1254-49fc3ed2bcce is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 31),
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda t_final,time_step: (t_final / time_step)".
+_37435ebf-f26f-280e-ce98-1841f76f2cc8 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 28,
+    with grfnem:from_source true),
+    has grfnem:uid "_37435ebf-f26f-280e-ce98-1841f76f2cc8",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::Ki_M::-1".
+_376e27e8-516a-e784-39a6-ea948e10ba48 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 47,
+    with grfnem:from_source true),
+    has grfnem:uid "_376e27e8-516a-e784-39a6-ea948e10ba48",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::sensed_output::2".
+_3a6bce70-a776-9aa9-6361-cb38ef82c481 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 10),
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda integrator_state,timestep,error: (integrator_state + (timestep * error))".
+_3b61003c-15f2-dc99-7793-6324f16e956d is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda i_0,num_steps_0,integrator_state_0,desired_output_0,sensed_output_0,Kp_M_0,Ki_M_0,time_step_0,plant_gain_0:(i_0,num_steps_0,integrator_state_0,desired_output_0,sensed_output_0,Kp_M_0,Ki_M_0,time_step_0,plant_gain_0)".
+_3f2a4248-cf7e-9f33-6f80-9eeb4a0c9850 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 26),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.015".
+_408dda57-e78f-907a-6c34-13a8ff393255 is a grfnem:SubGraph,
+    has grfnem:nodes _19151d8f-cb93-b13b-19fc-6a89da3393a3,
+    has grfnem:nodes _37435ebf-f26f-280e-ce98-1841f76f2cc8,
+    has grfnem:nodes _28dc8f72-e134-bdad-751b-6041d5ed4d76,
+    has grfnem:nodes a9a663f7-5620-b4d9-25da-0b1abd636702,
+    has grfnem:nodes _8e486aae-59a1-02b9-e0e4-46c478ba773e,
+    has grfnem:scope "GE_simple_PI_controller_withptr.main",
+    has grfnem:nodes f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    has grfnem:nodes fc2af687-f748-34e3-07bf-7e9775503ebc,
+    has grfnem:parent _255f4a03-5cdc-22ce-e746-b350f44e42d3,
+    has grfnem:nodes _2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46,
+    has grfnem:uid "_408dda57-e78f-907a-6c34-13a8ff393255",
+    has grfnem:nodes _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    has grfnem:nodes _61df0d85-f634-b744-ab7a-5686dae7e81b,
+    has grfnem:nodes b14841b4-b87f-efc8-ae53-1f4fa1ef9468,
+    has grfnem:nodes _9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9,
+    has grfnem:nodes _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    has grfnem:nodes _89d8c474-d5a5-c707-ed52-fb4c6672149e,
+    has grfnem:nodes _1a45f1c3-6c94-cebf-83fc-f8fab2ac8181,
+    has grfnem:nodes _6bee0100-d893-054e-f716-aea9d3966597,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 47),
+    has grfnem:nodes _9cc9afa1-02ab-fc65-98d7-ad0baccda56e,
+    has grfnem:nodes _4d7b09a7-6894-e3f5-e5f4-a7e10002b068,
+    has grfnem:namespace "GE_simple_PI_controller_withptr",
+    has grfnem:nodes eaf11657-9c99-0a98-b552-3b24fde6d8dc,
+    has grfnem:nodes e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:nodes b962fb2b-5c55-89ac-f848-a59717bc473f,
+    has grfnem:sg_type "LoopContainer",
+    has grfnem:nodes _99dda926-6642-9feb-c223-db0b50500d8c,
+    has grfnem:nodes _3b61003c-15f2-dc99-7793-6324f16e956d,
+    has grfnem:nodes _9531c091-d65b-61b9-9055-2a4a87b74b07,
+    has grfnem:nodes _376e27e8-516a-e784-39a6-ea948e10ba48 .
+_427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 20,
+    with grfnem:from_source true),
+    has grfnem:uid "_427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.plant_model::RETURN_VAL::-1".
+_47776a59-81de-343b-ea4d-e6f2d604aeb4 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 6,
+    with grfnem:from_source true),
+    has grfnem:uid "_47776a59-81de-343b-ea4d-e6f2d604aeb4",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::Kp_M::-1".
+_4ae3f7b2-8ae8-0d16-ca93-c2580b76bc84 is a grfnem:SubGraph,
+    has grfnem:namespace "GE_simple_PI_controller_withptr",
+    has grfnem:nodes _92b164d3-a919-5c6a-5062-2e88c4dcae62,
+    has grfnem:nodes _2c8978c9-f814-1ab6-e5fe-8710ecf90cfb,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_end 13,
+    with grfnem:line_begin 7),
+    has grfnem:nodes _043cc1e1-8f3b-b0f4-38df-e99966c8ebb7,
+    has grfnem:nodes _3a6bce70-a776-9aa9-6361-cb38ef82c481,
+    has grfnem:nodes _7f237080-b1e6-9bed-3560-e101211db1b9,
+    has grfnem:nodes c7ecf66c-b081-16a1-a3a4-3a285dd466d9,
+    has grfnem:uid "_4ae3f7b2-8ae8-0d16-ca93-c2580b76bc84",
+    has grfnem:parent _408dda57-e78f-907a-6c34-13a8ff393255,
+    has grfnem:nodes ae2ef4af-3731-16a1-85f1-7d9d29902c51,
+    has grfnem:nodes abbc0279-02e1-a3a2-a5cf-3b27d4df147a,
+    has grfnem:nodes _8fd31709-44b0-15eb-7e9b-b80e2b76937d,
+    has grfnem:nodes _066092c5-1f25-5630-129f-1e065d776c70,
+    has grfnem:nodes _5f978df6-e389-c96d-eef6-17c9ce30c051,
+    has grfnem:nodes _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    has grfnem:scope "GE_simple_PI_controller_withptr",
+    has grfnem:sg_type "FuncContainer",
+    has grfnem:nodes _47776a59-81de-343b-ea4d-e6f2d604aeb4,
+    has grfnem:nodes b152f996-4988-6dce-1585-d28c93817f12 .
+_4b333a11-cff5-ae07-24ec-90d574f949e2 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 47,
+    with grfnem:from_source true),
+    has grfnem:uid "_4b333a11-cff5-ae07-24ec-90d574f949e2",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::sensed_output::1".
+_4d7b09a7-6894-e3f5-e5f4-a7e10002b068 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 38,
+    with grfnem:from_source true),
+    has grfnem:uid "_4d7b09a7-6894-e3f5-e5f4-a7e10002b068",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::plant_gain::-1".
+_4ec18545-c962-b5a7-d985-82c873f7fe91 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 41,
+    with grfnem:from_source true),
+    has grfnem:uid "_4ec18545-c962-b5a7-d985-82c873f7fe91",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::sensed_output::0".
+_59fcf3b2-895c-011c-c451-7bb77227b5e4 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 28),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 20.0".
+_5f978df6-e389-c96d-eef6-17c9ce30c051 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 12),
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda error,Kp_M,Ki_M,integrator_state: ((error * Kp_M) + (Ki_M * integrator_state))".
+_61df0d85-f634-b744-ab7a-5686dae7e81b is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_61df0d85-f634-b744-ab7a-5686dae7e81b",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::COND_0_0::-1".
+_6bee0100-d893-054e-f716-aea9d3966597 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43),
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda i: (i + 1)".
+_7c9156df-2179-1930-efc3-64a14d9773b5 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 28,
+    with grfnem:from_source true),
+    has grfnem:uid "_7c9156df-2179-1930-efc3-64a14d9773b5",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::Ki_M::0".
+_7f237080-b1e6-9bed-3560-e101211db1b9 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 8,
+    with grfnem:from_source true),
+    has grfnem:uid "_7f237080-b1e6-9bed-3560-e101211db1b9",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::error::0".
+_80279176-4fa0-2853-6c43-bb526218f592 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 29),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 75.0".
+_816b1954-0ab0-a6bb-8fe3-96dae84fce34 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 10,
+    with grfnem:from_source true),
+    has grfnem:uid "_816b1954-0ab0-a6bb-8fe3-96dae84fce34",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::integrator_state::0".
+_826efcf9-280d-2ff8-c868-7e70c7ee6537 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 47,
+    with grfnem:from_source true),
+    has grfnem:uid "_826efcf9-280d-2ff8-c868-7e70c7ee6537",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::sensed_output::1".
+_853d5da1-1cb0-4adb-d825-543ce2076d4c is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_853d5da1-1cb0-4adb-d825-543ce2076d4c",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::i::1".
+_885173d5-935f-ffc0-4605-73f407456143 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_885173d5-935f-ffc0-4605-73f407456143",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::i::0".
+_89d8c474-d5a5-c707-ed52-fb4c6672149e is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 29,
+    with grfnem:from_source true),
+    has grfnem:uid "_89d8c474-d5a5-c707-ed52-fb4c6672149e",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::Kp_M::-1".
+_8e486aae-59a1-02b9-e0e4-46c478ba773e is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "_8e486aae-59a1-02b9-e0e4-46c478ba773e",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::i::2".
+_8fd31709-44b0-15eb-7e9b-b80e2b76937d is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 6,
+    with grfnem:from_source true),
+    has grfnem:uid "_8fd31709-44b0-15eb-7e9b-b80e2b76937d",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::timestep::-1".
+_92b164d3-a919-5c6a-5062-2e88c4dcae62 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 6,
+    with grfnem:from_source true),
+    has grfnem:uid "_92b164d3-a919-5c6a-5062-2e88c4dcae62",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::Ki_M::-1".
+_9452a30a-3466-a2bc-6203-1c8605fb77ba is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 29,
+    with grfnem:from_source true),
+    has grfnem:uid "_9452a30a-3466-a2bc-6203-1c8605fb77ba",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::Kp_M::0".
+_9531c091-d65b-61b9-9055-2a4a87b74b07 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 26,
+    with grfnem:from_source true),
+    has grfnem:uid "_9531c091-d65b-61b9-9055-2a4a87b74b07",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::time_step::-1".
+_98b6981e-c35d-ed91-4f3d-6c932f52060c is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 26,
+    with grfnem:from_source true),
+    has grfnem:uid "_98b6981e-c35d-ed91-4f3d-6c932f52060c",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::time_step::0".
+_99dda926-6642-9feb-c223-db0b50500d8c is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43),
+    has grfnem:ftype "DECISION",
+    has grfnem:lambda "lambda COND_0_0: not COND_0_0".
+_9cc9afa1-02ab-fc65-98d7-ad0baccda56e is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda i,sensed_output:(i,sensed_output)".
+_9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 31,
+    with grfnem:from_source true),
+    has grfnem:uid "_9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::num_steps::-1".
+_IO_FILE is a grfnem:Type,
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_chain"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_write_ptr"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_codecvt"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_lock"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_old_offset"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_markers"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_write_end"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_save_base"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_save_end"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_mode"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_write_base"),
+    has grfnem:name "_IO_FILE",
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_vtable_offset"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_cur_column"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_wide_data"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_fileno"),
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_offset"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_backup_base"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_shortbuf"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_read_base"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_read_end"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_freeres_list"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_buf_base"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_unused2"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_read_ptr"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_freeres_buf"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_flags"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "__pad5"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_IO_buf_end"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_flags2").
+_IO_codecvt is a grfnem:Type,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:name "_IO_codecvt".
+_IO_marker is a grfnem:Type,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:name "_IO_marker".
+_IO_wide_data is a grfnem:Type,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:name "_IO_wide_data".
+a9a663f7-5620-b4d9-25da-0b1abd636702 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 33,
+    with grfnem:from_source true),
+    has grfnem:uid "a9a663f7-5620-b4d9-25da-0b1abd636702",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::desired_output::-1".
+abbc0279-02e1-a3a2-a5cf-3b27d4df147a is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda integrator_state_0,desired_output_0,sensed_output_0,Kp_M_0,Ki_M_0,time_step_0:(integrator_state_0,desired_output_0,sensed_output_0,Kp_M_0,Ki_M_0,time_step_0)".
+ae2ef4af-3731-16a1-85f1-7d9d29902c51 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 6,
+    with grfnem:from_source true),
+    has grfnem:uid "ae2ef4af-3731-16a1-85f1-7d9d29902c51",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::Input_dmd::-1".
+b14841b4-b87f-efc8-ae53-1f4fa1ef9468 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 45,
+    with grfnem:from_source true),
+    has grfnem:uid "b14841b4-b87f-efc8-ae53-1f4fa1ef9468",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::plant_command::-1".
+b152f996-4988-6dce-1585-d28c93817f12 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 8),
+    has grfnem:ftype "ASSIGN",
+    has grfnem:lambda "lambda Input_dmd,Input_sensed: (Input_dmd - Input_sensed)".
+b58b1c2b-21c9-2572-65c0-fa24032cf161 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda plant_command_0,plant_gain_0:(plant_command_0,plant_gain_0)".
+b962fb2b-5c55-89ac-f848-a59717bc473f is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 47),
+    has grfnem:ftype "DECISION",
+    has grfnem:lambda "lambda EXIT,i_initial,sensed_output_initial,i_updated,sensed_output_updated: (i_initial,sensed_output_initial) if EXIT else (i_updated,sensed_output_updated)".
+c7ecf66c-b081-16a1-a3a4-3a285dd466d9 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 6,
+    with grfnem:from_source true),
+    has grfnem:uid "c7ecf66c-b081-16a1-a3a4-3a285dd466d9",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::Input_sensed::-1".
+c8105953-1b88-8564-e0a4-c0a5ff3dffe2 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 31,
+    with grfnem:from_source true),
+    has grfnem:uid "c8105953-1b88-8564-e0a4-c0a5ff3dffe2",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::num_steps::0".
+cb7d626a-a22a-a62b-f548-7403b5cf3ebe is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 41),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0.0".
+ceb01255-8084-8730-433d-b03e282528a8 is a grfnem:GrFN,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507,
+    with grfnem:inputs _03067aaf-b4a7-33f7-7547-229e2be26acd,
+    with grfnem:inputs f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc,
+    with grfnem:function _07feb98d-adca-88ff-bf31-741de8c7f6e4),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs e8fe3246-e22d-bd82-fa5f-a43ae4733c97,
+    with grfnem:function f4988d38-6b45-b637-0108-a64ce94021c1),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    with grfnem:inputs _427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507,
+    with grfnem:function ef7781d1-9b07-7ef0-12d9-1010afd70b4b),
+    has grfnem:subgraphs _255f4a03-5cdc-22ce-e746-b350f44e42d3,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _03067aaf-b4a7-33f7-7547-229e2be26acd,
+    with grfnem:outputs f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc,
+    with grfnem:inputs _4d7b09a7-6894-e3f5-e5f4-a7e10002b068,
+    with grfnem:inputs b14841b4-b87f-efc8-ae53-1f4fa1ef9468,
+    with grfnem:function b58b1c2b-21c9-2572-65c0-fa24032cf161),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _4b333a11-cff5-ae07-24ec-90d574f949e2,
+    with grfnem:outputs _1092530c-148b-2570-9f8d-fd8f6a347188,
+    with grfnem:inputs _376e27e8-516a-e784-39a6-ea948e10ba48,
+    with grfnem:inputs _8e486aae-59a1-02b9-e0e4-46c478ba773e,
+    with grfnem:function _9cc9afa1-02ab-fc65-98d7-ad0baccda56e),
+    has grfnem:subgraphs _408dda57-e78f-907a-6c34-13a8ff393255,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _2c8978c9-f814-1ab6-e5fe-8710ecf90cfb,
+    with grfnem:inputs _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    with grfnem:inputs _92b164d3-a919-5c6a-5062-2e88c4dcae62,
+    with grfnem:inputs _47776a59-81de-343b-ea4d-e6f2d604aeb4,
+    with grfnem:inputs _7f237080-b1e6-9bed-3560-e101211db1b9,
+    with grfnem:function _5f978df6-e389-c96d-eef6-17c9ce30c051),
+    has grfnem:date_created "2021-07-26",
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:function abbc0279-02e1-a3a2-a5cf-3b27d4df147a,
+    with grfnem:outputs c7ecf66c-b081-16a1-a3a4-3a285dd466d9,
+    with grfnem:inputs _9531c091-d65b-61b9-9055-2a4a87b74b07,
+    with grfnem:outputs _47776a59-81de-343b-ea4d-e6f2d604aeb4,
+    with grfnem:outputs _8fd31709-44b0-15eb-7e9b-b80e2b76937d,
+    with grfnem:outputs ae2ef4af-3731-16a1-85f1-7d9d29902c51,
+    with grfnem:inputs _37435ebf-f26f-280e-ce98-1841f76f2cc8,
+    with grfnem:inputs a9a663f7-5620-b4d9-25da-0b1abd636702,
+    with grfnem:inputs _89d8c474-d5a5-c707-ed52-fb4c6672149e,
+    with grfnem:outputs _043cc1e1-8f3b-b0f4-38df-e99966c8ebb7,
+    with grfnem:outputs _92b164d3-a919-5c6a-5062-2e88c4dcae62,
+    with grfnem:inputs fc2af687-f748-34e3-07bf-7e9775503ebc,
+    with grfnem:inputs f48c7e39-2ab6-e29c-1438-661a1bf79bfd),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    with grfnem:outputs e02f118e-7165-fddd-29a5-632ba08ef230,
+    with grfnem:inputs _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    with grfnem:inputs _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    with grfnem:inputs _19151d8f-cb93-b13b-19fc-6a89da3393a3,
+    with grfnem:inputs _1a45f1c3-6c94-cebf-83fc-f8fab2ac8181,
+    with grfnem:function eaf11657-9c99-0a98-b552-3b24fde6d8dc),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    with grfnem:inputs e02f118e-7165-fddd-29a5-632ba08ef230,
+    with grfnem:function _6bee0100-d893-054e-f716-aea9d3966597),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _4ec18545-c962-b5a7-d985-82c873f7fe91,
+    with grfnem:function cb7d626a-a22a-a62b-f548-7403b5cf3ebe),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs c8105953-1b88-8564-e0a4-c0a5ff3dffe2,
+    with grfnem:inputs _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    with grfnem:inputs _16a63363-688c-b55a-ced1-60325fb87eb1,
+    with grfnem:function _3291cdc8-97f4-f686-1254-49fc3ed2bcce),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _376e27e8-516a-e784-39a6-ea948e10ba48,
+    with grfnem:outputs _8e486aae-59a1-02b9-e0e4-46c478ba773e,
+    with grfnem:inputs _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    with grfnem:inputs _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    with grfnem:inputs f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    with grfnem:inputs e02f118e-7165-fddd-29a5-632ba08ef230,
+    with grfnem:inputs _2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46,
+    with grfnem:function b962fb2b-5c55-89ac-f848-a59717bc473f),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    with grfnem:inputs _7f237080-b1e6-9bed-3560-e101211db1b9,
+    with grfnem:inputs _8fd31709-44b0-15eb-7e9b-b80e2b76937d,
+    with grfnem:inputs _043cc1e1-8f3b-b0f4-38df-e99966c8ebb7,
+    with grfnem:function _3a6bce70-a776-9aa9-6361-cb38ef82c481),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    with grfnem:function _3f2a4248-cf7e-9f33-6f80-9eeb4a0c9850),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _0905cb73-6f29-c63d-15a4-aa7838a97ab5,
+    with grfnem:function _0ab51d95-2751-bfd0-3132-52f5f80e922e),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs e21617da-1df2-9cd9-25b6-dd22469d08fe,
+    with grfnem:function _083a44f1-8b6f-1bbb-4766-77fd0e694cb9),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs b14841b4-b87f-efc8-ae53-1f4fa1ef9468,
+    with grfnem:inputs _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    with grfnem:inputs _2c8978c9-f814-1ab6-e5fe-8710ecf90cfb,
+    with grfnem:function _066092c5-1f25-5630-129f-1e065d776c70),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs ecbe5980-34c8-8ab6-00a7-14a4da318911,
+    with grfnem:function _06303211-21e0-aaf9-93c0-89e06d6077a9),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _7c9156df-2179-1930-efc3-64a14d9773b5,
+    with grfnem:function _59fcf3b2-895c-011c-c451-7bb77227b5e4),
+    has grfnem:subgraphs _4ae3f7b2-8ae8-0d16-ca93-c2580b76bc84,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _7f237080-b1e6-9bed-3560-e101211db1b9,
+    with grfnem:inputs c7ecf66c-b081-16a1-a3a4-3a285dd466d9,
+    with grfnem:inputs ae2ef4af-3731-16a1-85f1-7d9d29902c51,
+    with grfnem:function b152f996-4988-6dce-1585-d28c93817f12),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _16a63363-688c-b55a-ced1-60325fb87eb1,
+    with grfnem:function _2746439a-e9e0-041c-a278-2f98f9d95ab8),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _9452a30a-3466-a2bc-6203-1c8605fb77ba,
+    with grfnem:function _80279176-4fa0-2853-6c43-bb526218f592),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _885173d5-935f-ffc0-4605-73f407456143,
+    with grfnem:function d708f04f-b6e3-fb2a-19e4-357bf54eb548),
+    has grfnem:subgraphs _0e4e27cf-3e7c-b373-357f-6108b3765ebc,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _61df0d85-f634-b744-ab7a-5686dae7e81b,
+    with grfnem:inputs _9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9,
+    with grfnem:inputs e02f118e-7165-fddd-29a5-632ba08ef230,
+    with grfnem:function _28dc8f72-e134-bdad-751b-6041d5ed4d76),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46,
+    with grfnem:inputs _61df0d85-f634-b744-ab7a-5686dae7e81b,
+    with grfnem:function _99dda926-6642-9feb-c223-db0b50500d8c),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputs _1a45f1c3-6c94-cebf-83fc-f8fab2ac8181,
+    with grfnem:inputs _4ec18545-c962-b5a7-d985-82c873f7fe91,
+    with grfnem:inputs _7c9156df-2179-1930-efc3-64a14d9773b5,
+    with grfnem:outputs _9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9,
+    with grfnem:inputs c8105953-1b88-8564-e0a4-c0a5ff3dffe2,
+    with grfnem:outputs a9a663f7-5620-b4d9-25da-0b1abd636702,
+    with grfnem:inputs ecbe5980-34c8-8ab6-00a7-14a4da318911,
+    with grfnem:inputs _0905cb73-6f29-c63d-15a4-aa7838a97ab5,
+    with grfnem:outputs _4d7b09a7-6894-e3f5-e5f4-a7e10002b068,
+    with grfnem:outputs _9531c091-d65b-61b9-9055-2a4a87b74b07,
+    with grfnem:inputs _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    with grfnem:outputs _37435ebf-f26f-280e-ce98-1841f76f2cc8,
+    with grfnem:inputs _9452a30a-3466-a2bc-6203-1c8605fb77ba,
+    with grfnem:inputs e8fe3246-e22d-bd82-fa5f-a43ae4733c97,
+    with grfnem:outputs fc2af687-f748-34e3-07bf-7e9775503ebc,
+    with grfnem:inputs _885173d5-935f-ffc0-4605-73f407456143,
+    with grfnem:function _3b61003c-15f2-dc99-7793-6324f16e956d,
+    with grfnem:outputs _19151d8f-cb93-b13b-19fc-6a89da3393a3,
+    with grfnem:outputs _89d8c474-d5a5-c707-ed52-fb4c6672149e).
+d708f04f-b6e3-fb2a-19e4-357bf54eb548 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0".
+e02f118e-7165-fddd-29a5-632ba08ef230 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 43,
+    with grfnem:from_source true),
+    has grfnem:uid "e02f118e-7165-fddd-29a5-632ba08ef230",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::i::0".
+e21617da-1df2-9cd9-25b6-dd22469d08fe is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 51,
+    with grfnem:from_source true),
+    has grfnem:uid "e21617da-1df2-9cd9-25b6-dd22469d08fe",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::RETURN_VAL::-1".
+e8fe3246-e22d-bd82-fa5f-a43ae4733c97 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 33,
+    with grfnem:from_source true),
+    has grfnem:uid "e8fe3246-e22d-bd82-fa5f-a43ae4733c97",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::desired_output::0".
+eaf11657-9c99-0a98-b552-3b24fde6d8dc is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 47),
+    has grfnem:ftype "DECISION",
+    has grfnem:lambda "lambda i_initial,sensed_output_initial,i_updated,sensed_output_updated: (i_initial,sensed_output_initial) if i_updated is None and sensed_output_updated is None else (i_updated,sensed_output_updated)".
+ecbe5980-34c8-8ab6-00a7-14a4da318911 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 38,
+    with grfnem:from_source true),
+    has grfnem:uid "ecbe5980-34c8-8ab6-00a7-14a4da318911",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::plant_gain::0".
+ef7781d1-9b07-7ef0-12d9-1010afd70b4b is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "INTERFACE",
+    has grfnem:lambda "lambda RETURN_VAL:(RETURN_VAL)".
+f48c7e39-2ab6-e29c-1438-661a1bf79bfd is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 47,
+    with grfnem:from_source true),
+    has grfnem:uid "f48c7e39-2ab6-e29c-1438-661a1bf79bfd",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::sensed_output::0".
+f4988d38-6b45-b637-0108-a64ce94021c1 is a grfnem:Function,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 33),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 10.0".
+f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 18,
+    with grfnem:from_source true),
+    has grfnem:uid "f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.plant_model::input::-1".
+fc2af687-f748-34e3-07bf-7e9775503ebc is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:line_begin 39,
+    with grfnem:from_source true),
+    has grfnem:uid "fc2af687-f748-34e3-07bf-7e9775503ebc",
+    has grfnem:identifier "GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main.LOOP_0::integrator_state::-1".
+
+
+
+// Individuals:
+_001a3de9-c245-73a3-107a-7c80c0d145ad is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid b14841b4-b87f-efc8-ae53-1f4fa1ef9468,
+    has grfnem:var_name "plant_command_0".
+_01c87603-175d-a6e0-64b1-b7ab3976a12c is a grfnem:ExpNode,
+    has grfnem:children [_45e8a128-8f77-6743-5644-c7ebe327a0d0],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_01dbf1fc-116f-cbda-ca96-ff42167f5e63 is a grfnem:ExpNode,
+    has grfnem:children [_1c2cb82e-c0cd-a1bd-4882-2b487222c69f,fe31506f-6899-ebc4-dd47-819faefe5a44],
+    has grfnem:exp_node_type "DEFINITION".
+_02002ecc-b176-7439-767d-c6508b48dc71 is a grfnem:ExpNode,
+    has grfnem:children [_728af9b8-11f8-4c34-2e43-b02e952e2c25],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_03067aaf-b4a7-33f7-7547-229e2be26acd is a grfnem:Variable.
+_030c81d7-fd4b-ec40-95fd-62e1928de168 is a grfnem:ExpNode,
+    has grfnem:children [e1a7fb71-bec2-438a-3f50-e97eed2479b3,_7b1d66d5-9def-2a22-ca4c-a1c1977f05f5],
+    has grfnem:exp_node_type "DEFINITION".
+_0370dae2-2e02-d35d-26a6-4f00734eee7a is a grfnem:ExpNode,
+    has grfnem:children [_3e72a2d8-4b4e-11ec-4df6-3c415b55136a],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_043cc1e1-8f3b-b0f4-38df-e99966c8ebb7 is a grfnem:Variable.
+_0606ae91-2cab-2863-c618-cd47983b5d9a is a grfnem:ExpNode,
+    has grfnem:children [_229afebe-5af4-b885-a35d-fd7f95774f71,_27496ba1-ccde-2728-3180-f4a0c15fafdc],
+    has grfnem:exp_node_type "DEFINITION".
+_06303211-21e0-aaf9-93c0-89e06d6077a9 is a grfnem:ExpressionTree,
+    has grfnem:nodes _8d180205-6aae-6885-f839-ef4482b169f4,
+    has grfnem:nodes b6f4c06d-ca32-1775-732a-c5350d380ab5,
+    has grfnem:nodes _9c784e76-a1b5-35e9-13c0-20ac56f94aaf,
+    has grfnem:nodes _6577edb3-0dac-1296-8158-c39c0beb29da.
+_066092c5-1f25-5630-129f-1e065d776c70 is a grfnem:ExpressionTree,
+    has grfnem:nodes a415a15a-caff-e069-3b90-69908b96da3a,
+    has grfnem:nodes _1933e8fc-eaae-25f2-3308-aea3bf931989,
+    has grfnem:nodes _4ae59a43-495f-5f5c-17a2-874d18477545,
+    has grfnem:nodes _3cdfd555-95de-34de-be53-0d6947303b1c,
+    has grfnem:nodes f7bc431b-4bed-9b92-fde1-8dd6aab5bed4,
+    has grfnem:nodes _822ddaf3-fb9e-4876-c931-f8331c6cf745,
+    has grfnem:nodes cc017947-4a71-e19d-dda7-7aea3770f9bd,
+    has grfnem:nodes b8d2e61d-bf64-39e1-9964-e91fcfc331f6 .
+_07c58540-df74-1918-6147-74f15944240b is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE".
+_07feb98d-adca-88ff-bf31-741de8c7f6e4 is a grfnem:ExpressionTree,
+    has grfnem:nodes acd78feb-51f7-351f-4b86-df39d0ffee7d,
+    has grfnem:nodes _94cdac92-f7c7-8e8e-7000-4a312f18881f,
+    has grfnem:nodes _2be338f4-32a3-d1a3-9f86-917c2d4c5f32,
+    has grfnem:nodes _0d549ad1-f660-5c6f-50ee-bc433db91edf,
+    has grfnem:nodes _9be0fb30-061d-4f41-b78d-af645e1d100c,
+    has grfnem:nodes _994625c4-d57c-efbb-6f01-729ec4e7f744,
+    has grfnem:nodes _8f24d517-cf6e-75ff-d779-09eec892f522,
+    has grfnem:nodes _60cde980-756f-d852-cf5e-63f87d8d500a.
+_083a44f1-8b6f-1bbb-4766-77fd0e694cb9 is a grfnem:ExpressionTree,
+    has grfnem:nodes _2cab7fab-ff6b-14ed-0f54-5a0430d07223,
+    has grfnem:nodes bf6f3290-1c25-30b0-e36a-779a3e9a2a3b,
+    has grfnem:nodes _30c4ae67-fa5e-bbd5-aa23-79bb28af616b,
+    has grfnem:nodes _5cd63d74-4037-97b6-c4e5-6b35681b73be.
+_08cbdc3f-e997-c629-aa41-7a7860346476 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:var_name "i_initial".
+_0905cb73-6f29-c63d-15a4-aa7838a97ab5 is a grfnem:Variable.
+_095ef8f2-0a4f-6091-b196-e9b10d73399b is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _61df0d85-f634-b744-ab7a-5686dae7e81b,
+    has grfnem:var_name "COND_0_0".
+_09acd417-f82c-3d60-1285-387809fb3f47 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "1".
+_0a0f72ab-14f8-11c2-ebea-53f2f4aa309d is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _376e27e8-516a-e784-39a6-ea948e10ba48,
+    has grfnem:var_name "sensed_output".
+_0ab51d95-2751-bfd0-3132-52f5f80e922e is a grfnem:ExpressionTree,
+    has grfnem:nodes _2fe59b4a-9b6a-9ffd-1a04-ede1f0e6cf56,
+    has grfnem:nodes c8cef8ae-afe5-d641-5c01-557b75655d5a,
+    has grfnem:nodes _7459c203-0c6f-1958-a3e0-6361323cb860,
+    has grfnem:nodes cb829d9e-aced-5169-ecd4-0edff1961776 .
+_0bccee26-b4ec-c113-3e75-f18a84eb5f0c is a grfnem:ExpNode,
+    has grfnem:children [_8eb0bc5f-689a-9851-750c-e9f37307547a,cf8e8352-be73-b9d0-4c2c-0e6e375e6f21],
+    has grfnem:exp_node_type "DEFINITION".
+_0c20f1eb-ef91-b41d-ff42-356d85df3279 is a grfnem:ExpNode,
+    has grfnem:children [_7f24dac8-ccfd-6a42-071f-6c2f44b2cd61,_01c87603-175d-a6e0-64b1-b7ab3976a12c],
+    has grfnem:exp_node_type "DEFINITION".
+_0d549ad1-f660-5c6f-50ee-bc433db91edf is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _03067aaf-b4a7-33f7-7547-229e2be26acd,
+    has grfnem:var_name "gain".
+_0e323da6-df35-b64b-cd3a-bad1e6477ba9 is a grfnem:ExpNode,
+    has grfnem:children [a2a49200-d346-4fdf-c7f2-ea9c13648ee6,_3818d07e-e4b1-2a43-067a-23e018dd504d],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Add".
+_0f908df4-fd19-7f58-4a24-5b598f951e40 is a grfnem:Variable,
+    has grfnem:children [_3d2bd204-0a7e-c9cf-4a38-1f991cef5e88,_9e40230d-27f9-a551-d102-fd6db1604c17],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_107a6f01-ecfe-8b06-5929-8354b6898d78 is a grfnem:ExpNode,
+    has grfnem:children [b9a17b72-0612-61bb-3168-77686efcdcfe],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_1105a448-4662-9c13-0a26-4abd6536264a is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_12f6d958-b728-5a8c-df49-5595cb3d2d97 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid ecbe5980-34c8-8ab6-00a7-14a4da318911,
+    has grfnem:var_name "plant_gain_0".
+_143cda62-4980-aee1-82ee-be51098a6884 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _043cc1e1-8f3b-b0f4-38df-e99966c8ebb7,
+    has grfnem:var_name "integrator_state".
+_16a63363-688c-b55a-ced1-60325fb87eb1 is a grfnem:Variable.
+_16d9c6ae-c677-49a0-f065-f319e3bc495b is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _885173d5-935f-ffc0-4605-73f407456143,
+    has grfnem:var_name "i_0".
+_19151d8f-cb93-b13b-19fc-6a89da3393a3 is a grfnem:Variable.
+_1933e8fc-eaae-25f2-3308-aea3bf931989 is a grfnem:ExpNode,
+    has grfnem:children [_4ae59a43-495f-5f5c-17a2-874d18477545],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_19fcc562-9185-d15f-caf0-2c8e6e791925 is a grfnem:ExpNode,
+    has grfnem:children [a92e784e-c948-52f1-2e51-30d3f3c7a15f],
+    has grfnem:exp_node_type "DEFINITION".
+_1a45f1c3-6c94-cebf-83fc-f8fab2ac8181 is a grfnem:Variable.
+_1b15d906-a2ab-c933-d77b-4043521fd1b2 is a grfnem:Variable,
+    has grfnem:children [_339b4529-eb51-601a-a7e7-afb4726df68d,a902cc0b-4041-6188-57ae-ae91c2d0f877],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_1c2cb82e-c0cd-a1bd-4882-2b487222c69f is a grfnem:ExpNode,
+    has grfnem:children [_476ea823-a635-b34e-6818-7e42a933d76f,f9012aee-9357-9da8-a151-6ac5657d48da,f5c920b0-a10f-ba15-40bb-ea631f31c7e4,_97b75672-a5c6-1531-8c50-81cfe00a8160],
+    has grfnem:exp_node_type "DEFINITION".
+_1db2c12e-2a59-acd6-1e25-2536ce89268b is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:var_name "i".
+_2269c96e-a9b2-8879-e1be-216910d8770e is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _16a63363-688c-b55a-ced1-60325fb87eb1,
+    has grfnem:var_name "t_final".
+_229afebe-5af4-b885-a35d-fd7f95774f71 is a grfnem:ExpNode,
+    has grfnem:children [_2e847960-49fc-e72d-d426-0e8267151f51],
+    has grfnem:exp_node_type "DEFINITION".
+_255350c4-8e4e-83e5-5df5-ab2e97e0f4df is a grfnem:ExpNode,
+    has grfnem:children [b91b6fe7-4718-786f-5df5-b7cf80aa881d,dae64ce4-725b-8db0-a97c-0601cc2d8306],
+    has grfnem:exp_node_type "DEFINITION".
+_2599d877-dd6e-424b-e798-da4de022eacd is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _9531c091-d65b-61b9-9055-2a4a87b74b07,
+    has grfnem:var_name "time_step_0".
+_2746439a-e9e0-041c-a278-2f98f9d95ab8 is a grfnem:ExpressionTree,
+    has grfnem:nodes _774f6775-6943-98e4-27e2-ead2693ffa2f,
+    has grfnem:nodes bbc176f5-6029-ea0b-7ea1-7edf4b8a29ce,
+    has grfnem:nodes d123b142-ef3b-1b01-b402-0fdba08aca8a,
+    has grfnem:nodes e62ba7e0-a730-9354-6fd0-e969d8bf9bbe.
+_27496ba1-ccde-2728-3180-f4a0c15fafdc is a grfnem:ExpNode,
+    has grfnem:children [_98f6de0d-e6fd-7599-cd33-b73d96a0bc93],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_28acd5ed-4aa7-d002-60e6-f6fdfe23cc59 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid fc2af687-f748-34e3-07bf-7e9775503ebc,
+    has grfnem:var_name "integrator_state_0".
+_28dc8f72-e134-bdad-751b-6041d5ed4d76 is a grfnem:ExpressionTree,
+    has grfnem:nodes _030c81d7-fd4b-ec40-95fd-62e1928de168,
+    has grfnem:nodes _9908932a-a80e-cbfb-1ea7-e617bb64cddd,
+    has grfnem:nodes _805299a1-e71a-d835-309e-9aeddd924b12,
+    has grfnem:nodes _509badd5-a2da-7d82-a363-7dff23cfa63e,
+    has grfnem:nodes _546789b6-0984-4d49-2b23-4176331f1426,
+    has grfnem:nodes dcea4bc6-941a-a3c9-38b2-cefbf28b14b6,
+    has grfnem:nodes dfc6e655-4418-c9c4-e584-98f0b6c4c25f,
+    has grfnem:nodes e1a7fb71-bec2-438a-3f50-e97eed2479b3,
+    has grfnem:nodes _7b1d66d5-9def-2a22-ca4c-a1c1977f05f5 .
+_2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46 is a grfnem:Variable.
+_2be338f4-32a3-d1a3-9f86-917c2d4c5f32 is a grfnem:ExpNode,
+    has grfnem:children [_9be0fb30-061d-4f41-b78d-af645e1d100c,_0d549ad1-f660-5c6f-50ee-bc433db91edf],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Mult".
+_2c8978c9-f814-1ab6-e5fe-8710ecf90cfb is a grfnem:Variable.
+_2cab7fab-ff6b-14ed-0f54-5a0430d07223 is a grfnem:ExpNode,
+    has grfnem:children [_5cd63d74-4037-97b6-c4e5-6b35681b73be,bf6f3290-1c25-30b0-e36a-779a3e9a2a3b],
+    has grfnem:exp_node_type "DEFINITION".
+_2ce6f064-c21b-0bd7-1add-e459bc28f8de is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0.015".
+_2d92bab4-8b0e-1747-9214-68e5a8cf8b19 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _0905cb73-6f29-c63d-15a4-aa7838a97ab5,
+    has grfnem:var_name "integrator_state_0".
+_2e847960-49fc-e72d-d426-0e8267151f51 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _61df0d85-f634-b744-ab7a-5686dae7e81b,
+    has grfnem:var_name "COND_0_0".
+_2e954210-dab6-7bea-4ea7-adfdb4cc079c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    has grfnem:var_name "i_updated".
+_2fe59b4a-9b6a-9ffd-1a04-ede1f0e6cf56 is a grfnem:ExpNode,
+    has grfnem:children [cb829d9e-aced-5169-ecd4-0edff1961776,c8cef8ae-afe5-d641-5c01-557b75655d5a],
+    has grfnem:exp_node_type "DEFINITION".
+_30c4ae67-fa5e-bbd5-aa23-79bb28af616b is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0".
+_3291cdc8-97f4-f686-1254-49fc3ed2bcce is a grfnem:ExpressionTree,
+    has grfnem:nodes _5dd3e93f-debb-2d3d-dc44-1c272499a489,
+    has grfnem:nodes _107a6f01-ecfe-8b06-5929-8354b6898d78,
+    has grfnem:nodes b9a17b72-0612-61bb-3168-77686efcdcfe,
+    has grfnem:nodes bf0a5527-952d-b3b2-9cd5-a4c217971c7d,
+    has grfnem:nodes _2269c96e-a9b2-8879-e1be-216910d8770e,
+    has grfnem:nodes c0a309fc-5120-21e3-7c8b-69e108224b7b,
+    has grfnem:nodes a63fb27c-43b4-1c8c-b563-50a77c1a8dc8,
+    has grfnem:nodes _9a9538e5-47e5-ee8a-affa-b3c0758d2486 .
+_3329a339-56eb-89a4-0186-b454758c011d is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _37435ebf-f26f-280e-ce98-1841f76f2cc8,
+    has grfnem:var_name "Ki_M_0".
+_339b4529-eb51-601a-a7e7-afb4726df68d is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _1a45f1c3-6c94-cebf-83fc-f8fab2ac8181,
+    has grfnem:var_name "i_initial".
+_3672f3be-e19c-f7c3-fb8c-b211241ac13b is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _8e486aae-59a1-02b9-e0e4-46c478ba773e,
+    has grfnem:var_name "i".
+_370f4be3-a0c1-51ef-5f40-36b97f62c946 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e8fe3246-e22d-bd82-fa5f-a43ae4733c97,
+    has grfnem:var_name "desired_output_0".
+_37435ebf-f26f-280e-ce98-1841f76f2cc8 is a grfnem:Variable.
+_376e27e8-516a-e784-39a6-ea948e10ba48 is a grfnem:Variable.
+_3818d07e-e4b1-2a43-067a-23e018dd504d is a grfnem:ExpNode,
+    has grfnem:children [_7d5a084e-ff88-f769-9b73-0a9c90947584,efd7a608-5b10-08d9-df3a-43abb50638c4],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Mult".
+_3945cc4d-dc85-d42f-af16-03af57623f3c is a grfnem:Variable,
+    has grfnem:children [a1b3804b-1947-0866-25b9-c41f71e9b2c6,_755a29fa-97cb-3660-2e66-2f1df78c5c3d],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_39bf06a4-f9b2-2e0c-cf53-47044ef73c37 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46,
+    has grfnem:var_name "EXIT".
+_3a0868aa-53be-f5c7-b3ad-8fdf7d5db700 is a grfnem:ExpNode,
+    has grfnem:children [a6801326-513f-12e2-e6d0-806cb8dcb01f],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_3a2729a9-8b06-e912-bc70-eb02472323d3 is a grfnem:ExpNode,
+    has grfnem:children [e46e59b6-d37f-9827-d8e8-cbc0d511d0fd,a7310f93-fcef-fecf-2d7a-8d4ac9f3bfbd,df8fd3e9-9493-65c0-de1c-ebe43d950b97,b14a25d0-d778-adf4-6f4c-d64244e9fe04],
+    has grfnem:exp_node_type "DEFINITION".
+_3a6bce70-a776-9aa9-6361-cb38ef82c481 is a grfnem:ExpressionTree,
+    has grfnem:nodes _952480e7-3d31-fd90-f418-80b32ca96ee4,
+    has grfnem:nodes aaf5a951-be77-4790-29cd-e828de5a1b55,
+    has grfnem:nodes f6612e03-6ae4-67c9-ef09-7616cadb6d83,
+    has grfnem:nodes bea3a521-90a0-a5c2-32b7-12d37d0f1277,
+    has grfnem:nodes _8664500e-581e-9909-e1a2-cfd29fedbcf7,
+    has grfnem:nodes _143cda62-4980-aee1-82ee-be51098a6884,
+    has grfnem:nodes _0370dae2-2e02-d35d-26a6-4f00734eee7a,
+    has grfnem:nodes _99632292-9cc6-6641-3b66-2360b894739c,
+    has grfnem:nodes _3cb604ae-8567-bfa3-59de-8cfb1bbba4ab,
+    has grfnem:nodes _889f5864-9274-012b-740b-537a77a1311c,
+    has grfnem:nodes _3e72a2d8-4b4e-11ec-4df6-3c415b55136a.
+_3af49ba8-c03c-a284-8495-08d0c9a5de50 is a grfnem:ExpNode,
+    has grfnem:children [_001a3de9-c245-73a3-107a-7c80c0d145ad,_6126f6df-5f7f-6e43-473f-a423c235e219],
+    has grfnem:exp_node_type "DEFINITION".
+_3afe82a9-1b06-6dce-098b-09142cd770a9 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _885173d5-935f-ffc0-4605-73f407456143,
+    has grfnem:var_name "i_0".
+_3b0ae202-9b0d-d01a-9ab9-3bac55a26d0a is a grfnem:Variable,
+    has grfnem:children [_28acd5ed-4aa7-d002-60e6-f6fdfe23cc59,_8bbcb591-b567-6ed5-45c7-3085ddea6d17,bafa5a77-2617-0b7f-ee9b-6b85c51c618b,ed023ca3-1abb-cd72-c169-b17f74ea3837,_3329a339-56eb-89a4-0186-b454758c011d,_807626a6-033e-0328-65e2-18fef57a5eb3],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_3b61003c-15f2-dc99-7793-6324f16e956d is a grfnem:ExpressionTree,
+    has grfnem:nodes eb53a27a-eab8-36bd-b01b-537811577709,
+    has grfnem:nodes _5943df7e-df59-ef1e-8848-f636cbbf86f8,
+    has grfnem:nodes _6b13a211-6191-8cb6-be8c-8b63bfa17ef1,
+    has grfnem:nodes _16d9c6ae-c677-49a0-f065-f319e3bc495b,
+    has grfnem:nodes c63f6434-15e3-a8fd-3a25-0e914aaf52c8,
+    has grfnem:nodes _64c1e113-aec0-cb6f-7076-bf00ece05957,
+    has grfnem:nodes _82921b1e-b5c8-61ea-b429-60eb0789c0e6,
+    has grfnem:nodes ebcc81bb-8b6c-db87-ecdb-e1d7666f52ea,
+    has grfnem:nodes _3afe82a9-1b06-6dce-098b-09142cd770a9,
+    has grfnem:nodes _8c7816f0-457f-a930-7492-92371ed3d303,
+    has grfnem:nodes b5843efd-c4cc-a314-ea65-be4d7358d811,
+    has grfnem:nodes a2772425-5157-f8bb-6cd2-8a97e2fd00ec,
+    has grfnem:nodes e472035d-b049-06d3-e29f-7fe7ec94481e,
+    has grfnem:nodes _2d92bab4-8b0e-1747-9214-68e5a8cf8b19,
+    has grfnem:nodes b6b00b84-a1d6-223d-0fa5-26773c295c87,
+    has grfnem:nodes _79d254a1-30a5-22bf-230f-e73f03f553f6,
+    has grfnem:nodes _12f6d958-b728-5a8c-df49-5595cb3d2d97,
+    has grfnem:nodes _370f4be3-a0c1-51ef-5f40-36b97f62c946,
+    has grfnem:nodes fe75d567-ca3c-1479-b1ec-fda11b0aab7f,
+    has grfnem:nodes bbcea751-3852-2d78-74a2-b8390484b290,
+    has grfnem:nodes _557f925b-8d20-e4e6-46b1-acadc47280a2,
+    has grfnem:nodes _7d8563e8-718f-8a86-0e90-e5599d10711f.
+_3cb604ae-8567-bfa3-59de-8cfb1bbba4ab is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _8fd31709-44b0-15eb-7e9b-b80e2b76937d,
+    has grfnem:var_name "timestep".
+_3cdfd555-95de-34de-be53-0d6947303b1c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    has grfnem:var_name "integrator_state".
+_3d2bd204-0a7e-c9cf-4a38-1f991cef5e88 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    has grfnem:var_name "i_updated".
+_3db3a0ce-4f0a-6733-5c97-0d82990e93fa is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid fc2af687-f748-34e3-07bf-7e9775503ebc,
+    has grfnem:var_name "integrator_state_0".
+_3e72a2d8-4b4e-11ec-4df6-3c415b55136a is a grfnem:ExpNode,
+    has grfnem:children [_889f5864-9274-012b-740b-537a77a1311c,_8664500e-581e-9909-e1a2-cfd29fedbcf7],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Add".
+_3f2a4248-cf7e-9f33-6f80-9eeb4a0c9850 is a grfnem:ExpressionTree,
+    has grfnem:nodes _255350c4-8e4e-83e5-5df5-ab2e97e0f4df,
+    has grfnem:nodes dae64ce4-725b-8db0-a97c-0601cc2d8306,
+    has grfnem:nodes _2ce6f064-c21b-0bd7-1add-e459bc28f8de,
+    has grfnem:nodes b91b6fe7-4718-786f-5df5-b7cf80aa881d.
+_3f2defe6-4b0d-9054-fd3a-181e604474c8 is a grfnem:ExpNode,
+    has grfnem:children [e6a505c5-1a8a-9eaf-9725-d221534a2f6f,_6d50a48e-daea-148a-5d4d-ae0b48f31162],
+    has grfnem:exp_node_type "DEFINITION".
+_427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507 is a grfnem:Variable.
+_4287175d-e8be-59b4-471f-8cb6e2d2195e is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    has grfnem:var_name "sensed_output_updated".
+_441971b2-5e7e-3c86-434c-d646e7e35277 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    has grfnem:var_name "i_updated".
+_45b9bfb4-7fd4-001e-e019-4976837aa37a is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    has grfnem:var_name "sensed_output_initial".
+_45e8a128-8f77-6743-5644-c7ebe327a0d0 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "20.0".
+_47615535-46cb-ac83-1b62-d781d4d867d1 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _376e27e8-516a-e784-39a6-ea948e10ba48,
+    has grfnem:var_name "sensed_output".
+_476ea823-a635-b34e-6818-7e42a933d76f is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _7f237080-b1e6-9bed-3560-e101211db1b9,
+    has grfnem:var_name "error".
+_47776a59-81de-343b-ea4d-e6f2d604aeb4 is a grfnem:Variable.
+_4ae59a43-495f-5f5c-17a2-874d18477545 is a grfnem:Variable,
+    has grfnem:children [f7bc431b-4bed-9b92-fde1-8dd6aab5bed4,_3cdfd555-95de-34de-be53-0d6947303b1c],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_4b4291f9-0a0f-1a81-f6bc-ba60f06be85e is a grfnem:ExpNode,
+    has grfnem:children [_3db3a0ce-4f0a-6733-5c97-0d82990e93fa,_5b91420b-b7e9-ddd3-dc9b-3de9f17716f6,a820d3b8-b7f7-31ba-31c6-6f282376ff50,_93ca42e0-9a7f-81fe-f2cd-fd6e01b9cd39,ffd445f3-39fa-ff1f-4084-5ddef630e2d8,_2599d877-dd6e-424b-e798-da4de022eacd],
+    has grfnem:exp_node_type "DEFINITION".
+_4c0d6a4b-7bbb-529e-2141-d84934210e00 is a grfnem:ExpNode,
+    has grfnem:children [de6d98af-c159-a2bc-ce2a-b55b0efaab08],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_4d7b09a7-6894-e3f5-e5f4-a7e10002b068 is a grfnem:Variable.
+_4ec18545-c962-b5a7-d985-82c873f7fe91 is a grfnem:Variable.
+_5072205b-a302-c26c-fc0e-1d7f126b5f10 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid b14841b4-b87f-efc8-ae53-1f4fa1ef9468,
+    has grfnem:var_name "plant_command_0".
+_509badd5-a2da-7d82-a363-7dff23cfa63e is a grfnem:ExpNode,
+    has grfnem:children [_030c81d7-fd4b-ec40-95fd-62e1928de168,_805299a1-e71a-d835-309e-9aeddd924b12],
+    has grfnem:exp_node_type "DEFINITION".
+_546789b6-0984-4d49-2b23-4176331f1426 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:var_name "i".
+_550aecd5-5107-086a-1947-4de352ae9afa is a grfnem:ExpNode,
+    has grfnem:children [_4b4291f9-0a0f-1a81-f6bc-ba60f06be85e,_95ae8c75-7ee7-1f5e-49cb-231d894dc126],
+    has grfnem:exp_node_type "DEFINITION".
+_557f925b-8d20-e4e6-46b1-acadc47280a2 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _4ec18545-c962-b5a7-d985-82c873f7fe91,
+    has grfnem:var_name "sensed_output_0".
+_565cbe63-c226-a7f9-053a-71f37bf61c38 is a grfnem:ExpNode,
+    has grfnem:children [_3af49ba8-c03c-a284-8495-08d0c9a5de50,_58ed0a49-68cd-9091-6cf6-cd503727893f],
+    has grfnem:exp_node_type "DEFINITION".
+_57aa7a18-d09a-c0b7-78b8-af98d6263b32 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_58ed0a49-68cd-9091-6cf6-cd503727893f is a grfnem:ExpNode,
+    has grfnem:children [f956cacb-0da5-213a-2093-357d6962e0d3],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_5943df7e-df59-ef1e-8848-f636cbbf86f8 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid c8105953-1b88-8564-e0a4-c0a5ff3dffe2,
+    has grfnem:var_name "num_steps_0".
+_59fcf3b2-895c-011c-c451-7bb77227b5e4 is a grfnem:ExpressionTree,
+    has grfnem:nodes _0c20f1eb-ef91-b41d-ff42-356d85df3279,
+    has grfnem:nodes _01c87603-175d-a6e0-64b1-b7ab3976a12c,
+    has grfnem:nodes _45e8a128-8f77-6743-5644-c7ebe327a0d0,
+    has grfnem:nodes _7f24dac8-ccfd-6a42-071f-6c2f44b2cd61 .
+_5a11a0f0-a6de-7848-ddc8-0834c53a9e14 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid c7ecf66c-b081-16a1-a3a4-3a285dd466d9,
+    has grfnem:var_name "Input_sensed".
+_5a342926-c26d-9857-a929-c2707a960b10 is a grfnem:ExpNode,
+    has grfnem:children [_75e6e931-eb5a-3ed7-3405-e4af98eff5b0,_1b15d906-a2ab-c933-d77b-4043521fd1b2,_0f908df4-fd19-7f58-4a24-5b598f951e40],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "IfExpr".
+_5b91420b-b7e9-ddd3-dc9b-3de9f17716f6 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid a9a663f7-5620-b4d9-25da-0b1abd636702,
+    has grfnem:var_name "desired_output_0".
+_5cd63d74-4037-97b6-c4e5-6b35681b73be is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_5dd3e93f-debb-2d3d-dc44-1c272499a489 is a grfnem:ExpNode,
+    has grfnem:children [c0a309fc-5120-21e3-7c8b-69e108224b7b,_107a6f01-ecfe-8b06-5929-8354b6898d78],
+    has grfnem:exp_node_type "DEFINITION".
+_5f0ea542-c35e-5b61-0465-6a1c78f13352 is a grfnem:Variable,
+    has grfnem:children [_441971b2-5e7e-3c86-434c-d646e7e35277,cf14340c-a369-4e2d-290c-8fde6640ea2c],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_5f978df6-e389-c96d-eef6-17c9ce30c051 is a grfnem:ExpressionTree,
+    has grfnem:nodes _3818d07e-e4b1-2a43-067a-23e018dd504d,
+    has grfnem:nodes _01dbf1fc-116f-cbda-ca96-ff42167f5e63,
+    has grfnem:nodes _7cfbdca8-446e-ed6c-2372-59a36404be57,
+    has grfnem:nodes f9012aee-9357-9da8-a151-6ac5657d48da,
+    has grfnem:nodes f5c920b0-a10f-ba15-40bb-ea631f31c7e4,
+    has grfnem:nodes _7d5a084e-ff88-f769-9b73-0a9c90947584,
+    has grfnem:nodes _1c2cb82e-c0cd-a1bd-4882-2b487222c69f,
+    has grfnem:nodes efd7a608-5b10-08d9-df3a-43abb50638c4,
+    has grfnem:nodes fe31506f-6899-ebc4-dd47-819faefe5a44,
+    has grfnem:nodes _476ea823-a635-b34e-6818-7e42a933d76f,
+    has grfnem:nodes _0e323da6-df35-b64b-cd3a-bad1e6477ba9,
+    has grfnem:nodes _97b75672-a5c6-1531-8c50-81cfe00a8160,
+    has grfnem:nodes bb657f7e-a766-355a-d2bb-923522c7f347,
+    has grfnem:nodes a2a49200-d346-4fdf-c7f2-ea9c13648ee6 .
+_60cde980-756f-d852-cf5e-63f87d8d500a is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc,
+    has grfnem:var_name "input".
+_61171da2-13e8-6faf-2768-a6b7a6afbd4f is a grfnem:ExpNode,
+    has grfnem:children [_5a342926-c26d-9857-a929-c2707a960b10],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_6126f6df-5f7f-6e43-473f-a423c235e219 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _4d7b09a7-6894-e3f5-e5f4-a7e10002b068,
+    has grfnem:var_name "plant_gain_0".
+_61df0d85-f634-b744-ab7a-5686dae7e81b is a grfnem:Variable.
+_64a8eeb7-5c8b-6b0b-cc2b-7ab1104e2bbf is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _8e486aae-59a1-02b9-e0e4-46c478ba773e,
+    has grfnem:var_name "i".
+_64c1e113-aec0-cb6f-7076-bf00ece05957 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _9452a30a-3466-a2bc-6203-1c8605fb77ba,
+    has grfnem:var_name "Kp_M_0".
+_6577edb3-0dac-1296-8158-c39c0beb29da is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_693fa0c6-ec60-0159-83ea-aef85076b5fe is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0".
+_6b13a211-6191-8cb6-be8c-8b63bfa17ef1 is a grfnem:ExpNode,
+    has grfnem:children [_3afe82a9-1b06-6dce-098b-09142cd770a9,_5943df7e-df59-ef1e-8848-f636cbbf86f8,_2d92bab4-8b0e-1747-9214-68e5a8cf8b19,_370f4be3-a0c1-51ef-5f40-36b97f62c946,_7d8563e8-718f-8a86-0e90-e5599d10711f,fe75d567-ca3c-1479-b1ec-fda11b0aab7f,a2772425-5157-f8bb-6cd2-8a97e2fd00ec,e472035d-b049-06d3-e29f-7fe7ec94481e,_8c7816f0-457f-a930-7492-92371ed3d303],
+    has grfnem:exp_node_type "DEFINITION".
+_6bee0100-d893-054e-f716-aea9d3966597 is a grfnem:ExpressionTree,
+    has grfnem:nodes _0bccee26-b4ec-c113-3e75-f18a84eb5f0c,
+    has grfnem:nodes cf8e8352-be73-b9d0-4c2c-0e6e375e6f21,
+    has grfnem:nodes _75cb30b3-20af-5295-08ee-5df48ef4a987,
+    has grfnem:nodes _09acd417-f82c-3d60-1285-387809fb3f47,
+    has grfnem:nodes d694e29c-6c34-bb99-8cfe-6467f50336f1,
+    has grfnem:nodes _8eb0bc5f-689a-9851-750c-e9f37307547a,
+    has grfnem:nodes _1db2c12e-2a59-acd6-1e25-2536ce89268b.
+_6d50a48e-daea-148a-5d4d-ae0b48f31162 is a grfnem:ExpNode,
+    has grfnem:children [_876c55fc-7c9f-8fa7-ea6e-7910d3c6dec6],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_6ee104ee-2128-393f-6853-bb186e545837 is a grfnem:ExpNode,
+    has grfnem:children [_64a8eeb7-5c8b-6b0b-cc2b-7ab1104e2bbf,_47615535-46cb-ac83-1b62-d781d4d867d1],
+    has grfnem:exp_node_type "DEFINITION".
+_728af9b8-11f8-4c34-2e43-b02e952e2c25 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0.0".
+_72e19fab-20e7-81e4-0a79-0709df4ecc1c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _4d7b09a7-6894-e3f5-e5f4-a7e10002b068,
+    has grfnem:var_name "plant_gain_0".
+_7459c203-0c6f-1958-a3e0-6361323cb860 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0.0".
+_74e15860-618c-7c12-cfec-150278853a5a is a grfnem:ExpNode,
+    has grfnem:children [_83341962-c0e2-9057-3511-51c062e7dd5a],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_755a29fa-97cb-3660-2e66-2f1df78c5c3d is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    has grfnem:var_name "sensed_output_initial".
+_75cb30b3-20af-5295-08ee-5df48ef4a987 is a grfnem:ExpNode,
+    has grfnem:children [d694e29c-6c34-bb99-8cfe-6467f50336f1,_09acd417-f82c-3d60-1285-387809fb3f47],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Add".
+_75e6e931-eb5a-3ed7-3405-e4af98eff5b0 is a grfnem:ExpNode,
+    has grfnem:children [fb1d787b-68b8-b373-af1c-054b34bf5093,f48fe13c-f771-8155-719b-7b943ffd5bd4],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "And".
+_774f6775-6943-98e4-27e2-ead2693ffa2f is a grfnem:ExpNode,
+    has grfnem:children [e62ba7e0-a730-9354-6fd0-e969d8bf9bbe,bbc176f5-6029-ea0b-7ea1-7edf4b8a29ce],
+    has grfnem:exp_node_type "DEFINITION".
+_79d254a1-30a5-22bf-230f-e73f03f553f6 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _0905cb73-6f29-c63d-15a4-aa7838a97ab5,
+    has grfnem:var_name "integrator_state_0".
+_7b1d66d5-9def-2a22-ca4c-a1c1977f05f5 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9,
+    has grfnem:var_name "num_steps".
+_7c9156df-2179-1930-efc3-64a14d9773b5 is a grfnem:Variable.
+_7cfbdca8-446e-ed6c-2372-59a36404be57 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _47776a59-81de-343b-ea4d-e6f2d604aeb4,
+    has grfnem:var_name "Kp_M".
+_7d5a084e-ff88-f769-9b73-0a9c90947584 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _92b164d3-a919-5c6a-5062-2e88c4dcae62,
+    has grfnem:var_name "Ki_M".
+_7d790f88-3009-15d9-e415-5f753bf42921 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid ae2ef4af-3731-16a1-85f1-7d9d29902c51,
+    has grfnem:var_name "Input_dmd".
+_7d8563e8-718f-8a86-0e90-e5599d10711f is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _4ec18545-c962-b5a7-d985-82c873f7fe91,
+    has grfnem:var_name "sensed_output_0".
+_7f237080-b1e6-9bed-3560-e101211db1b9 is a grfnem:Variable.
+_7f24dac8-ccfd-6a42-071f-6c2f44b2cd61 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_80279176-4fa0-2853-6c43-bb526218f592 is a grfnem:ExpressionTree,
+    has grfnem:nodes bee8524c-dece-993f-47b4-42041773cfa7,
+    has grfnem:nodes b1cce5e1-799b-43ba-f802-4a03bcb815b2,
+    has grfnem:nodes fd035308-d402-98a4-772a-0838a62c715c,
+    has grfnem:nodes a0bcdb9b-c2fe-6f81-6b3f-837b69fff910 .
+_805299a1-e71a-d835-309e-9aeddd924b12 is a grfnem:ExpNode,
+    has grfnem:children [dcea4bc6-941a-a3c9-38b2-cefbf28b14b6],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_807626a6-033e-0328-65e2-18fef57a5eb3 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _9531c091-d65b-61b9-9055-2a4a87b74b07,
+    has grfnem:var_name "time_step_0".
+_816b1954-0ab0-a6bb-8fe3-96dae84fce34 is a grfnem:Variable.
+_822ddaf3-fb9e-4876-c931-f8331c6cf745 is a grfnem:ExpNode,
+    has grfnem:children [b8d2e61d-bf64-39e1-9964-e91fcfc331f6,cc017947-4a71-e19d-dda7-7aea3770f9bd],
+    has grfnem:exp_node_type "DEFINITION".
+_826efcf9-280d-2ff8-c868-7e70c7ee6537 is a grfnem:Variable.
+_82921b1e-b5c8-61ea-b429-60eb0789c0e6 is a grfnem:Variable,
+    has grfnem:children [_16d9c6ae-c677-49a0-f065-f319e3bc495b,b6b00b84-a1d6-223d-0fa5-26773c295c87,_79d254a1-30a5-22bf-230f-e73f03f553f6,c63f6434-15e3-a8fd-3a25-0e914aaf52c8,_557f925b-8d20-e4e6-46b1-acadc47280a2,_64c1e113-aec0-cb6f-7076-bf00ece05957,b5843efd-c4cc-a314-ea65-be4d7358d811,bbcea751-3852-2d78-74a2-b8390484b290,_12f6d958-b728-5a8c-df49-5595cb3d2d97],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_83341962-c0e2-9057-3511-51c062e7dd5a is a grfnem:Variable,
+    has grfnem:children [_3672f3be-e19c-f7c3-fb8c-b211241ac13b,_0a0f72ab-14f8-11c2-ebea-53f2f4aa309d],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+_84bb8a63-3681-9f53-0cdb-8d20adf51412 is a grfnem:ExpNode,
+    has grfnem:children [ae3b7241-410d-9203-0067-40115e769944,_3945cc4d-dc85-d42f-af16-03af57623f3c,_5f0ea542-c35e-5b61-0465-6a1c78f13352],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "IfExpr".
+_853d5da1-1cb0-4adb-d825-543ce2076d4c is a grfnem:Variable.
+_8664500e-581e-9909-e1a2-cfd29fedbcf7 is a grfnem:ExpNode,
+    has grfnem:children [aaf5a951-be77-4790-29cd-e828de5a1b55,f6612e03-6ae4-67c9-ef09-7616cadb6d83],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Mult".
+_876c55fc-7c9f-8fa7-ea6e-7910d3c6dec6 is a grfnem:ExpNode,
+    has grfnem:children [_7d790f88-3009-15d9-e415-5f753bf42921,_5a11a0f0-a6de-7848-ddc8-0834c53a9e14],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Sub".
+_885173d5-935f-ffc0-4605-73f407456143 is a grfnem:Variable.
+_889f5864-9274-012b-740b-537a77a1311c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _043cc1e1-8f3b-b0f4-38df-e99966c8ebb7,
+    has grfnem:var_name "integrator_state".
+_89d8c474-d5a5-c707-ed52-fb4c6672149e is a grfnem:Variable.
+_8bbcb591-b567-6ed5-45c7-3085ddea6d17 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid a9a663f7-5620-b4d9-25da-0b1abd636702,
+    has grfnem:var_name "desired_output_0".
+_8c7816f0-457f-a930-7492-92371ed3d303 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid ecbe5980-34c8-8ab6-00a7-14a4da318911,
+    has grfnem:var_name "plant_gain_0".
+_8d180205-6aae-6885-f839-ef4482b169f4 is a grfnem:ExpNode,
+    has grfnem:children [_6577edb3-0dac-1296-8158-c39c0beb29da,b6f4c06d-ca32-1775-732a-c5350d380ab5],
+    has grfnem:exp_node_type "DEFINITION".
+_8e486aae-59a1-02b9-e0e4-46c478ba773e is a grfnem:Variable.
+_8eb0bc5f-689a-9851-750c-e9f37307547a is a grfnem:ExpNode,
+    has grfnem:children [_1db2c12e-2a59-acd6-1e25-2536ce89268b],
+    has grfnem:exp_node_type "DEFINITION".
+_8f24d517-cf6e-75ff-d779-09eec892f522 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _03067aaf-b4a7-33f7-7547-229e2be26acd,
+    has grfnem:var_name "gain".
+_8fd31709-44b0-15eb-7e9b-b80e2b76937d is a grfnem:Variable.
+_92b164d3-a919-5c6a-5062-2e88c4dcae62 is a grfnem:Variable.
+_93ca42e0-9a7f-81fe-f2cd-fd6e01b9cd39 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _89d8c474-d5a5-c707-ed52-fb4c6672149e,
+    has grfnem:var_name "Kp_M_0".
+_9452a30a-3466-a2bc-6203-1c8605fb77ba is a grfnem:Variable.
+_94cdac92-f7c7-8e8e-7000-4a312f18881f is a grfnem:ExpNode,
+    has grfnem:children [_2be338f4-32a3-d1a3-9f86-917c2d4c5f32],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_952480e7-3d31-fd90-f418-80b32ca96ee4 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _7f237080-b1e6-9bed-3560-e101211db1b9,
+    has grfnem:var_name "error".
+_9531c091-d65b-61b9-9055-2a4a87b74b07 is a grfnem:Variable.
+_95ae8c75-7ee7-1f5e-49cb-231d894dc126 is a grfnem:ExpNode,
+    has grfnem:children [_3b0ae202-9b0d-d01a-9ab9-3bac55a26d0a],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_97b75672-a5c6-1531-8c50-81cfe00a8160 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    has grfnem:var_name "integrator_state".
+_98b6981e-c35d-ed91-4f3d-6c932f52060c is a grfnem:Variable.
+_98f6de0d-e6fd-7599-cd33-b73d96a0bc93 is a grfnem:ExpNode,
+    has grfnem:children [_095ef8f2-0a4f-6091-b196-e9b10d73399b],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Not".
+_9908932a-a80e-cbfb-1ea7-e617bb64cddd is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9,
+    has grfnem:var_name "num_steps".
+_994625c4-d57c-efbb-6f01-729ec4e7f744 is a grfnem:ExpNode,
+    has grfnem:children [_60cde980-756f-d852-cf5e-63f87d8d500a,_8f24d517-cf6e-75ff-d779-09eec892f522],
+    has grfnem:exp_node_type "DEFINITION".
+_99632292-9cc6-6641-3b66-2360b894739c is a grfnem:ExpNode,
+    has grfnem:children [bea3a521-90a0-a5c2-32b7-12d37d0f1277,_0370dae2-2e02-d35d-26a6-4f00734eee7a],
+    has grfnem:exp_node_type "DEFINITION".
+_99dda926-6642-9feb-c223-db0b50500d8c is a grfnem:ExpressionTree,
+    has grfnem:nodes _0606ae91-2cab-2863-c618-cd47983b5d9a,
+    has grfnem:nodes _27496ba1-ccde-2728-3180-f4a0c15fafdc,
+    has grfnem:nodes _98f6de0d-e6fd-7599-cd33-b73d96a0bc93,
+    has grfnem:nodes _095ef8f2-0a4f-6091-b196-e9b10d73399b,
+    has grfnem:nodes _229afebe-5af4-b885-a35d-fd7f95774f71,
+    has grfnem:nodes _2e847960-49fc-e72d-d426-0e8267151f51 .
+_9a9538e5-47e5-ee8a-affa-b3c0758d2486 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _16a63363-688c-b55a-ced1-60325fb87eb1,
+    has grfnem:var_name "t_final".
+_9be0fb30-061d-4f41-b78d-af645e1d100c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc,
+    has grfnem:var_name "input".
+_9c784e76-a1b5-35e9-13c0-20ac56f94aaf is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0.01".
+_9cc9afa1-02ab-fc65-98d7-ad0baccda56e is a grfnem:ExpressionTree,
+    has grfnem:nodes c832c26b-17c3-f421-ab60-bddd0dfde361,
+    has grfnem:nodes _74e15860-618c-7c12-cfec-150278853a5a,
+    has grfnem:nodes _83341962-c0e2-9057-3511-51c062e7dd5a,
+    has grfnem:nodes _0a0f72ab-14f8-11c2-ebea-53f2f4aa309d,
+    has grfnem:nodes _3672f3be-e19c-f7c3-fb8c-b211241ac13b,
+    has grfnem:nodes _6ee104ee-2128-393f-6853-bb186e545837,
+    has grfnem:nodes _47615535-46cb-ac83-1b62-d781d4d867d1,
+    has grfnem:nodes _64a8eeb7-5c8b-6b0b-cc2b-7ab1104e2bbf.
+_9e40230d-27f9-a551-d102-fd6db1604c17 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    has grfnem:var_name "sensed_output_updated".
+_9fd01d68-d1b3-6276-a4f9-d9f9528dfcb9 is a grfnem:Variable.
+a0bcdb9b-c2fe-6f81-6b3f-837b69fff910 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+a1b3804b-1947-0866-25b9-c41f71e9b2c6 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:var_name "i_initial".
+a2772425-5157-f8bb-6cd2-8a97e2fd00ec is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _7c9156df-2179-1930-efc3-64a14d9773b5,
+    has grfnem:var_name "Ki_M_0".
+a2a49200-d346-4fdf-c7f2-ea9c13648ee6 is a grfnem:ExpNode,
+    has grfnem:children [bb657f7e-a766-355a-d2bb-923522c7f347,_7cfbdca8-446e-ed6c-2372-59a36404be57],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Mult".
+a415a15a-caff-e069-3b90-69908b96da3a is a grfnem:ExpNode,
+    has grfnem:children [_822ddaf3-fb9e-4876-c931-f8331c6cf745,_1933e8fc-eaae-25f2-3308-aea3bf931989],
+    has grfnem:exp_node_type "DEFINITION".
+a5f9468c-b5c1-e168-0ecc-ad6ff62a47f4 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE".
+a63fb27c-43b4-1c8c-b563-50a77c1a8dc8 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    has grfnem:var_name "time_step".
+a675a0f7-32c4-8ef1-9033-b298aedaa3c6 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid ae2ef4af-3731-16a1-85f1-7d9d29902c51,
+    has grfnem:var_name "Input_dmd".
+a6801326-513f-12e2-e6d0-806cb8dcb01f is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507,
+    has grfnem:var_name "RETURN_VAL".
+a6f33442-dd09-9eb2-ce52-7ca5a4f6d93b is a grfnem:ExpNode,
+    has grfnem:children [c067cf21-868b-524c-c3bb-be0a84cdd46b,db2bb398-6bc8-66e1-38a3-ae062ffcef33],
+    has grfnem:exp_node_type "DEFINITION".
+a7310f93-fcef-fecf-2d7a-8d4ac9f3bfbd is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _19151d8f-cb93-b13b-19fc-6a89da3393a3,
+    has grfnem:var_name "sensed_output_initial".
+a820d3b8-b7f7-31ba-31c6-6f282376ff50 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    has grfnem:var_name "sensed_output_0".
+a902cc0b-4041-6188-57ae-ae91c2d0f877 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _19151d8f-cb93-b13b-19fc-6a89da3393a3,
+    has grfnem:var_name "sensed_output_initial".
+a92e784e-c948-52f1-2e51-30d3f3c7a15f is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _427c8d0c-3ae6-a4c9-9b04-6df1dbc0b507,
+    has grfnem:var_name "RETURN_VAL".
+a9a663f7-5620-b4d9-25da-0b1abd636702 is a grfnem:Variable.
+aaf5a951-be77-4790-29cd-e828de5a1b55 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _8fd31709-44b0-15eb-7e9b-b80e2b76937d,
+    has grfnem:var_name "timestep".
+ab80e330-6f5e-f159-8f03-7122108157ba is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid c7ecf66c-b081-16a1-a3a4-3a285dd466d9,
+    has grfnem:var_name "Input_sensed".
+abbc0279-02e1-a3a2-a5cf-3b27d4df147a is a grfnem:ExpressionTree,
+    has grfnem:nodes _2599d877-dd6e-424b-e798-da4de022eacd,
+    has grfnem:nodes _5b91420b-b7e9-ddd3-dc9b-3de9f17716f6,
+    has grfnem:nodes a820d3b8-b7f7-31ba-31c6-6f282376ff50,
+    has grfnem:nodes _93ca42e0-9a7f-81fe-f2cd-fd6e01b9cd39,
+    has grfnem:nodes _28acd5ed-4aa7-d002-60e6-f6fdfe23cc59,
+    has grfnem:nodes bafa5a77-2617-0b7f-ee9b-6b85c51c618b,
+    has grfnem:nodes ffd445f3-39fa-ff1f-4084-5ddef630e2d8,
+    has grfnem:nodes _3329a339-56eb-89a4-0186-b454758c011d,
+    has grfnem:nodes _550aecd5-5107-086a-1947-4de352ae9afa,
+    has grfnem:nodes _807626a6-033e-0328-65e2-18fef57a5eb3,
+    has grfnem:nodes ed023ca3-1abb-cd72-c169-b17f74ea3837,
+    has grfnem:nodes _95ae8c75-7ee7-1f5e-49cb-231d894dc126,
+    has grfnem:nodes _3b0ae202-9b0d-d01a-9ab9-3bac55a26d0a,
+    has grfnem:nodes _4b4291f9-0a0f-1a81-f6bc-ba60f06be85e,
+    has grfnem:nodes _8bbcb591-b567-6ed5-45c7-3085ddea6d17,
+    has grfnem:nodes _3db3a0ce-4f0a-6733-5c97-0d82990e93fa.
+acd78feb-51f7-351f-4b86-df39d0ffee7d is a grfnem:ExpNode,
+    has grfnem:children [_994625c4-d57c-efbb-6f01-729ec4e7f744,_94cdac92-f7c7-8e8e-7000-4a312f18881f],
+    has grfnem:exp_node_type "DEFINITION".
+ae2ef4af-3731-16a1-85f1-7d9d29902c51 is a grfnem:Variable.
+ae3b7241-410d-9203-0067-40115e769944 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _2afeb934-8a9b-d1c3-b487-cc1c1a7e6d46,
+    has grfnem:var_name "EXIT".
+afb77ca5-2806-b0e2-bef3-05b041116902 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    has grfnem:var_name "sensed_output_updated".
+b14841b4-b87f-efc8-ae53-1f4fa1ef9468 is a grfnem:Variable.
+b14a25d0-d778-adf4-6f4c-d64244e9fe04 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    has grfnem:var_name "sensed_output_updated".
+b152f996-4988-6dce-1585-d28c93817f12 is a grfnem:ExpressionTree,
+    has grfnem:nodes _3f2defe6-4b0d-9054-fd3a-181e604474c8,
+    has grfnem:nodes _6d50a48e-daea-148a-5d4d-ae0b48f31162,
+    has grfnem:nodes _876c55fc-7c9f-8fa7-ea6e-7910d3c6dec6,
+    has grfnem:nodes _5a11a0f0-a6de-7848-ddc8-0834c53a9e14,
+    has grfnem:nodes _7d790f88-3009-15d9-e415-5f753bf42921,
+    has grfnem:nodes e6a505c5-1a8a-9eaf-9725-d221534a2f6f,
+    has grfnem:nodes ab80e330-6f5e-f159-8f03-7122108157ba,
+    has grfnem:nodes a675a0f7-32c4-8ef1-9033-b298aedaa3c6 .
+b1cce5e1-799b-43ba-f802-4a03bcb815b2 is a grfnem:ExpNode,
+    has grfnem:children [fd035308-d402-98a4-772a-0838a62c715c],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+b2b50110-b03f-5803-748b-954bfca6dded is a grfnem:ExpNode,
+    has grfnem:children [f9b12c91-5557-72ed-cb04-5e4f457cad0c,f0084204-8829-549c-a49c-141d2eec9337],
+    has grfnem:exp_node_type "DEFINITION".
+b5843efd-c4cc-a314-ea65-be4d7358d811 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _7c9156df-2179-1930-efc3-64a14d9773b5,
+    has grfnem:var_name "Ki_M_0".
+b58b1c2b-21c9-2572-65c0-fa24032cf161 is a grfnem:ExpressionTree,
+    has grfnem:nodes _565cbe63-c226-a7f9-053a-71f37bf61c38,
+    has grfnem:nodes _58ed0a49-68cd-9091-6cf6-cd503727893f,
+    has grfnem:nodes f956cacb-0da5-213a-2093-357d6962e0d3,
+    has grfnem:nodes _72e19fab-20e7-81e4-0a79-0709df4ecc1c,
+    has grfnem:nodes _5072205b-a302-c26c-fc0e-1d7f126b5f10,
+    has grfnem:nodes _3af49ba8-c03c-a284-8495-08d0c9a5de50,
+    has grfnem:nodes _6126f6df-5f7f-6e43-473f-a423c235e219,
+    has grfnem:nodes _001a3de9-c245-73a3-107a-7c80c0d145ad.
+b6b00b84-a1d6-223d-0fa5-26773c295c87 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid c8105953-1b88-8564-e0a4-c0a5ff3dffe2,
+    has grfnem:var_name "num_steps_0".
+b6f4c06d-ca32-1775-732a-c5350d380ab5 is a grfnem:ExpNode,
+    has grfnem:children [_9c784e76-a1b5-35e9-13c0-20ac56f94aaf],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+b8d2e61d-bf64-39e1-9964-e91fcfc331f6 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _2c8978c9-f814-1ab6-e5fe-8710ecf90cfb,
+    has grfnem:var_name "RETURN_VAL".
+b91b6fe7-4718-786f-5df5-b7cf80aa881d is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+b962fb2b-5c55-89ac-f848-a59717bc473f is a grfnem:ExpressionTree,
+    has grfnem:nodes _84bb8a63-3681-9f53-0cdb-8d20adf51412,
+    has grfnem:nodes _2e954210-dab6-7bea-4ea7-adfdb4cc079c,
+    has grfnem:nodes _5f0ea542-c35e-5b61-0465-6a1c78f13352,
+    has grfnem:nodes a1b3804b-1947-0866-25b9-c41f71e9b2c6,
+    has grfnem:nodes afb77ca5-2806-b0e2-bef3-05b041116902,
+    has grfnem:nodes f0084204-8829-549c-a49c-141d2eec9337,
+    has grfnem:nodes _08cbdc3f-e997-c629-aa41-7a7860346476,
+    has grfnem:nodes b2b50110-b03f-5803-748b-954bfca6dded,
+    has grfnem:nodes _45b9bfb4-7fd4-001e-e019-4976837aa37a,
+    has grfnem:nodes _3945cc4d-dc85-d42f-af16-03af57623f3c,
+    has grfnem:nodes _39bf06a4-f9b2-2e0c-cf53-47044ef73c37,
+    has grfnem:nodes f9b12c91-5557-72ed-cb04-5e4f457cad0c,
+    has grfnem:nodes ae3b7241-410d-9203-0067-40115e769944,
+    has grfnem:nodes _441971b2-5e7e-3c86-434c-d646e7e35277,
+    has grfnem:nodes _755a29fa-97cb-3660-2e66-2f1df78c5c3d,
+    has grfnem:nodes cf14340c-a369-4e2d-290c-8fde6640ea2c.
+b9a17b72-0612-61bb-3168-77686efcdcfe is a grfnem:ExpNode,
+    has grfnem:children [_2269c96e-a9b2-8879-e1be-216910d8770e,bf0a5527-952d-b3b2-9cd5-a4c217971c7d],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Div".
+bafa5a77-2617-0b7f-ee9b-6b85c51c618b is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f48c7e39-2ab6-e29c-1438-661a1bf79bfd,
+    has grfnem:var_name "sensed_output_0".
+bb657f7e-a766-355a-d2bb-923522c7f347 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _7f237080-b1e6-9bed-3560-e101211db1b9,
+    has grfnem:var_name "error".
+bbc176f5-6029-ea0b-7ea1-7edf4b8a29ce is a grfnem:ExpNode,
+    has grfnem:children [d123b142-ef3b-1b01-b402-0fdba08aca8a],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+bbcea751-3852-2d78-74a2-b8390484b290 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    has grfnem:var_name "time_step_0".
+bea3a521-90a0-a5c2-32b7-12d37d0f1277 is a grfnem:ExpNode,
+    has grfnem:children [_143cda62-4980-aee1-82ee-be51098a6884,_3cb604ae-8567-bfa3-59de-8cfb1bbba4ab,_952480e7-3d31-fd90-f418-80b32ca96ee4],
+    has grfnem:exp_node_type "DEFINITION".
+bee8524c-dece-993f-47b4-42041773cfa7 is a grfnem:ExpNode,
+    has grfnem:children [a0bcdb9b-c2fe-6f81-6b3f-837b69fff910,b1cce5e1-799b-43ba-f802-4a03bcb815b2],
+    has grfnem:exp_node_type "DEFINITION".
+bf0a5527-952d-b3b2-9cd5-a4c217971c7d is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    has grfnem:var_name "time_step".
+bf6f3290-1c25-30b0-e36a-779a3e9a2a3b is a grfnem:ExpNode,
+    has grfnem:children [_30c4ae67-fa5e-bbd5-aa23-79bb28af616b],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+c067cf21-868b-524c-c3bb-be0a84cdd46b is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+c0a309fc-5120-21e3-7c8b-69e108224b7b is a grfnem:ExpNode,
+    has grfnem:children [_9a9538e5-47e5-ee8a-affa-b3c0758d2486,a63fb27c-43b4-1c8c-b563-50a77c1a8dc8],
+    has grfnem:exp_node_type "DEFINITION".
+c63f6434-15e3-a8fd-3a25-0e914aaf52c8 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e8fe3246-e22d-bd82-fa5f-a43ae4733c97,
+    has grfnem:var_name "desired_output_0".
+c7ecf66c-b081-16a1-a3a4-3a285dd466d9 is a grfnem:Variable.
+c8105953-1b88-8564-e0a4-c0a5ff3dffe2 is a grfnem:Variable.
+c832c26b-17c3-f421-ab60-bddd0dfde361 is a grfnem:ExpNode,
+    has grfnem:children [_6ee104ee-2128-393f-6853-bb186e545837,_74e15860-618c-7c12-cfec-150278853a5a],
+    has grfnem:exp_node_type "DEFINITION".
+c8cef8ae-afe5-d641-5c01-557b75655d5a is a grfnem:ExpNode,
+    has grfnem:children [_7459c203-0c6f-1958-a3e0-6361323cb860],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+cb7d626a-a22a-a62b-f548-7403b5cf3ebe is a grfnem:ExpressionTree,
+    has grfnem:nodes ce9cb838-99ff-0ace-ff81-cd447055320f,
+    has grfnem:nodes _02002ecc-b176-7439-767d-c6508b48dc71,
+    has grfnem:nodes _728af9b8-11f8-4c34-2e43-b02e952e2c25,
+    has grfnem:nodes _1105a448-4662-9c13-0a26-4abd6536264a.
+cb829d9e-aced-5169-ecd4-0edff1961776 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+cc017947-4a71-e19d-dda7-7aea3770f9bd is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    has grfnem:var_name "integrator_state".
+cdcdeb15-522f-1669-e813-5cff3ea8da65 is a grfnem:ExpNode,
+    has grfnem:children [_57aa7a18-d09a-c0b7-78b8-af98d6263b32,_4c0d6a4b-7bbb-529e-2141-d84934210e00],
+    has grfnem:exp_node_type "DEFINITION".
+ce9cb838-99ff-0ace-ff81-cd447055320f is a grfnem:ExpNode,
+    has grfnem:children [_1105a448-4662-9c13-0a26-4abd6536264a,_02002ecc-b176-7439-767d-c6508b48dc71],
+    has grfnem:exp_node_type "DEFINITION".
+cf14340c-a369-4e2d-290c-8fde6640ea2c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _826efcf9-280d-2ff8-c868-7e70c7ee6537,
+    has grfnem:var_name "sensed_output_updated".
+cf8e8352-be73-b9d0-4c2c-0e6e375e6f21 is a grfnem:ExpNode,
+    has grfnem:children [_75cb30b3-20af-5295-08ee-5df48ef4a987],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+cff5d8ba-5969-aa27-eb0b-22059ec3a427 is a grfnem:ExpNode,
+    has grfnem:children [_19fcc562-9185-d15f-caf0-2c8e6e791925,_3a0868aa-53be-f5c7-b3ad-8fdf7d5db700],
+    has grfnem:exp_node_type "DEFINITION".
+d123b142-ef3b-1b01-b402-0fdba08aca8a is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "100.5".
+d694e29c-6c34-bb99-8cfe-6467f50336f1 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:var_name "i".
+d708f04f-b6e3-fb2a-19e4-357bf54eb548 is a grfnem:ExpressionTree,
+    has grfnem:nodes a6f33442-dd09-9eb2-ce52-7ca5a4f6d93b,
+    has grfnem:nodes db2bb398-6bc8-66e1-38a3-ae062ffcef33,
+    has grfnem:nodes _693fa0c6-ec60-0159-83ea-aef85076b5fe,
+    has grfnem:nodes c067cf21-868b-524c-c3bb-be0a84cdd46b.
+dae64ce4-725b-8db0-a97c-0601cc2d8306 is a grfnem:ExpNode,
+    has grfnem:children [_2ce6f064-c21b-0bd7-1add-e459bc28f8de],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+db2bb398-6bc8-66e1-38a3-ae062ffcef33 is a grfnem:ExpNode,
+    has grfnem:children [_693fa0c6-ec60-0159-83ea-aef85076b5fe],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+db7773a3-d672-53ce-ee3b-1772dc8328e9 is a grfnem:ExpNode,
+    has grfnem:children [_3a2729a9-8b06-e912-bc70-eb02472323d3,_61171da2-13e8-6faf-2768-a6b7a6afbd4f],
+    has grfnem:exp_node_type "DEFINITION".
+dcea4bc6-941a-a3c9-38b2-cefbf28b14b6 is a grfnem:ExpNode,
+    has grfnem:children [dfc6e655-4418-c9c4-e584-98f0b6c4c25f],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Not".
+de6d98af-c159-a2bc-ce2a-b55b0efaab08 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "10.0".
+df8fd3e9-9493-65c0-de1c-ebe43d950b97 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    has grfnem:var_name "i_updated".
+dfc6e655-4418-c9c4-e584-98f0b6c4c25f is a grfnem:ExpNode,
+    has grfnem:children [_546789b6-0984-4d49-2b23-4176331f1426,_9908932a-a80e-cbfb-1ea7-e617bb64cddd],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "GtE".
+e02f118e-7165-fddd-29a5-632ba08ef230 is a grfnem:Variable.
+e1a7fb71-bec2-438a-3f50-e97eed2479b3 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e02f118e-7165-fddd-29a5-632ba08ef230,
+    has grfnem:var_name "i".
+e46e59b6-d37f-9827-d8e8-cbc0d511d0fd is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _1a45f1c3-6c94-cebf-83fc-f8fab2ac8181,
+    has grfnem:var_name "i_initial".
+e472035d-b049-06d3-e29f-7fe7ec94481e is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _98b6981e-c35d-ed91-4f3d-6c932f52060c,
+    has grfnem:var_name "time_step_0".
+e62ba7e0-a730-9354-6fd0-e969d8bf9bbe is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+e6a505c5-1a8a-9eaf-9725-d221534a2f6f is a grfnem:ExpNode,
+    has grfnem:children [a675a0f7-32c4-8ef1-9033-b298aedaa3c6,ab80e330-6f5e-f159-8f03-7122108157ba],
+    has grfnem:exp_node_type "DEFINITION".
+e8fe3246-e22d-bd82-fa5f-a43ae4733c97 is a grfnem:Variable.
+eaf11657-9c99-0a98-b552-3b24fde6d8dc is a grfnem:ExpressionTree,
+    has grfnem:nodes _07c58540-df74-1918-6147-74f15944240b,
+    has grfnem:nodes _9e40230d-27f9-a551-d102-fd6db1604c17,
+    has grfnem:nodes a7310f93-fcef-fecf-2d7a-8d4ac9f3bfbd,
+    has grfnem:nodes _75e6e931-eb5a-3ed7-3405-e4af98eff5b0,
+    has grfnem:nodes fb1d787b-68b8-b373-af1c-054b34bf5093,
+    has grfnem:nodes a902cc0b-4041-6188-57ae-ae91c2d0f877,
+    has grfnem:nodes _61171da2-13e8-6faf-2768-a6b7a6afbd4f,
+    has grfnem:nodes f48fe13c-f771-8155-719b-7b943ffd5bd4,
+    has grfnem:nodes _1b15d906-a2ab-c933-d77b-4043521fd1b2,
+    has grfnem:nodes _339b4529-eb51-601a-a7e7-afb4726df68d,
+    has grfnem:nodes e46e59b6-d37f-9827-d8e8-cbc0d511d0fd,
+    has grfnem:nodes _0f908df4-fd19-7f58-4a24-5b598f951e40,
+    has grfnem:nodes _3a2729a9-8b06-e912-bc70-eb02472323d3,
+    has grfnem:nodes df8fd3e9-9493-65c0-de1c-ebe43d950b97,
+    has grfnem:nodes db7773a3-d672-53ce-ee3b-1772dc8328e9,
+    has grfnem:nodes b14a25d0-d778-adf4-6f4c-d64244e9fe04,
+    has grfnem:nodes a5f9468c-b5c1-e168-0ecc-ad6ff62a47f4,
+    has grfnem:nodes _3d2bd204-0a7e-c9cf-4a38-1f991cef5e88,
+    has grfnem:nodes _4287175d-e8be-59b4-471f-8cb6e2d2195e,
+    has grfnem:nodes ef9805c6-c817-2cd9-6da0-bc8f4056d88d,
+    has grfnem:nodes _5a342926-c26d-9857-a929-c2707a960b10 .
+eb53a27a-eab8-36bd-b01b-537811577709 is a grfnem:ExpNode,
+    has grfnem:children [_82921b1e-b5c8-61ea-b429-60eb0789c0e6],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+ebcc81bb-8b6c-db87-ecdb-e1d7666f52ea is a grfnem:ExpNode,
+    has grfnem:children [_6b13a211-6191-8cb6-be8c-8b63bfa17ef1,eb53a27a-eab8-36bd-b01b-537811577709],
+    has grfnem:exp_node_type "DEFINITION".
+ecbe5980-34c8-8ab6-00a7-14a4da318911 is a grfnem:Variable.
+ed023ca3-1abb-cd72-c169-b17f74ea3837 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _89d8c474-d5a5-c707-ed52-fb4c6672149e,
+    has grfnem:var_name "Kp_M_0".
+ef7781d1-9b07-7ef0-12d9-1010afd70b4b is a grfnem:ExpressionTree,
+    has grfnem:nodes cff5d8ba-5969-aa27-eb0b-22059ec3a427,
+    has grfnem:nodes _3a0868aa-53be-f5c7-b3ad-8fdf7d5db700,
+    has grfnem:nodes a6801326-513f-12e2-e6d0-806cb8dcb01f,
+    has grfnem:nodes _19fcc562-9185-d15f-caf0-2c8e6e791925,
+    has grfnem:nodes a92e784e-c948-52f1-2e51-30d3f3c7a15f.
+ef9805c6-c817-2cd9-6da0-bc8f4056d88d is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _853d5da1-1cb0-4adb-d825-543ce2076d4c,
+    has grfnem:var_name "i_updated".
+efd7a608-5b10-08d9-df3a-43abb50638c4 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _816b1954-0ab0-a6bb-8fe3-96dae84fce34,
+    has grfnem:var_name "integrator_state".
+f0084204-8829-549c-a49c-141d2eec9337 is a grfnem:ExpNode,
+    has grfnem:children [_84bb8a63-3681-9f53-0cdb-8d20adf51412],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+f48c7e39-2ab6-e29c-1438-661a1bf79bfd is a grfnem:Variable.
+f48fe13c-f771-8155-719b-7b943ffd5bd4 is a grfnem:ExpNode,
+    has grfnem:children [_4287175d-e8be-59b4-471f-8cb6e2d2195e,a5f9468c-b5c1-e168-0ecc-ad6ff62a47f4],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Is".
+f4988d38-6b45-b637-0108-a64ce94021c1 is a grfnem:ExpressionTree,
+    has grfnem:nodes cdcdeb15-522f-1669-e813-5cff3ea8da65,
+    has grfnem:nodes _4c0d6a4b-7bbb-529e-2141-d84934210e00,
+    has grfnem:nodes de6d98af-c159-a2bc-ce2a-b55b0efaab08,
+    has grfnem:nodes _57aa7a18-d09a-c0b7-78b8-af98d6263b32 .
+f5c920b0-a10f-ba15-40bb-ea631f31c7e4 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _92b164d3-a919-5c6a-5062-2e88c4dcae62,
+    has grfnem:var_name "Ki_M".
+f6612e03-6ae4-67c9-ef09-7616cadb6d83 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _7f237080-b1e6-9bed-3560-e101211db1b9,
+    has grfnem:var_name "error".
+f7bc431b-4bed-9b92-fde1-8dd6aab5bed4 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _2c8978c9-f814-1ab6-e5fe-8710ecf90cfb,
+    has grfnem:var_name "RETURN_VAL".
+f9012aee-9357-9da8-a151-6ac5657d48da is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _47776a59-81de-343b-ea4d-e6f2d604aeb4,
+    has grfnem:var_name "Kp_M".
+f956cacb-0da5-213a-2093-357d6962e0d3 is a grfnem:Variable,
+    has grfnem:children [_5072205b-a302-c26c-fc0e-1d7f126b5f10,_72e19fab-20e7-81e4-0a79-0709df4ecc1c],
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:var_name "TUPLE".
+f9b12c91-5557-72ed-cb04-5e4f457cad0c is a grfnem:ExpNode,
+    has grfnem:children [_39bf06a4-f9b2-2e0c-cf53-47044ef73c37,_08cbdc3f-e997-c629-aa41-7a7860346476,_45b9bfb4-7fd4-001e-e019-4976837aa37a,_2e954210-dab6-7bea-4ea7-adfdb4cc079c,afb77ca5-2806-b0e2-bef3-05b041116902],
+    has grfnem:exp_node_type "DEFINITION".
+f9c40af3-72f3-6d05-b2c2-3fb1cdba01bc is a grfnem:Variable.
+fb1d787b-68b8-b373-af1c-054b34bf5093 is a grfnem:ExpNode,
+    has grfnem:children [ef9805c6-c817-2cd9-6da0-bc8f4056d88d,_07c58540-df74-1918-6147-74f15944240b],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Is".
+fc2af687-f748-34e3-07bf-7e9775503ebc is a grfnem:Variable.
+fd035308-d402-98a4-772a-0838a62c715c is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "75.0".
+fe31506f-6899-ebc4-dd47-819faefe5a44 is a grfnem:ExpNode,
+    has grfnem:children [_0e323da6-df35-b64b-cd3a-bad1e6477ba9],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+fe75d567-ca3c-1479-b1ec-fda11b0aab7f is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _9452a30a-3466-a2bc-6203-1c8605fb77ba,
+    has grfnem:var_name "Kp_M_0".
+ffd445f3-39fa-ff1f-4084-5ddef630e2d8 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid _37435ebf-f26f-280e-ce98-1841f76f2cc8,
+    has grfnem:var_name "Ki_M_0".

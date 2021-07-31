@@ -1,0 +1,71 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://com.ge.research.sadl.configuration#">
+  <rdf:Description rdf:about="http://com.ge.research.sadl.configuration#Augmented-Jena">
+    <translatorClassName>com.naturalsemanticsllc.sadl.translator.JenaAugmentedTranslatorPlugin</translatorClassName>
+  </rdf:Description>
+  <Category rdf:about="http://com.ge.research.sadl.configuration#Jena-Based">
+    <subcategory>
+      <rdf:Bag>
+        <rdf:li>
+          <Builtin>
+            <name>strafter</name>
+            <class>com.ge.research.sadl.jena.reasoner.builtin.StrAfter</class>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <class>com.ge.research.sadl.jena.reasoner.builtin.StrBefore</class>
+            <name>strbefore</name>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <name>noValue</name>
+            <class>com.ge.research.sadl.jena.reasoner.builtin.NoValue</class>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <class>com.ge.research.sadl.jena.reasoner.builtin.CountMatches</class>
+            <name>countMatches</name>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <name>elementInList</name>
+            <class>com.naturalsemantics.sadl.jena.reasoner.builtin.ElementInList</class>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <class>com.ge.research.sadl.jena.reasoner.builtin.Print</class>
+            <name>print</name>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <name>listLength</name>
+            <class>com.naturalsemantics.sadl.jena.reasoner.builtin.ListLength</class>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <class>com.ge.research.sadl.jena.reasoner.builtin.LessThan</class>
+            <name>lessThan</name>
+          </Builtin>
+        </rdf:li>
+        <rdf:li>
+          <Builtin>
+            <class>com.naturalsemantics.sadl.jena.reasoner.builtin.Index</class>
+            <name>index</name>
+          </Builtin>
+        </rdf:li>
+      </rdf:Bag>
+    </subcategory>
+  </Category>
+  <Category rdf:about="http://com.ge.research.sadl.configuration#ReasonerSpec">
+    <reasonerClassName>com.naturalsemanticsllc.sadl.reasoner.JenaAugmentedReasonerPlugin</reasonerClassName>
+  </Category>
+  <Category rdf:about="http://com.ge.research.sadl.configuration#Builtin"/>
+</rdf:RDF>

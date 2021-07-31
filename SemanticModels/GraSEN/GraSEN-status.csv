@@ -1,0 +1,135 @@
+﻿"     ""x""",Name,AnnotationType,Description,Loc_start,Loc_end,Qual_name,Equation
+GE-PI,"Note in all a constant that is used as an arg in a function call is not identified as a constant in the function; e.g. Input_dmd, timestep",,,,,,
+"     ""_3c59de92-b042-ade1-5ecb-413c2baa3ec8""",desired_output,Constant,This is a constant.,36,36,GE_simple_PI_controller::GE_simple_PI_controller.main::desired_output::0,null
+"     ""cb249282-8fbd-c246-7f81-5207590584cd""",num_steps,Constant,This is a constant.,34,34,GE_simple_PI_controller::GE_simple_PI_controller.main::num_steps::0,null
+"     ""_8a55688c-c57c-b7db-a536-1a29698028a0""",plant_gain,Constant,This is a constant.,41,41,GE_simple_PI_controller::GE_simple_PI_controller.main::plant_gain::0,null
+"     ""_192ded9f-d71e-df23-cfbb-8b08cae34f8c""",t_final,Constant,This is a constant.,28,28,GE_simple_PI_controller::GE_simple_PI_controller.main::t_final::0,null
+"     ""_43cc8d1b-6331-5d29-5007-bb10b2a29dd3""",time_step,Constant,This is a constant.,29,29,GE_simple_PI_controller::GE_simple_PI_controller.main::time_step::0,null
+"     ""_10f0fbc5-a140-97f2-fc00-bd0b87ed1582""",error,ErrorSignal,This is an error signal candidate.,10,10,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::error::0, (Input_dmd - Input_sensed)
+"     ""f1f08d9b-531d-cfd5-6f11-e01be4b7285a""",integrator_state,Integrator,This is an Integrator.,12,12,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::integrator_state::0,null
+"     ""_7eeb4107-2a44-d893-faeb-b011416bd00c""",Ki_M,IntegratorConstant,This is the constant multiplier for the Integrator.,31,31,GE_simple_PI_controller::GE_simple_PI_controller.main::Ki_M::0,null
+"     ""_1772fdab-ef55-478f-b44c-cfdbe4132a56""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,8,8,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_sensed::-1,null
+"     ""_21df3f15-1763-9632-e936-8aca2281a699""",GE_simple_PI_controller.PI_calc,PI-Controller,This is a PI Controller.,9,15,null,((error * Kp_M) + (Ki_M * integrator_state))
+"     ""d4000e07-fe4a-aa23-b882-1030d655eee0""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,32,32,GE_simple_PI_controller::GE_simple_PI_controller.main::Kp_M::0,null
+"     ""_73338c5a-083b-7bc6-c08b-4d2daa0cb5f7""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,8,8,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-1,null
+,,,,,,,
+GE-PID,,,,,,,
+"     ""c3230cd0-1f2d-527c-3ae1-0ee7e1466efc""",RETURN_VAL,Constant,This is a constant.,null,null,GE_simple_PID_controller::GE_simple_PID_controller.main::RETURN_VAL::-1,null
+"     ""_9acde7f5-f3d1-9625-5243-a0d31d801d81""",desired_output,Constant,This is a constant.,40,40,GE_simple_PID_controller::GE_simple_PID_controller.main::desired_output::0,null
+"     ""bc19c118-17af-996c-6144-bb90e2d6ef1c""",num_steps,Constant,This is a constant.,38,38,GE_simple_PID_controller::GE_simple_PID_controller.main::num_steps::0,null
+"     ""d9dc2728-e953-ac84-b40c-dfe2ebab5b03""",plant_gain,Constant,This is a constant.,45,45,GE_simple_PID_controller::GE_simple_PID_controller.main::plant_gain::0,null
+"     ""c2c2ea51-2304-dde3-0fc4-4391f4386f7c""",t_final,Constant,This is a constant.,31,31,GE_simple_PID_controller::GE_simple_PID_controller.main::t_final::0,null
+"     ""_79ef7e86-10a2-b4b8-2e4c-d9590e1b066e""",time_step,Constant,This is a constant.,32,32,GE_simple_PID_controller::GE_simple_PID_controller.main::time_step::0,null
+"     ""_880261b4-762c-2eb8-f837-2d44bdf5f8fb""",derv,Derivative,This is an Derivative.,15,15,GE_simple_PID_controller::GE_simple_PID_controller.PI_calc::derv::-1, (error - error_last)
+"     ""de6e704c-c790-e7aa-63ea-718fc0f1a57b""",Kd_M,DerivativeConstant,This is the constant multiplier for the Derivative.,36,36,GE_simple_PID_controller::GE_simple_PID_controller.main::Kd_M::0,null
+"     ""_657b5007-6cc4-c209-dd1b-d318daa2c97f""",error,ErrorSignal,This is an error signal candidate.,12,12,GE_simple_PID_controller::GE_simple_PID_controller.PI_calc::error::0, (Input_dmd - Input_sensed)
+"     ""_4f095a77-d681-42f3-3e9f-75353fca541e""",integrator_state,Integrator,This is an Integrator.,14,14,GE_simple_PID_controller::GE_simple_PID_controller.PI_calc::integrator_state::0,null
+"     ""_5a803e91-9af9-9c63-0eaa-0cc6ce65a29a""",Ki_M,IntegratorConstant,This is the constant multiplier for the Integrator.,34,34,GE_simple_PID_controller::GE_simple_PID_controller.main::Ki_M::0,null
+"     ""f7995f9a-3364-3913-54a2-6428f008edfd""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,10,10,GE_simple_PID_controller::GE_simple_PID_controller.PI_calc::Input_sensed::-1,null
+"     ""_1a398489-eabe-c1f2-916b-fd7d0fc16a81""",GE_simple_PID_controller.PI_calc,PID-Controller,This is a PID Controller.,11,18,null,(((error * Kp_M) + (Ki_M * integrator_state)) + (Kd_M * derv))
+"     ""dcde918e-ead4-f82e-0ca9-c8249b051656""",error_last,PrevError,This is previour error.,null,null,GE_simple_PID_controller::GE_simple_PID_controller.PI_calc::error_last::-1,null
+"     ""fa45dde1-1ff4-0c39-eb86-261e59d53e8c""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,35,35,GE_simple_PID_controller::GE_simple_PID_controller.main::Kp_M::0,null
+"     ""f1046e0a-8b01-e763-da1c-16f407350bb0""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,10,10,GE_simple_PID_controller::GE_simple_PID_controller.PI_calc::Input_dmd::-1,null
+,,,,,,,
+GE-P,,,,,,,
+"     ""_0bce445f-6a25-ab33-7df5-1f30b263244b""",RETURN_VAL,Constant,This is a constant.,null,null,GE_simple_P_controller::GE_simple_P_controller.main::RETURN_VAL::-1,null
+"     ""_06d735ba-a8b1-67b5-2117-4813099e6c37""",desired_output,Constant,This is a constant.,33,33,GE_simple_P_controller::GE_simple_P_controller.main::desired_output::0,null
+"     ""_6dedd47e-a889-8d21-d51b-553efc84916d""",num_steps,Constant,This is a constant.,31,31,GE_simple_P_controller::GE_simple_P_controller.main::num_steps::0,null
+"     ""_0fbd323e-390e-8f55-2736-e6abd680bbd6""",plant_gain,Constant,This is a constant.,38,38,GE_simple_P_controller::GE_simple_P_controller.main::plant_gain::0,null
+"     ""_2e6e01b7-e724-567c-bbdf-f1190a8523eb""",t_final,Constant,This is a constant.,26,26,GE_simple_P_controller::GE_simple_P_controller.main::t_final::0,null
+"     ""_4b86a8e7-04d4-c8c2-2c78-50c3bec2647d""",time_step,Constant,This is a constant.,27,27,GE_simple_P_controller::GE_simple_P_controller.main::time_step::0,null
+"     ""_73ec4660-4ea9-f188-5203-28598f2d4889""",error,ErrorSignal,This is an error signal candidate.,10,10,GE_simple_P_controller::GE_simple_P_controller.P_calc::error::0, (Input_dmd - Input_sensed)
+"     ""_9a99f97e-c6f2-d894-cbbc-3061d63627a5""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,8,8,GE_simple_P_controller::GE_simple_P_controller.P_calc::Input_sensed::-1,null
+"     ""_8c6f4bda-cda8-745a-a420-a846007c9e87""",GE_simple_P_controller.P_calc,P-Controller,This is a P Controller.,9,13,null,(error * Kp_M)
+"     ""b2de42bf-e221-8aa3-389c-9f0df72f5258""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,29,29,GE_simple_P_controller::GE_simple_P_controller.main::Kp_M::0,null
+"     ""c7f7e510-f0f3-9720-4c86-a28d96362118""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,8,8,GE_simple_P_controller::GE_simple_P_controller.P_calc::Input_dmd::-1,null
+,,,,,,,
+GE-PI-saturation,,,,,,,
+"     ""cfa08044-07f3-bf7c-8517-9f25b6f36ebe""",desired_output,Constant,This is a constant.,68,68,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::desired_output::0,null
+"     ""_74114287-e655-dd43-9feb-68676c33eee6""",lower_threshold,Constant,This is a constant.,77,77,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::lower_threshold::0,null
+"     ""_8e3d1c35-9ca0-c469-aaaf-7f31d967e368""",num_steps,Constant,This is a constant.,66,66,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::num_steps::0,null
+"     ""_2b6bb2a6-f7f9-5201-63eb-f992e6bd7633""",plant_gain,Constant,This is a constant.,73,73,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::plant_gain::0,null
+"     ""_9467fe9f-0638-fa61-e5b8-c0c9519c729e""",t_final,Constant,This is a constant.,60,60,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::t_final::0,null
+"     ""_7e50adb7-fa86-35f6-9a27-4560ec4780c3""",time_step,Constant,This is a constant.,61,61,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::time_step::0,null
+"     ""ceb4aacd-61f5-8b30-2b8a-643d9a57a7be""",upper_threshold,Constant,This is a constant.,78,78,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::upper_threshold::0,null
+"     ""_8e3daca3-aada-181b-b1e6-d582def53257""",error,ErrorSignal,This is an error signal candidate.,14,14,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.PI_calc::error::0, (Input_dmd - Input_sensed)
+"     ""df935baa-a01a-e474-5f5a-6eacc60ec189""",integrator_state,Integrator,This is an Integrator.,16,16,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.PI_calc::integrator_state::0,null
+"     ""_97824d5c-1b0d-95d2-8a6a-7bb935fd2d68""",Ki_M,IntegratorConstant,This is the constant multiplier for the Integrator.,63,63,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::Ki_M::0,null
+"     ""_093eafbd-16e9-88da-d2c8-564261fec6ec""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,12,12,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.PI_calc::Input_sensed::-1,null
+"     ""_4667c426-fc36-17d0-9d5b-fd0902e60676""",GE_simple_PI_controller_saturation.PI_calc,PI-Controller,This is a PI Controller.,13,19,null,((error * Kp_M) + (Ki_M * integrator_state))
+"     ""bfa2bc3f-5fce-ed76-3b4b-309eb682ab20""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,64,64,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.main::Kp_M::0,null
+"     ""e5b97d4f-73a4-5f6e-0d7b-ba95acdee49e""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,12,12,GE_simple_PI_controller_saturation::GE_simple_PI_controller_saturation.PI_calc::Input_dmd::-1,null
+,,,,,,,
+GE-PI with typo,note: because of type we are extracting a P-Controller; maybe the rule can be revised to not extract that?,,,,,,
+"     ""f1b715a2-1609-7c2e-a691-ddf27b8e7a78""",Ki_M,Constant,This is a constant.,31,31,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::Ki_M::0,null
+"     ""_5ffc177c-065c-5c97-8b73-a8b8c0722ce5""",desired_output,Constant,This is a constant.,36,36,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::desired_output::0,null
+"     ""_1efe512d-7fbf-009d-3820-50624b93ca78""",num_steps,Constant,This is a constant.,34,34,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::num_steps::0,null
+"     ""f436bada-01f4-74eb-d8e2-c5ed0980c320""",plant_gain,Constant,This is a constant.,41,41,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::plant_gain::0,null
+"     ""_756703aa-d10f-a50b-e59f-9204061b8c2f""",t_final,Constant,This is a constant.,28,28,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::t_final::0,null
+"     ""_8e427633-664f-079e-61b3-c35a1562fe1a""",time_step,Constant,This is a constant.,29,29,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::time_step::0,null
+"     ""_0823d82f-a385-f554-b2e2-37e9efa511d7""",error,ErrorSignal,This is an error signal candidate.,10,10,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.PI_calc::error::0, (Input_dmd - Input_sensed)
+"     ""c4e4806a-569b-bb7b-32f4-b4ea40e96764""",integrator_state,IntegratorTypo,This is close to being an Integrator - is there a typo?.,12,12,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.PI_calc::integrator_state::0,null
+"     ""_6e9b2d8e-ea10-4e5b-17ec-0ce151648f23""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,8,8,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.PI_calc::Input_sensed::-1,null
+"     ""_6cb851c3-f6c6-826a-aac1-667868a53725""",GE_simple_PI_controller-with-typo.PI_calc,P-Controller,This is a P Controller.,9,15,null,((error * Kp_M) + (Ki_M * integrator_state))
+"     ""_4db61ee5-3b23-a968-a381-f815fd8a1e56""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,32,32,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.main::Kp_M::0,null
+"     ""dc752385-fddf-3f3a-ddc8-9a26365ea0af""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,8,8,GE_simple_PI_controller-with-typo::GE_simple_PI_controller-with-typo.PI_calc::Input_dmd::-1,null
+,,,,,,,
+GE-PI withptr,,,,,,,
+"     ""e21617da-1df2-9cd9-25b6-dd22469d08fe""",RETURN_VAL,Constant,This is a constant.,51,51,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::RETURN_VAL::-1,null
+"     ""e8fe3246-e22d-bd82-fa5f-a43ae4733c97""",desired_output,Constant,This is a constant.,33,33,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::desired_output::0,null
+"     ""_816b1954-0ab0-a6bb-8fe3-96dae84fce34""",integrator_state,Constant,This is a constant.,10,10,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::integrator_state::0,null
+"     ""_0905cb73-6f29-c63d-15a4-aa7838a97ab5""",integrator_state,Constant,This is a constant.,39,39,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::integrator_state::0,null
+"     ""c8105953-1b88-8564-e0a4-c0a5ff3dffe2""",num_steps,Constant,This is a constant.,31,31,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::num_steps::0,null
+"     ""ecbe5980-34c8-8ab6-00a7-14a4da318911""",plant_gain,Constant,This is a constant.,38,38,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::plant_gain::0,null
+"     ""_16a63363-688c-b55a-ced1-60325fb87eb1""",t_final,Constant,This is a constant.,25,25,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::t_final::0,null
+"     ""_98b6981e-c35d-ed91-4f3d-6c932f52060c""",time_step,Constant,This is a constant.,26,26,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::time_step::0,null
+"     ""_7f237080-b1e6-9bed-3560-e101211db1b9""",error,ErrorSignal,This is an error signal candidate.,8,8,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::error::0, (Input_dmd - Input_sensed)
+"     ""_816b1954-0ab0-a6bb-8fe3-96dae84fce34""",integrator_state,Integrator,This is an Integrator.,10,10,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::integrator_state::0,null
+"     ""_7c9156df-2179-1930-efc3-64a14d9773b5""",Ki_M,IntegratorConstant,This is the constant multiplier for the Integrator.,28,28,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::Ki_M::0,null
+"     ""c7ecf66c-b081-16a1-a3a4-3a285dd466d9""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,6,6,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::Input_sensed::-1,null
+"     ""_5f978df6-e389-c96d-eef6-17c9ce30c051""",GE_simple_PI_controller_withptr.PI_calc,PI-Controller,This is a PI Controller.,7,13,null,((error * Kp_M) + (Ki_M * integrator_state))
+"     ""_9452a30a-3466-a2bc-6203-1c8605fb77ba""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,29,29,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.main::Kp_M::0,null
+"     ""ae2ef4af-3731-16a1-85f1-7d9d29902c51""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,6,6,GE_simple_PI_controller_withptr::GE_simple_PI_controller_withptr.PI_calc::Input_dmd::-1,null
+,,,,,,,
+GE-PI inline,not extracting much,,,,,,
+"     ""_0b71ba75-b49d-d4bb-4a07-14bd55114708""",Ki_M,Constant,This is a constant.,30,30,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::Ki_M::0,null
+"     ""b78728e6-cc48-e4f0-e569-7903041882d4""",Kp_M,Constant,This is a constant.,31,31,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::Kp_M::0,null
+"     ""_725c3069-4acb-a329-599b-f7027095a0fe""",desired_output,Constant,This is a constant.,35,35,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::desired_output::0,null
+"     ""_723edfcf-8cde-4e3f-2cb1-19b6949ae6f5""",num_steps,Constant,This is a constant.,33,33,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::num_steps::0,null
+"     ""_642fd067-98a6-c561-f7a3-ea87685d2414""",plant_gain,Constant,This is a constant.,40,40,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::plant_gain::0,null
+"     ""fd27676d-b4d3-8c3b-f726-f74204e42faa""",t_final,Constant,This is a constant.,27,27,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::t_final::0,null
+"     ""_93632275-073b-9502-c40f-676a0c4dda0e""",time_step,Constant,This is a constant.,28,28,GE_simple_PI_controller_inline::GE_simple_PI_controller_inline.main::time_step::0,null
+,,,,,,,
+PID,"in my original vesion I was getting pid_Kd (as Constant), pid_Kp (as Constant), pid_Ki( as IntegratorConstant); no controller identified",,,,,,
+"     ""_99319ca4-363f-3aca-4a68-98cd82fac171""",PID_realize_ARG_0,Constant,This is a constant.,null,null,PID::PID.main.LOOP_0::PID_realize_ARG_0::-1,null
+"     ""_12924581-be7f-b8fe-1331-7323fc40a270""",pid_err,ErrorSignal,This is an error signal candidate.,32,32,PID::PID.PID_realize::pid_err::-1, (pid_SetSpeed - pid_ActualSpeed)
+"     ""c73f3b80-eb32-16f6-b6f6-defcd5748ecd""",pid_integral,Integrator,This is an Integrator.,33,33,PID::PID.PID_realize::pid_integral::0,null
+"     ""_482154bc-a305-c2cf-d3e2-a64917bd9c47""",pid_ActualSpeed,MeasurementSignal,This is a measurement signal candidate.,null,null,PID::PID.PID_realize::pid_ActualSpeed::-1,null
+"     ""_29717084-9960-b5c9-bc5b-c1d1c7d91da7""",pid_SetSpeed,ReferenceSignal,This is a reference signal candidate.,31,31,PID::PID.PID_realize::pid_SetSpeed::-1,null
+,,,,,,,
+,,,,,,,
+PID-simplified,"in my original vesion I was getting pid_Kd (as Constant), pid_Kp (as Constant), pid_Ki( as IntegratorConstant); no controller identified",,,,,,
+"     ""_55e638b0-116d-b5f8-f906-210a506c6651""",PID_realize_ARG_0,Constant,This is a constant.,null,null,PID-Simplified::PID-Simplified.main.LOOP_0::PID_realize_ARG_0::-1,null
+"     ""_3165dc47-811f-95a2-5f6e-f3ff84f8931c""",RETURN_VAL,Constant,This is a constant.,null,null,PID-Simplified::PID-Simplified.main::RETURN_VAL::-1,null
+"     ""_7cba4530-1d1e-29f9-8349-6a20a3f4aad2""",pid_derv,Derivative,This is an Derivative.,36,36,PID-Simplified::PID-Simplified.PID_realize::pid_derv::-1, (pid_err - pid_err_last)
+"     ""_730ccb8a-04c3-17ca-9b91-066cbfd716b6""",pid_err,ErrorSignal,This is an error signal candidate.,34,34,PID-Simplified::PID-Simplified.PID_realize::pid_err::-1, (pid_SetSpeed - pid_ActualSpeed)
+"     ""_472c8839-e657-63c3-000c-6f279f0a5635""",pid_integral,Integrator,This is an Integrator.,35,35,PID-Simplified::PID-Simplified.PID_realize::pid_integral::0,null
+"     ""_83c7a0cd-caae-d043-8ac4-b5cb1c011fd6""",pid_ActualSpeed,MeasurementSignal,This is a measurement signal candidate.,null,null,PID-Simplified::PID-Simplified.PID_realize::pid_ActualSpeed::-1,null
+"     ""c39fdb0c-f6d9-0161-3897-32c9a38b0e57""",pid_err_last,PrevError,This is previour error.,null,null,PID-Simplified::PID-Simplified.PID_realize::pid_err_last::-1,null
+"     ""_8b61fa81-783b-9202-8ca0-43d9c57717b7""",pid_SetSpeed,ReferenceSignal,This is a reference signal candidate.,33,33,PID-Simplified::PID-Simplified.PID_realize::pid_SetSpeed::-1,null
+,,,,,,,
+GE-PD,,,,,,,
+"     ""_705bc60c-9e39-5d59-9a3d-955ec159ffd2""",RETURN_VAL,Constant,This is a constant.,null,null,GE_simple_PD_controller::GE_simple_PD_controller.main::RETURN_VAL::-1,null
+"     ""_36546ccf-7f4f-b349-76f9-bbf3a57c4798""",desired_output,Constant,This is a constant.,39,39,GE_simple_PD_controller::GE_simple_PD_controller.main::desired_output::0,null
+"     ""_47544fc1-f540-21cd-f292-e4cf8d422e85""",num_steps,Constant,This is a constant.,37,37,GE_simple_PD_controller::GE_simple_PD_controller.main::num_steps::0,null
+"     ""c24d2976-fd15-52ea-146c-33fcd2e48e49""",plant_gain,Constant,This is a constant.,44,44,GE_simple_PD_controller::GE_simple_PD_controller.main::plant_gain::0,null
+"     ""dd052aa6-5fd5-8ab3-2c97-769cbb2ccdb6""",t_final,Constant,This is a constant.,30,30,GE_simple_PD_controller::GE_simple_PD_controller.main::t_final::0,null
+"     ""_8512a904-01c9-ea34-382d-00fbe218adbf""",time_step,Constant,This is a constant.,31,31,GE_simple_PD_controller::GE_simple_PD_controller.main::time_step::0,null
+"     ""_07da2e71-cd18-cc94-c1f8-0b206a792ba7""",derv,Derivative,This is an Derivative.,14,14,GE_simple_PD_controller::GE_simple_PD_controller.PD_calc::derv::-1, (error - error_last)
+"     ""_841b6a74-2e55-5f7a-7a81-4e232b4d4533""",Kd_M,DerivativeConstant,This is the constant multiplier for the Derivative.,35,35,GE_simple_PD_controller::GE_simple_PD_controller.main::Kd_M::0,null
+"     ""_19565e97-ba1a-d745-f37b-22fc6925d098""",error,ErrorSignal,This is an error signal candidate.,12,12,GE_simple_PD_controller::GE_simple_PD_controller.PD_calc::error::0, (Input_dmd - Input_sensed)
+"     ""_5f47a17b-d5d3-9b9a-d80a-0b573d50f41c""",Input_sensed,MeasurementSignal,This is a measurement signal candidate.,10,10,GE_simple_PD_controller::GE_simple_PD_controller.PD_calc::Input_sensed::-1,null
+"     ""_6cfabbdc-4bc8-6ff5-6d74-488b2867c65a""",GE_simple_PD_controller.PD_calc,PD-Controller,This is a PD Controller.,11,17,null,((error * Kp_M) + (Kd_M * derv))
+"     ""_1c0a5c9e-7595-bbbc-394f-de5e69c43558""",error_last,PrevError,This is previour error.,null,null,GE_simple_PD_controller::GE_simple_PD_controller.PD_calc::error_last::-1,null
+"     ""ab7cd638-3793-f348-be16-e643d005f502""",Kp_M,ProportionalConstant,This is the constant multiplier for the Proportional term.,34,34,GE_simple_PD_controller::GE_simple_PD_controller.main::Kp_M::0,null
+"     ""_9df9acbd-535c-11fc-1907-1fb1167ccb55""",Input_dmd,ReferenceSignal,This is a reference signal candidate.,10,10,GE_simple_PD_controller::GE_simple_PD_controller.PD_calc::Input_dmd::-1,null
