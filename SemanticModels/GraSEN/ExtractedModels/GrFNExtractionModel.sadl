@@ -23,8 +23,10 @@
  
  HyperEdge is a type of Node
  	described by inputs with values of type Variable
+ 	described by inputList with values of type Variable List
  	described by function with a single value of type Function
  	described by outputs with values of type Variable
+ 	described by outputList with values of type Variable List
  .
  
  Variable is a type of ExpNode
