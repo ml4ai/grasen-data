@@ -12,7 +12,7 @@ double PD_calc(double Input_dmd, double Input_sensed, double Kp_M, double Kd_M)
     double error = Input_dmd - Input_sensed;
     
 	derv = error - error_last;
-	double error_last = error;
+	error_last = error;
     return error*Kp_M + derv*Kd_M;
 }
 
