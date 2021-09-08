@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 
     for (int i = 0; i < num_steps; i++)
     {
-        plant_command = PI_calc(desired_output, sensed_output, Kp_M, Ki_M, Kd_M, time_step);
+        plant_command = PID_calc(desired_output, sensed_output, Kp_M, Ki_M, Kd_M, time_step);
 		
 		sensed_output = plant_model(plant_command, plant_gain);
 
