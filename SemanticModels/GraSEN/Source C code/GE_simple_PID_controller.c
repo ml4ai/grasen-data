@@ -7,7 +7,7 @@ double error_last = 0.0;
 /*
  * Simplified version of the T-MATS Simple PI controller library block
  */
-double PI_calc(double Input_dmd, double Input_sensed, double Kp_M, double Ki_M, double Kd_M, double timestep)
+double PID_calc(double Input_dmd, double Input_sensed, double Kp_M, double Ki_M, double Kd_M, double timestep)
 {
     double error = Input_dmd - Input_sensed;
     
