@@ -16,7 +16,7 @@
 //			need to check for "error_last = error" is present
 //		not checking error_last = error as it does not seem to be present correctly in the input file
  
-uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
+uri "http://sadl.org/SemAnnotator_Abha.sadl" alias semannotator_Abha.
 
 import "http://www.w3.org/1999/02/22-rdf-syntax-ns".
 //import "http://www.w3.org/2000/01/rdf-schema".
@@ -43,6 +43,12 @@ import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
 
 LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
 {Constant, ExplicitVariable, LiteralInitialized, NotConstant, Structure} are types of Variable.
+
+ArgParamPair is a class
+	described by argument with a single value of type Variable
+	described by parameter with a single value of type Variable.
+argumentParameterPair describes HyperEdge with values of type ArgParamPair.
+
 Multiplication is a type of ExpNode
 	described by multiplicand with values of type ExpNode.
 Subtraction is a type of ExpNode
@@ -229,15 +235,6 @@ if		x metadata md
 	and md line_begin lb
 then md line_end lb.
 
-Rule lhsR 
-if		edge is a HyperEdge
-   	and edge outputs var
-   	and from_source of metadata of var is true //only look at explicit vars
-   	and edge function fun
-   	and ftype of fun != "INTERFACE"
-   	and ftype of fun != "PACK"
-then var is a LHS.
-	
 Rule literalInitializedR1
 if		edge function f
 	and f ftype "LITERAL"
@@ -245,11 +242,56 @@ if		edge function f
 	and var is an ExplicitVariable
 then  var is a LiteralInitialized .
 
-Rule literalInitializedR2
-if	    var1 is an ExplicitVariable
-	and var2 is LiteralInitialized
-	and var1 sameVar var2
-then  var1 is a LiteralInitialized .
+//Find parameter argument pairs.
+Rule argParamPairR
+if	edge is a HyperEdge
+	and edge function fun
+	and fun ftype "INTERFACE"
+	and grph nodes fun
+	and sg_type of grph != "LoopContainer"
+	and edge inputList inList
+	and edge outputList outList
+	and arg is a Variable
+	and param is a ExplicitVariable
+	and _idx is index of arg in inList
+	and _idx is index of param in outList
+then
+	there exists an ArgParamPair pair
+	and edge argumentParameterPair pair
+	and pair parameter param
+	and pair argument arg
+. 
+
+Rule lhsR1 
+if	 var is LiteralInitialized
+then var is a LHS.
+
+Rule lhsR2
+if		edge is a HyperEdge
+   	and edge outputs var
+   	and var is an ExplicitVariable
+   	and edge function fun
+   	and fun ftype "ASSIGN"
+then 
+	var is a LHS.
+
+//a parameter assigned an argument is also a LHS
+Rule lhsR3
+if	pair parameter param
+	and pair argument arg
+then
+	param is a LHS.
+	
+Rule lhsR4 //LHS of function call 
+if		edge is a HyperEdge
+   	and edge outputs var  //   	and from_source of metadata of var is true //only look at explicit vars
+   	and var is an ExplicitVariable
+   	and edge function fun
+   	and fun ftype "INTERFACE"
+   	and edge inputs ret
+   	and ret varName "RETURN_VAL"
+then 
+	var is a LHS.
 	
 Rule MultiplicationR
 if	    nd is an ExpNode
@@ -281,10 +323,15 @@ then    nd is a Subtraction
 
 // I think we can drop "Stage 1" from the "notConstant" rules and reduce other stage numbers by 1.
 Stage 1 Rule notConstantR1
-if	    var1 is a LHS
-	and var2 is a LHS
+if		var1 is a LHS
+	and var2 is a LHS 
 	and var1 sameVar var2
-then var1 is a NotConstant.
+	and edge inputs var1
+	and edge outputs var2
+	and edge function fun
+then
+	var1 is a NotConstant
+	and var2 is a NotConstant.
 
 Stage 1 Rule notConstantR2
 if		var is a LHS
@@ -294,15 +341,35 @@ if		var is a LHS
 then var is a NotConstant.
 
 Stage 1 Rule notConstantR3
-if		var is a LHS
-	and var is not a LiteralInitialized 
-	and var inBlock block
-	and block is a NestedBlock
-then var is a NotConstant.
+if	var is a LHS
+	and pair parameter param
+	and pair argument arg
+	and arg is a NotConstant
+then
+	param is a NotConstant.
 
+Stage 1 Rule notConstantR4
+if	var1 is an ExplicitVariable
+	and var2 is a NotConstant
+	and var1 sameVar var2
+	and gph nodes var1
+	and gph nodes var2
+then
+	var1 is a NotConstant.
+	
+Stage 1 Rule notConstantR5
+if	edge function fun
+	and edge inputs var1
+	and edge outputs var2
+	and var1 sameVar var2
+	and grph nodes fun
+	and grph sg_type "LoopContainer"
+	and var2 is a NotConstant
+then
+	var1 is a NotConstant.	
+	
 Stage 2 Rule constantR
-if		var is a LHS
-	and var is a ExplicitVariable
+if		var is a ExplicitVariable
 	and var is not a NotConstant
 then var is a Constant.
 
@@ -321,7 +388,8 @@ if 		fun is an ExpressionTree
 	and ms_et grfn_uid ms
     and fun lambda expr0
     and expr is strafter(expr0,":")
-then    var is an ErrorSignalCandidate
+then    
+	    var is an ErrorSignalCandidate
 	and rs is a ReferenceSignalCandidate 
 	and ms is a MeasurementSignalCandidate
 	and var referenceSignalCandidate rs  
@@ -609,6 +677,7 @@ if  et is an ExpressionTree
 	and exp multiplicand m1
 	and exp multiplicand m2
 then et is a P-Controller. // instead of exp have the entire module
+
 
 Write: data{
 Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
