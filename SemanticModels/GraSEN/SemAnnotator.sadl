@@ -20,7 +20,7 @@ uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
 
 import "http://www.w3.org/1999/02/22-rdf-syntax-ns".
 import "http://grasen.ge.com/SemanticAnalysisModel.sadl". 
- 
+import "http://www.w3.org/2002/07/owl" as owl.
  
 // select the C code file for processing
 
@@ -39,16 +39,49 @@ import "http://grasen.ge.com/SemanticAnalysisModel.sadl".
 //import "http://aske.ge.com/PID-Simplified_combined". //9
 
 
+ Rule subConjunctionR
+ if conj owl:intersectionOf l
+  and conj1 owl:intersectionOf l1
+  and l1 rdf:first conj
+then
+	conj is a SubConjunction.
+
+Rule conjunctR1:
+if conj owl:intersectionOf l
+   and l rdf:first cls1
+   and noValue(cls1,owl:intersectionOf)
+then
+   cls1 conjunctOf conj.
+
+Rule conjunctR2:
+if conj owl:intersectionOf l
+   and l rdf:rest l1
+   and l1 rdf:first cls2
+   and noValue(cls2,owl:intersectionOf)
+then
+ cls2 conjunctOf conj . 
+
+Rule conjunctR3:
+if conj owl:intersectionOf l
+   and l rdf:first conj2
+   and cls1 conjunctOf conj2
+   and cls2 conjunctOf conj2
+then
+   cls1 conjunctOf conj
+and cls2 conjunctOf conj . 
+
+Rule conjTypeR
+if x rdf:type conj
+and cls conjunctOf conj
+and conj is not a SubConjunction
+then
+	x rdf:type cls.
 
 // Do we need the transitive rules, Transitive1 needs to be modified is needed?
 // Rule Transitive1 
 // if cls1 rdfs:subClassOf cls2
 // and cls2 rdfs:subClassOf cls3
 // then cls1 rdfs:subClassOf cls3.
- 
-// Rule ConjunctionR
-// if x is a ConjClass
-// 	and ConjClass 
  
  Rule Transitive2  
 if inst is a cls
@@ -264,8 +297,7 @@ if		var is a LHS
 then var is a NotConstant.
 
 Stage 1 Rule notConstantR3
-if	var is a LHS
-	and pair parameter param
+if	pair parameter param
 	and pair argument arg
 	and arg is a NotConstant
 then
@@ -290,6 +322,16 @@ if	edge function fun
 	and var2 is a NotConstant
 then
 	var1 is a NotConstant.	
+	
+Stage 1 Rule notConstantR6
+if		edge function f
+	and f ftype "ASSIGN"
+	and edge outputs var
+	and var is an ExplicitVariable
+	and edge inputs varI
+	and varI is a NotConstant
+then
+	var is a NotConstant.
 	
 Stage 2 Rule constantR
 if		var is a ExplicitVariable
