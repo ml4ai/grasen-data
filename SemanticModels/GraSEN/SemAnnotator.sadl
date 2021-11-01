@@ -16,16 +16,16 @@
 //			need to check for "error_last = error" is present
 //		not checking error_last = error as it does not seem to be present correctly in the input file
  
-uri "http://sadl.org/SemAnnotator_Abha.sadl" alias semannotator_Abha.
+uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
 
 import "http://www.w3.org/1999/02/22-rdf-syntax-ns".
-//import "http://www.w3.org/2000/01/rdf-schema".
-import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
+import "http://grasen.ge.com/SemanticAnalysisModel.sadl". 
+ 
  
 // select the C code file for processing
 
 // PI controller and its variants
-import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
+//import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
 //import "http://aske.ge.com/GE_simple_PI_controller_saturation_combined". //4
 //import "http://aske.ge.com/GE_simple_PI_controller-with-typo_combined". //5
 //import "http://aske.ge.com/GE_simple_PI_controller_withptr_combined". //6
@@ -38,94 +38,17 @@ import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
 //import "http://aske.ge.com/PID_combined". //8
 //import "http://aske.ge.com/PID-Simplified_combined". //9
 
-// classes and properties to analyze core concepts
-{FunctionBlock, LoopBlock, NestedBlock} are types of SubGraph.
 
-LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
-{Constant, ExplicitVariable, LiteralInitialized, NotConstant, Structure} are types of Variable.
-
-ArgParamPair is a class
-	described by argument with a single value of type Variable
-	described by parameter with a single value of type Variable.
-argumentParameterPair describes HyperEdge with values of type ArgParamPair.
-
-Multiplication is a type of ExpNode
-	described by multiplicand with values of type ExpNode.
-Subtraction is a type of ExpNode
-	described by minuend with values of type ExpNode
-	described by subtrahend with values of type ExpNode.
-Summation is a type of ExpNode
-	described by summand with values of type ExpNode.
-
-inBlock describes Variable with values of type SubGraph.
-sameStruct describes Variable with values of type Variable.
-sameVar describes Variable with values of type Variable.
-varName describes Variable with values of type string.
-
-// domain specific concepts related to core concepts
-{ErrorSignal, ErrorSignalCandidate} are types of Variable
-	described by referenceSignal with a single value of type ReferenceSignal
-	described by measurementSignal with a single value of type MeasurementSignal
-    described by referenceSignalCandidate with a single value of type ReferenceSignal
-	described by measurementSignalCandidate with a single value of type MeasurementSignal.
-{MeasurementSignal, MeasurementSignalCandidate} are types of Variable.
-
-errorVariable describes ExpNode with values of type ErrorSignal.
-proportionalConstant describes ExpNode with values of type Constant.
-derivativeConstant describes ExpNode with values of type Constant.
-integratorVariable describes ExpNode with values of type Integrator.
-integratorConstant describes ExpNode with values of type Constant.
-derivativeVariable describes ExpNode with values of type Derivative.
-derivativeConstant describes ExpNode with values of type Constant.
-
-{Integrator, IntegratorTypo} are types of Variable. 
-{PrevError, PrevErrorCandidate} are types of Variable.
-{DerivativeCandidate, Derivative} are types of Variable
-	described by error with a single value of type ErrorSignal
-	described by prevError with a single value of type PrevError
-    described by errorCandidate with a single value of type ErrorSignalCandidate 
-	described by prevErrorCandidate with a single value of type PrevErrorCandidate.
-{PropExpNode, IntExpNode, DervExpNode} are types of ExpNode. // structure corresponding to Kp_M * (error - error_last) etc.
-{P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Node 
-	described by semanticExpression describes Variable with a single value of type string.	
-
-// classes and properties we will use to print out results in the csv file
-ControllerConstruct is a class // this will be what we write out to csv file
-	described by constructName with values of type string
-	described by linebegin with values of type int
-	described by lineend with values of type int. 
-	
-Constant is a type of ControllerConstruct.
-{DerivativeConstant, IntegratorConstant, ProportionalConstant, ReferenceSignal, ReferenceSignalCandidate} are types of Constant.
-{DerivativeConstant, IntegratorConstant, ProportionalConstant} are types of ControllerConstruct.
-
-Controller is a class.
-{P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Controller.
-
-{Derivative, ErrorSignal, Integrator, IntegratorTypo, MeasurementSignal, PrevError, ReferenceSignal,
- P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of ControllerConstruct.
-
-description of Constant             is "This is a constant.".
-description of Derivative           is "This is an Derivative.".
-description of DerivativeConstant   is "This is the constant multiplier for the Derivative.".
-description of ErrorSignal          is "This is an error signal.".
-description of Integrator           is "This is an Integrator.".
-description of IntegratorConstant   is "This is the constant multiplier for the Integrator.".
-description of IntegratorTypo       is "This is close to being an Integrator - is there a typo?.".
-description of MeasurementSignal    is "This is a measurement signal.".
-description of PrevError            is "This is previour error.".
-description of ProportionalConstant is "This is the constant multiplier for the Proportional term.".
-description of ReferenceSignal      is "This is a reference signal.".
-description of P-Controller         is "This is a P Controller.".
-description of PI-Controller        is "This is a PI Controller.".
-description of PD-Controller        is "This is a PD Controller.".
-description of PID-Controller       is "This is a PID Controller.".
 
 // Do we need the transitive rules, Transitive1 needs to be modified is needed?
 // Rule Transitive1 
 // if cls1 rdfs:subClassOf cls2
 // and cls2 rdfs:subClassOf cls3
 // then cls1 rdfs:subClassOf cls3.
+ 
+// Rule ConjunctionR
+// if x is a ConjClass
+// 	and ConjClass 
  
  Rule Transitive2  
 if inst is a cls
@@ -511,7 +434,7 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
 then out is an IntegratorTypo.    
 
-Stage 2 Rule PropExpNodeR 
+Stage 3 Rule PropExpNodeR 
 if      m is a Multiplication
 	and m multiplicand err_var
 	and err_var grfn_uid err
@@ -519,6 +442,7 @@ if      m is a Multiplication
 	and m multiplicand kp_var
 	and kp_var grfn_uid kp_cand
 	and kp is a Constant
+	and kp is not an ErrorSignal //hence this is Stage 3
 	and varName of kp == varName of kp_cand
 	and err != kp // I THINK I NEED TO SAY varName NOT SAME!!!!!!!!!!
 then    m is a PropExpNode //ConstTimesError
@@ -526,6 +450,18 @@ then    m is a PropExpNode //ConstTimesError
     and m errorVariable err
 //     and kp_cand is a ProportionalConstant //once we line up parameters and arguments, kp_cand should replace kp here
     and kp is a ProportionalConstant.
+
+//Ask: select distinct err kp errid kpid
+//where
+//	nd is a PropExpNode
+//	and nd proportionalConstant kp
+//	and kp varName kpn
+//	and kp identifier kpid
+//	and nd errorVariable err
+//	and err varName errn
+//	and err identifier errid
+//.
+
 
 Stage 2 Rule IntExpNodeR // matches constant * integrator value
 if      m is a Multiplication
@@ -577,72 +513,18 @@ if 	sg is a SubGraph
 then    pic linebegin lbeg
 	and pic lineend lend.
 
-// we use staged rules to first try for PID and then {PI, PD} and then P      
-// 3 rules for PID-Controller to take into account different order of operations
-Stage 2 Rule PID-ControllerR1 
-if     et is an ExpressionTree
-   and et nodes n1
-   and n1 is a DervExpNode
-   and et nodes n2
-   and n2 is an IntExpNode
-   and et nodes n3
-   and n3 is a PropExpNode
-   and et nodes exp
-   and exp is a Summation
-   and exp summand m1
-   and exp summand m2
-   and m1 is a DervExpNode
-   and m2 is a Summation
-   and m2 summand o1
-   and m2 summand o2
-   and o1 is a IntExpNode
-   and o2 is a PropExpNode
-then et is a PID-Controller.
 
-Stage 2 Rule PID-ControllerR2 
-if     et is an ExpressionTree
-   and et nodes n1
-   and n1 is a DervExpNode
-   and et nodes n2
-   and n2 is an IntExpNode
-   and et nodes n3
-   and n3 is a PropExpNode
-   and et nodes exp
-   and exp is a Summation
-   and exp summand m1
-   and exp summand m2
-   and m1 is a IntExpNode
-   and m2 is a Summation
-   and m2 summand o1
-   and m2 summand o2
-   and o1 is a DervExpNode
-   and o2 is a PropExpNode
-then et is a PID-Controller.
+Stage 3 Rule P-ControllerCandidateR
+if  	et is an ExpressionTree
+	and et nodes exp
+	and exp is a PropExpNode
+	and exp is a Multiplication 
+	and exp multiplicand m1
+	and exp multiplicand m2
+then et is a P-ControllerCandidate.
 
-Stage 2 Rule PID-ControllerR3 
-if     et is an ExpressionTree
-   and et nodes n1
-   and n1 is a DervExpNode
-   and et nodes n2
-   and n2 is an IntExpNode
-   and et nodes n3
-   and n3 is a PropExpNode
-   and et nodes exp
-   and exp is a Summation
-   and exp summand m1
-   and exp summand m2
-   and m1 is a PropExpNode
-   and m2 is a Summation
-   and m2 summand o1
-   and m2 summand o2
-   and o1 is a DervExpNode
-   and o2 is a PropExpNode
-then et is a PID-Controller.
-
-//This definition works for any expression ordering
-Stage 3 Rule PI-ControllerR
-if      et is an ExpressionTree
-    and et is not a PID-Controller
+Stage 3 Rule PI-ControllerCandidateR
+if  	et is a P-ControllerCandidate
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
@@ -651,11 +533,10 @@ if      et is an ExpressionTree
 	and m1 proportionalConstant kp
 	and m2 is a IntExpNode 
 	and m2 integratorConstant ki
-then et is a PI-Controller. // instead of exp have the entire module
+then et is a PI-ControllerCandidate.
 
-Stage 3 Rule PD-ControllerR
-if  et is an ExpressionTree
-    and et is not a PID-Controller
+Stage 3 Rule PD-ControllerCandidateR
+if 		et is a P-ControllerCandidate
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
@@ -664,54 +545,70 @@ if  et is an ExpressionTree
 	and m1 proportionalConstant kp
 	and m2 is a DervExpNode
 	and m2 derivativeConstant kd
-then et is a PD-Controller. // instead of exp have the entire module
+then et is a PD-ControllerCandidate.
+
+
+Stage 3 Rule PID-ControllerR
+if     et is an PI-ControllerCandidate
+   and et nodes n1
+   and n1 is a DervExpNode
+then et is a PID-Controller.
+
 
 Stage 4 Rule P-ControllerR
-if  et is an ExpressionTree
-    and et is not a PI-Controller
-    and et is not a PD-Controller
-    and et is not a PID-Controller
-	and et nodes exp
-	and exp is a PropExpNode
-	and exp is a Multiplication 
-	and exp multiplicand m1
-	and exp multiplicand m2
-then et is a P-Controller. // instead of exp have the entire module
+if		et is a P-ControllerCandidate
+	and noValue(et1,rdf:type,PI-ControllerCandidate)
+	and noValue(et1,rdf:type,PD-ControllerCandidate)
+	and noValue(et1,rdf:type,PID-Controller)
+then
+	et is a P-Controller.
 
+Stage 4 Rule PI-ControllerR
+if	et is a PI-ControllerCandidate
+	and noValue(et1,rdf:type,PID-Controller)
+then
+	et is a PI-Controller.
 
-Write: data{
-Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
-where {
-{ ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
-. ?x a ?AnnotationType 
-.  filter not exists {
-       ?C <rdfs:subClassOf> ?AnnotationType.
-       ?x a ?C.
-     }
-. ?x <varName> ?Name
-. ?AnnotationType <description> ?Description
-. ?x <identifier> ?Qual_name
-. ?x <metadata> ?md
-. OPTIONAL{?md <line_begin> ?Loc_start} 
-. OPTIONAL{?md <line_end> ?Loc_end}
-. OPTIONAL{?x <semanticExpression> ?Equation} 
-} union {
-?sg <rdf:type> <SubGraph>
-. ?sg <nodes> ?x
-. ?x <rdf:type> <Controller>
-. ?x <constructName> ?Name
-#. ?x <rdfs:subClassOf> <Controller>
-. ?x a ?AnnotationType
-.  filter not exists {
-       ?C <rdfs:subClassOf> ?AnnotationType.
-       ?x a ?C.
-     }
-. FILTER(regex(str(?AnnotationType),'Controller')) # I need this but can I avoid it
-. OPTIONAL{?x <linebegin> ?Loc_start.}
-. OPTIONAL{?x <lineend> ?Loc_end.}
-. OPTIONAL{?AnnotationType <description> ?Description}
-. OPTIONAL{?x <lambda> ?Eq . LET(?Equation := replace(str(?Eq),'^.*: ',''))}
-} 
-} order by ?AnnotationType ?Name".     
-}to "SemAnnotation.csv".   
+Stage 4 Rule PD-ControllerR
+if	et is a PD-ControllerCandidate
+	and noValue(et1,rdf:type,PID-Controller)
+then
+	et is a PD-Controller.
+	
+	
+//Write: data{
+//Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
+//where {
+//{ ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
+//. ?x a ?AnnotationType 
+//.  filter not exists {
+//       ?C <rdfs:subClassOf> ?AnnotationType.
+//       ?x a ?C.
+//     }
+//. ?x <varName> ?Name
+//. ?AnnotationType <description> ?Description
+//. ?x <identifier> ?Qual_name
+//. ?x <metadata> ?md
+//. OPTIONAL{?md <line_begin> ?Loc_start} 
+//. OPTIONAL{?md <line_end> ?Loc_end}
+//. OPTIONAL{?x <semanticExpression> ?Equation} 
+//} union {
+//?sg <rdf:type> <SubGraph>
+//. ?sg <nodes> ?x
+//. ?x <rdf:type> <Controller>
+//. ?x <constructName> ?Name
+//#. ?x <rdfs:subClassOf> <Controller>
+//. ?x a ?AnnotationType
+//.  filter not exists {
+//       ?C <rdfs:subClassOf> ?AnnotationType.
+//       ?x a ?C.
+//     }
+//. FILTER(regex(str(?AnnotationType),'Controller')) # I need this but can I avoid it
+//. OPTIONAL{?x <linebegin> ?Loc_start.}
+//. OPTIONAL{?x <lineend> ?Loc_end.}
+//. OPTIONAL{?AnnotationType <description> ?Description}
+//. OPTIONAL{?x <lambda> ?Eq . LET(?Equation := replace(str(?Eq),'^.*: ',''))}
+//} 
+//} order by ?AnnotationType ?Name".     
+//}to "SemAnnotation.csv".   
 
