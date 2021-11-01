@@ -1,7 +1,7 @@
 uri "http://aske.ge.com/GE_simple_PI_controller_withptr_combined" alias GE_simple_PI_controller_withptr_combined
     (note "This ontology was created by extraction from GrFN json by the GraSEN SemanticAnnotator.").
 
-import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
+import "http://sadl.org/SemAnnotator.sadl".
 
 
 // Individuals:

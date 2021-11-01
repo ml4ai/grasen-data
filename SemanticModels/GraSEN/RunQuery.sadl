@@ -1,0 +1,63 @@
+uri "http://sadl.org/RunQuery.sadl" alias run.
+
+// PI controller and its variants (source is C code)
+// select one of these to run analysis on
+import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
+//import "http://aske.ge.com/GE_simple_PI_controller_saturation_combined". //4
+//import "http://aske.ge.com/GE_simple_PI_controller_with_typo_combined". //5
+//import "http://aske.ge.com/GE_simple_PI_controller_withptr_combined". //6
+//import "http://aske.ge.com/GE_simple_PI_controller_inline_combined". // need to refine / add rules //7
+
+//import "http://aske.ge.com/GE_simple_PID_controller_combined". //2
+//import "http://aske.ge.com/GE_simple_P_controller_combined". //3
+//import "http://aske.ge.com/GE_simple_PD_controller_combined". //10
+
+//import "http://aske.ge.com/PID_combined". //8
+//import "http://aske.ge.com/PID-Simplified_combined". //9
+
+Write: data{ 
+Ask: "select distinct ?Name (?Q4 as ?Function_name) ?AnnotationType ?Description ?Loc_start ?Loc_end ?Equation ?SrcLocStart ?SrcLocEnd
+where {
+{ ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
+. ?x a ?AnnotationType 
+.  filter not exists {
+       ?C <rdfs:subClassOf> ?AnnotationType.
+       ?x a ?C.
+     }
+. ?x <varName> ?Name
+. ?AnnotationType <description> ?Description
+. ?x <identifier> ?Qual_name
+. FILTER(!regex(str(?Qual_name), 'LOOP')) # maybe there is a more generic way to drop, e.g. from_source is false etc.
+#. LET(?Q2 := replace(str(?Qual_name),'.*\\.','')) # why does this give an error?????
+. LET(?Q2 := replace(str(?Qual_name),'[.]','###'))
+. LET(?Q3 := replace(str(?Q2),'.*###',''))
+. LET(?Q4 := replace(str(?Q3),'::.*',''))
+. ?x <metadata> ?md
+. LET(?Loc_start := 1)
+. LET(?Loc_end := 999)
+. OPTIONAL{?md <line_begin> ?SrcLocStart} 
+. OPTIONAL{?md <line_end> ?SrcLocEnd}
+. OPTIONAL{?x <semanticExpression> ?Equation} 
+} union {
+?sg <rdf:type> <SubGraph>
+. ?sg <nodes> ?x
+. ?x <rdf:type> <Controller>
+. ?x <constructName> ?Name
+. LET(?Q2 := replace(str(?Name),'[.]','###'))
+. LET(?Q4 := replace(str(?Q2),'.*###',''))
+#. ?x <rdfs:subClassOf> <Controller>
+. ?x a ?AnnotationType
+.  filter not exists {
+       ?C <rdfs:subClassOf> ?AnnotationType.
+       ?x a ?C.
+     }
+. FILTER(regex(str(?AnnotationType),'Controller')) # I need this but can I avoid it
+. LET(?Loc_start := 1)
+. LET(?Loc_end := 999)
+. OPTIONAL{?x <linebegin> ?SrcLocStart.}
+. OPTIONAL{?x <lineend> ?SrcLocEnd.}
+. ?AnnotationType <description> ?Description
+. OPTIONAL{?x <lambda> ?Eq . LET(?Equation := replace(str(?Eq),'^.*: ',''))}
+} 
+} order by ?AnnotationType ?Name".     
+}to "SemAnnotation.csv".  
