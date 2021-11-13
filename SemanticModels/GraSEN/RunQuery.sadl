@@ -14,6 +14,9 @@ import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
 
 //import "http://aske.ge.com/PID_combined". //8
 //import "http://aske.ge.com/PID-Simplified_combined". //9
+//import "http://aske.ge.com/GE_simple_PI_controller-antiwindup_combined".  //11
+//import "http://aske.ge.com/GE_simple_PI-and-PI_controler".  //12
+//import "http://aske.ge.com/GE_simple_PID-and-PI_controler".  //13
 
 Write: data{ 
 Ask: "select distinct ?Name (?Q4 as ?Function_name) ?AnnotationType ?Description ?Loc_start ?Loc_end ?Equation ?SrcLocStart ?SrcLocEnd

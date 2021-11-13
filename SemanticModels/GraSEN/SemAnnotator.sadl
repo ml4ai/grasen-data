@@ -20,7 +20,7 @@ uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
 
 import "http://www.w3.org/1999/02/22-rdf-syntax-ns".
 import "http://grasen.ge.com/SemanticAnalysisModel.sadl". 
-import "http://www.w3.org/2002/07/owl" as owl.
+//import "http://www.w3.org/2002/07/owl" as owl.
  
 // select the C code file for processing
 
@@ -39,43 +39,43 @@ import "http://www.w3.org/2002/07/owl" as owl.
 //import "http://aske.ge.com/PID-Simplified_combined". //9
 
 
- Rule subConjunctionR
- if conj owl:intersectionOf l
-  and conj1 owl:intersectionOf l1
-  and l1 rdf:first conj
-then
-	conj is a SubConjunction.
-
-Rule conjunctR1:
-if conj owl:intersectionOf l
-   and l rdf:first cls1
-   and noValue(cls1,owl:intersectionOf)
-then
-   cls1 conjunctOf conj.
-
-Rule conjunctR2:
-if conj owl:intersectionOf l
-   and l rdf:rest l1
-   and l1 rdf:first cls2
-   and noValue(cls2,owl:intersectionOf)
-then
- cls2 conjunctOf conj . 
-
-Rule conjunctR3:
-if conj owl:intersectionOf l
-   and l rdf:first conj2
-   and cls1 conjunctOf conj2
-   and cls2 conjunctOf conj2
-then
-   cls1 conjunctOf conj
-and cls2 conjunctOf conj . 
-
-Rule conjTypeR
-if x rdf:type conj
-and cls conjunctOf conj
-and conj is not a SubConjunction
-then
-	x rdf:type cls.
+// Rule subConjunctionR
+// if conj owl:intersectionOf l
+//  and conj1 owl:intersectionOf l1
+//  and l1 rdf:first conj
+//then
+//	conj is a SubConjunction.
+//
+//Rule conjunctR1:
+//if conj owl:intersectionOf l
+//   and l rdf:first cls1
+//   and noValue(cls1,owl:intersectionOf)
+//then
+//   cls1 conjunctOf conj.
+//
+//Rule conjunctR2:
+//if conj owl:intersectionOf l
+//   and l rdf:rest l1
+//   and l1 rdf:first cls2
+//   and noValue(cls2,owl:intersectionOf)
+//then
+// cls2 conjunctOf conj . 
+//
+//Rule conjunctR3:
+//if conj owl:intersectionOf l
+//   and l rdf:first conj2
+//   and cls1 conjunctOf conj2
+//   and cls2 conjunctOf conj2
+//then
+//   cls1 conjunctOf conj
+//and cls2 conjunctOf conj . 
+//
+//Rule conjTypeR
+//if x rdf:type conj
+//and cls conjunctOf conj
+//and conj is not a SubConjunction
+//then
+//	x rdf:type cls.
 
 // Do we need the transitive rules, Transitive1 needs to be modified is needed?
 // Rule Transitive1 
@@ -617,40 +617,4 @@ if	et is a PD-ControllerCandidate
 then
 	et is a PD-Controller.
 	
-	
-//Write: data{
-//Ask: "select distinct ?Name ?AnnotationType ?Description ?Loc_start ?Loc_end ?Qual_name ?Equation    
-//where {
-//{ ?AnnotationType <rdfs:subClassOf>* <ControllerConstruct>
-//. ?x a ?AnnotationType 
-//.  filter not exists {
-//       ?C <rdfs:subClassOf> ?AnnotationType.
-//       ?x a ?C.
-//     }
-//. ?x <varName> ?Name
-//. ?AnnotationType <description> ?Description
-//. ?x <identifier> ?Qual_name
-//. ?x <metadata> ?md
-//. OPTIONAL{?md <line_begin> ?Loc_start} 
-//. OPTIONAL{?md <line_end> ?Loc_end}
-//. OPTIONAL{?x <semanticExpression> ?Equation} 
-//} union {
-//?sg <rdf:type> <SubGraph>
-//. ?sg <nodes> ?x
-//. ?x <rdf:type> <Controller>
-//. ?x <constructName> ?Name
-//#. ?x <rdfs:subClassOf> <Controller>
-//. ?x a ?AnnotationType
-//.  filter not exists {
-//       ?C <rdfs:subClassOf> ?AnnotationType.
-//       ?x a ?C.
-//     }
-//. FILTER(regex(str(?AnnotationType),'Controller')) # I need this but can I avoid it
-//. OPTIONAL{?x <linebegin> ?Loc_start.}
-//. OPTIONAL{?x <lineend> ?Loc_end.}
-//. OPTIONAL{?AnnotationType <description> ?Description}
-//. OPTIONAL{?x <lambda> ?Eq . LET(?Equation := replace(str(?Eq),'^.*: ',''))}
-//} 
-//} order by ?AnnotationType ?Name".     
-//}to "SemAnnotation.csv".   
 

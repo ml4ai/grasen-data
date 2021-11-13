@@ -80,7 +80,7 @@ description of Integrator           is "This is an Integrator.".
 description of IntegratorConstant   is "This is the constant multiplier for the Integrator.".
 description of IntegratorTypo       is "This is close to being an Integrator - is there a typo?.".
 description of MeasurementSignal    is "This is a measurement signal.".
-description of PrevError            is "This is previour error.".
+description of PrevError            is "This is previous error.".
 description of ProportionalConstant is "This is the constant multiplier for the Proportional term.".
 description of ReferenceSignal      is "This is a reference signal.".
 description of P-Controller         is "This is a P Controller.".
