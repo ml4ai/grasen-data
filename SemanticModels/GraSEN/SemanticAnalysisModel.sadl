@@ -2,8 +2,12 @@ uri "http://grasen.ge.com/SemanticAnalysisModel.sadl" alias sam.
  
 import "http://sadl.org/GrFNExtractionModel.sadl".
 
+ conjunctOf is a property.
+ SubConjunction is a class.
+
 // classes and properties to analyze core concepts
-{FunctionBlock, LoopBlock, NestedBlock} are types of SubGraph.
+//{FunctionBlock, LoopBlock, NestedBlock} are types of SubGraph.
+LoopBlock is a type of SubGraph.
 
 LHS (note "a var that appears on the LHS of an assignment") is a type of Variable.
 {Constant, ExplicitVariable, LiteralInitialized, NotConstant, Structure} are types of Variable.
@@ -27,11 +31,11 @@ sameVar describes Variable with values of type Variable.
 varName describes Variable with values of type string.
 
 // domain specific concepts related to core concepts
-{ErrorSignal, ErrorSignalCandidate} are types of Variable
+//{ErrorSignal, ErrorSignalCandidate} are types of Variable
+ErrorSignal is a type of Variable
 	described by referenceSignal with values of type ReferenceSignal
-	described by measurementSignal with values of type MeasurementSignal
-    described by referenceSignalCandidate with values of type ReferenceSignal
-	described by measurementSignalCandidate with values of type MeasurementSignal.
+	described by measurementSignal with values of type MeasurementSignal.
+
 {MeasurementSignal, MeasurementSignalCandidate} are types of Variable.
 
 errorVariable describes ExpNode with values of type ErrorSignal.
@@ -46,11 +50,9 @@ derivativeConstant describes ExpNode with values of type Constant.
 {PrevError, PrevErrorCandidate} are types of Variable.
 {DerivativeCandidate, Derivative} are types of Variable
 	described by error with values of type ErrorSignal
-	described by prevError with values of type PrevError
-    described by errorCandidate with values of type ErrorSignalCandidate 
-	described by prevErrorCandidate with values of type PrevErrorCandidate.
+	described by prevError with values of type PrevError .
+
 {PropExpNode, IntExpNode, DervExpNode} are types of ExpNode. // structure corresponding to Kp_M * (error - error_last) etc.
-//{P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Node 
 
 semanticExpression describes Variable with values of type string.	
 
@@ -64,7 +66,10 @@ Constant is a type of ControllerConstruct.
 {DerivativeConstant, IntegratorConstant, ProportionalConstant, ReferenceSignal, ReferenceSignalCandidate} are types of Constant.
 {DerivativeConstant, IntegratorConstant, ProportionalConstant} are types of ControllerConstruct.
 
-{P-ControllerCandidate, PI-ControllerCandidate, PD-ControllerCandidate} are types of Node.
+{DerivativeConstantCandidate, IntegratorConstantCandidate, ProportionalConstantCandidate} are classes.
+
+ControllerCandidate is a class.
+{P-ControllerCandidate, PI-ControllerCandidate, PD-ControllerCandidate} are types of ControllerCandidate. //Node.
 
 Controller is a class.
 {P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Controller.
@@ -80,7 +85,7 @@ description of Integrator           is "This is an Integrator.".
 description of IntegratorConstant   is "This is the constant multiplier for the Integrator.".
 description of IntegratorTypo       is "This is close to being an Integrator - is there a typo?.".
 description of MeasurementSignal    is "This is a measurement signal.".
-description of PrevError            is "This is previous error.".
+description of PrevError            is "This is previour error.".
 description of ProportionalConstant is "This is the constant multiplier for the Proportional term.".
 description of ReferenceSignal      is "This is a reference signal.".
 description of P-Controller         is "This is a P Controller.".

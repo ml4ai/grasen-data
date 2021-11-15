@@ -26,30 +26,52 @@ import "http://grasen.ge.com/SemanticAnalysisModel.sadl".
 // if cls1 rdfs:subClassOf cls2
 // and cls2 rdfs:subClassOf cls3
 // then cls1 rdfs:subClassOf cls3.
- 
+
+
+///////////// Stage 0 /////////////////// 
+
  Rule Transitive2  
 if inst is a cls
    and cls is a type of cls2
 then inst is a cls2.
 
+//Must be Stage 0
+Rule explicitVarR
+if	    x is a Variable
+	and from_source of metadata of x is true
+then x is an ExplicitVariable.
+
+// Must be Stage 0
+Rule literalInitializedR1
+if		edge function f
+	and f ftype "LITERAL"
+	and edge outputs var
+	and var is an ExplicitVariable //Stage 0
+then  var is a LiteralInitialized .
+
+///////////// Stage 1 /////////////////// 
+// Must be Stage 1
 Stage 1 Rule varNameR
 if 	    x is a Variable
 	and x identifier id
 	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
 then x varName xn.
 
-Stage 1 Rule explicitVarR
-if	    x is a Variable
-	and from_source of metadata of x is true
-then x is an ExplicitVariable.
+// Must be Stage 1
+Stage 1 Rule varInBlockR
+if		var is a Variable
+	and b is a SubGraph
+	and b nodes var
+then var inBlock b.
 
-Stage 1 Rule sameVarR
+// Must be Stage 1
+Stage 1 Rule sameVarR1
 if 		x1 is a Variable
 	and x2 is a Variable
 	and x1 inBlock block
 	and x2 inBlock block
 	and x1 != x2
-	and varName of x1 == varName of x2
+	and varName of x1 == varName of x2 // Stage 1
 then x1 sameVar x2.
 
 Stage 1 Rule sameVarR2
@@ -96,7 +118,7 @@ if 		x1 is a Variable
 	and e2 function fun2
 	and fun2 ftype "EXTRACT"
 	and e2 outputs x2
-	and e1 outputs struct1 //AM 11/13 moved it lower	
+	and e1 outputs struct1 //AM 11/13 moved it lower
 	and e2 inputs struct2
 	and varName of struct1 == varName of struct2
 	and x1 != x2
@@ -104,45 +126,31 @@ if 		x1 is a Variable
 then    x1 sameVar x2
     and x2 sameVar x1.
 
-Stage 1 Rule structureVariableR
-if	edge function fun
-	and fun ftype "PACK"
-	and edge outputs var
-then var is a Structure.
-
+// Must be Stage 1
 Stage 1 Rule loopBlockR
 if	 node sg_type "LoopContainer"
 then node is a LoopBlock.
 	
-Stage 1 Rule funcBlockR
-if	 node sg_type "FuncContainer"
-then node is a FunctionBlock.
-	
-Stage 1 Rule nestedBlockR
-if		node is a SubGraph
-	and node parent par
-then node is a NestedBlock.
-	
-Stage 1 Rule varInBlockR
-if		var is a Variable
-	and b is a SubGraph
-	and b nodes var
-then var inBlock b.
+//Commented out as it's not being used
+//Rule funcBlockR
+//if	 node sg_type "FuncContainer"
+//then node is a FunctionBlock.
 
-Stage 3 Rule lineEndR //AM 11/13 could even make it Stage 4 but keeping it in Stage 3 avoids "backtracking" in rule ControllerMetadataR
-if		x metadata md
-	and noValue(md,line_end)
-	and md line_begin lb
-then md line_end lb.
+//Commented out as it's not being used
+//Rule nestedBlockR
+//if		node is a SubGraph
+//	and node parent par
+//then node is a NestedBlock.
 
-Rule literalInitializedR1
-if		edge function f
-	and f ftype "LITERAL"
-	and edge outputs var
-	and var is an ExplicitVariable
-then  var is a LiteralInitialized .
+//Not using it
+//Rule structureVariableR
+//if	edge function fun
+//	and fun ftype "PACK"
+//	and edge outputs var
+//then var is a Structure.
 
 //Find parameter argument pairs.
+// Must be Stage 1
 Stage 1 Rule argParamPairR
 if	edge is a HyperEdge
 	and edge function fun
@@ -152,18 +160,18 @@ if	edge is a HyperEdge
 	and edge inputList inList
 	and edge outputList outList
 	and arg is a Variable
-	and param is a ExplicitVariable
+	and param is a ExplicitVariable //Stage 0
 	and _idx is index of arg in inList
 	and _idx is index of param in outList
 then
 	there exists an ArgParamPair pair
 	and edge argumentParameterPair pair
 	and pair parameter param
-	and pair argument arg
-. 
+	and pair argument arg. 
 
+//LHS rules must be stage 1
 Stage 1 Rule lhsR1 
-if	 var is LiteralInitialized
+if	 var is LiteralInitialized // Stage 0
 then var is a LHS.
 
 Stage 1 Rule lhsR2
@@ -177,7 +185,7 @@ then
 
 //a parameter assigned an argument is also a LHS
 Stage 1 Rule lhsR3
-if	pair parameter param
+if	pair parameter param  //Stage 1
 	and pair argument arg
 then
 	param is a LHS.
@@ -192,39 +200,11 @@ if		edge is a HyperEdge
    	and ret varName "RETURN_VAL"
 then 
 	var is a LHS.
-	
-Stage 1 Rule MultiplicationR
-if	    nd is an ExpNode
-	and nd operator "Mult"
-	and nd children clist
-	and mxx is an ExpNode
-	and index of mxx in clist is idx
-then    nd is a Multiplication
-	and nd multiplicand mxx.
-
-Stage 1 Rule SummationR
-if	    nd is an ExpNode
-	and nd operator "Add"
-	and nd children clist
-	and mxx is an ExpNode
-	and index of mxx in clist is idx
-then    nd is a Summation
-	and nd summand mxx.
-
-Stage 1 Rule SubtractionR
-if	    nd is an ExpNode
-	and nd operator "Sub"
-	and nd children clist
-	and m is element 0 of clist
-	and s is element 1 of clist
-then    nd is a Subtraction
-	and nd minuend m
-	and nd subtrahend s.
 
 Stage 1 Rule notConstantR1
 if		var1 is a LHS
 	and var2 is a LHS 
-	and var1 sameVar var2
+	and var1 sameVar var2 // Stage 1
 	and edge inputs var1
 	and edge outputs var2
 	and edge function fun
@@ -234,8 +214,8 @@ then
 
 Stage 1 Rule notConstantR2
 if		var is a LHS
-	and var is not a LiteralInitialized 
-	and var inBlock block
+	and var is not a LiteralInitialized // Hence Stage 1
+	and var inBlock block //Stage 1
 	and block is a LoopBlock
 then var is a NotConstant.
 
@@ -275,32 +255,63 @@ if		edge function f
 	and varI is a NotConstant
 then
 	var is a NotConstant.
-	
+
+///////////// Stage 2 /////////////////// 
+
+// Must be Stage 2 or lower
+Stage 2 Rule MultiplicationR
+if	    nd is an ExpNode
+	and nd operator "Mult"
+	and nd children clist
+	and mxx is an ExpNode
+	and index of mxx in clist is idx
+then    nd is a Multiplication
+	and nd multiplicand mxx.
+
+Stage 2 Rule SummationR
+if	    nd is an ExpNode
+	and nd operator "Add"
+	and nd children clist
+	and mxx is an ExpNode
+	and index of mxx in clist is idx
+then    nd is a Summation
+	and nd summand mxx.
+
+Stage 2 Rule SubtractionR
+if	    nd is an ExpNode
+	and nd operator "Sub"
+	and nd children clist
+	and m is element 0 of clist
+	and s is element 1 of clist
+then    nd is a Subtraction
+	and nd minuend m
+	and nd subtrahend s.
+
+//Must be Stage 2
 Stage 2 Rule constantR
 if		var is a ExplicitVariable
-	and var is not a NotConstant
+	and var is not a NotConstant //Stage 1
 then var is a Constant.
 
-// this still uses element 0 etc., can we re-write it?
+//Must be Stage 2
 Stage 2 Rule ErrorSignalR
 if 		fun is an ExpressionTree
-	and fun nodes op
-	and op operator "Sub"
-	and op children clist
 	and edge function fun 
-	and countMatches(edge,inputs) = 2 
 	and edge outputs var
 	and var is a NotConstant  //AM 11/13 added
-	and rs_et is element 0 of clist
-	and ms_et is element 1 of clist
+	and fun nodes nd 
+	and nd is a Subtraction
+	and nd minuend rs_et
+	and nd subtrahend ms_et
 	and rs_et grfn_uid rs
+	and ms_et grfn_uid ms
 	and rs is a Constant  //AM 11/13 added
 	and ms is a NotConstant  //AM 11/13 added
-	and ms_et grfn_uid ms
     and fun lambda expr0
     and expr is strafter(expr0,":")
-then    var is an ErrorSignal
-	and rs is a ReferenceSignal 
+then    
+	    var is an ErrorSignal
+	and rs is a ReferenceSignal
 	and ms is a MeasurementSignal
 	and var referenceSignal rs  
 	and var measurementSignal ms
@@ -308,24 +319,22 @@ then    var is an ErrorSignal
 
 Stage 2 Rule DerivativeR
 if 		fun is an ExpressionTree
-	and fun nodes op
-	and op operator "Sub"
-	and op children clist
 	and edge function fun 
-	and countMatches(edge,inputs) = 2 
 	and edge outputs var
 	and var is a NotConstant  //AM 11/13 added
-	and rs_et is element 0 of clist
-	and ms_et is element 1 of clist
+	and fun nodes nd 
+	and nd is a Subtraction
+	and nd minuend rs_et
+	and nd subtrahend ms_et
 	and rs_et grfn_uid rs
+	and ms_et grfn_uid ms
 	and rs is a ErrorSignal  //AM 11/13 added
 	and ms is a NotConstant  //AM 11/13 added
-	and ms_et grfn_uid ms
     and fun lambda expr0
     and expr is strafter(expr0,":")
 then    var is an Derivative
 	and ms is a PrevError.
-	
+
 Stage 2 Rule IntegratorR1
 if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
     and fun is an Function
@@ -350,7 +359,7 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and c1 multiplicand cc2   
     and x varName error_signal_name
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
-then out is an Integrator.   
+then out is an Integrator.
 
 // no multiplier
 Stage 2 Rule IntegratorR2 // make it more robust
@@ -404,22 +413,7 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
 then out is an IntegratorTypo.    
 
-Stage 3 Rule PropExpNodeR // incorrectly matches with "timestep * error" and identifies timestep as proportional constant
-if      m is a Multiplication
-	and m multiplicand err_var
-	and err_var grfn_uid err
-	and err is an ErrorSignal
-	and m multiplicand kp_var
-	and kp_var grfn_uid kp_cand
-	and kp is a Constant
-	and kp is not an ErrorSignal //hence this is Stage 3
-	and varName of kp == varName of kp_cand
-	and err != kp // I THINK I NEED TO SAY varName NOT SAME!!!!!!!!!!
-then    m is a PropExpNode //ConstTimesError
-    and m proportionalConstant kp //kp_cand
-    and m errorVariable err
-//     and kp_cand is a ProportionalConstant //once we line up parameters and arguments, kp_cand should replace kp here
-    and kp is a ProportionalConstant.
+///////////// Stage 3 /////////////////// 
 
 Stage 3 Rule IntExpNodeR // matches constant * integrator value
 if      m is a Multiplication
@@ -427,10 +421,8 @@ if      m is a Multiplication
 	and int_var grfn_uid int_cand
 	and int_cand is an Integrator
 	and m multiplicand ki_var
-	and ki_var grfn_uid ki_cand
+	and ki_var grfn_uid ki
 	and ki is a Constant
-	and varName of ki == varName of ki_cand
-	and varName of int_cand != varName of ki
 then     m is a IntExpNode 
     and m integratorConstant ki 
     and ki is a IntegratorConstant
@@ -442,54 +434,42 @@ if      m is a Multiplication
 	and derv_var grfn_uid derv_cand
 	and derv_cand is an Derivative
 	and m multiplicand kd_var
-	and kd_var grfn_uid kd_cand
+	and kd_var grfn_uid kd
 	and kd is a Constant
-	and varName of kd == varName of kd_cand
-	and varName of derv_cand != varName of kd
 then    m is a DervExpNode 
-    and m derivativeConstant kd //ki_cand
-//     and ki_cand is a IntegratorConstant //once we line up parameters and arguments, ki_cand should replace ki
+    and m derivativeConstant kd
     and kd is a DerivativeConstant
     and m derivativeVariable derv_cand.
-	
-Stage 4 Rule ControllerNameR
-if 	    sg nodes exp
-	and exp is a Controller
-	and sg is a SubGraph
- 	and sg nodes somenode
- 	and somenode identifier id	
- 	and exp_name is strbefore(strafter(id,"::"),"::")
- then exp constructName exp_name. 	
 
-Stage 4 Rule ControllerMetadataR
-if 	sg is a SubGraph
-	and sg nodes pic
-	and pic is a Controller
-	and sg metadata md
- 	and md line_begin lbeg
- 	and md line_end lend
-then    pic linebegin lbeg
-	and pic lineend lend.
+Stage 3 Rule PropExpNodeCandidateR 
+if      m is a Multiplication
+	and m multiplicand err_var
+	and err_var grfn_uid err
+	and err is an ErrorSignal
+	and m multiplicand kp_var
+	and kp_var grfn_uid kp
+	and kp is a Constant
+	and kp is not an ErrorSignal //hence this is Stage 3
+then    m is a PropExpNode
+    and m proportionalConstant kp
+    and m errorVariable err
+    and kp is a ProportionalConstantCandidate .
 
 Stage 3 Rule P-ControllerCandidateR
 if  	et is an ExpressionTree
 	and et nodes exp
 	and exp is a PropExpNode
-	and exp is a Multiplication 
-	and exp multiplicand m1
-	and exp multiplicand m2
 then et is a P-ControllerCandidate.
 
+// Must be Stage 3
 Stage 3 Rule PI-ControllerCandidateR
 if  	et is a P-ControllerCandidate
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
-//	and m1 proportionalConstant kp //AM 11/13 no need to check
-	and m1 is a PropExpNode 
 	and exp summand m2
-	and m2 is a IntExpNode 
-//	and m2 integratorConstant ki //AM 11/13 no need to check
+	and m1 is a PropExpNode
+	and m2 is a IntExpNode
 then et is a PI-ControllerCandidate.
 
 Stage 3 Rule PD-ControllerCandidateR
@@ -497,11 +477,9 @@ if 		et is a P-ControllerCandidate
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
-	and m1 is a PropExpNode
-//	and m1 proportionalConstant kp //AM 11/13 no need to check
 	and exp summand m2
+	and m1 is a PropExpNode
 	and m2 is a DervExpNode
-//	and m2 derivativeConstant kd //AM 11/13 no need to check
 then et is a PD-ControllerCandidate.
 
 Stage 3 Rule PID-ControllerR
@@ -509,6 +487,14 @@ if     et is an PI-ControllerCandidate
    and et nodes n1
    and n1 is a DervExpNode
 then et is a PID-Controller.
+
+Stage 3 Rule lineEndR //AM 11/13 could even make it Stage 4 but keeping it in Stage 3 avoids "backtracking" in rule ControllerMetadataR
+if		x metadata md
+	and noValue(md,line_end)
+	and md line_begin lb
+then md line_end lb.
+
+///////////// Stage 4 /////////////////// 
 
 Stage 4 Rule P-ControllerR
 if		et is a P-ControllerCandidate
@@ -529,3 +515,30 @@ if	et is a PD-ControllerCandidate
 	and noValue(et1,rdf:type,PID-Controller)
 then
 	et is a PD-Controller.
+
+Stage 4 Rule PropExpNodeR
+if		et is a Controller
+	and et nodes exp
+	and exp proportionalConstant kp
+	and kp is a ProportionalConstantCandidate
+then
+	kp is a ProportionalConstant.
+
+Stage 4 Rule ControllerNameR
+if 	    sg nodes exp
+	and exp is a Controller
+	and sg is a SubGraph
+ 	and sg nodes somenode
+ 	and somenode identifier id	
+ 	and exp_name is strbefore(strafter(id,"::"),"::")
+ then exp constructName exp_name. 	
+
+Stage 4 Rule ControllerMetadataR
+if 	sg is a SubGraph
+	and sg nodes pic
+	and pic is a Controller
+	and sg metadata md
+ 	and md line_begin lbeg
+ 	and md line_end lend
+then    pic linebegin lbeg
+	and pic lineend lend.
