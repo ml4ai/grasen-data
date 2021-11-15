@@ -20,62 +20,6 @@ uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
 
 import "http://www.w3.org/1999/02/22-rdf-syntax-ns".
 import "http://grasen.ge.com/SemanticAnalysisModel.sadl". 
-//import "http://www.w3.org/2002/07/owl" as owl.
- 
-// select the C code file for processing
-
-// PI controller and its variants
-//import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
-//import "http://aske.ge.com/GE_simple_PI_controller_saturation_combined". //4
-//import "http://aske.ge.com/GE_simple_PI_controller-with-typo_combined". //5
-//import "http://aske.ge.com/GE_simple_PI_controller_withptr_combined". //6
-//import "http://aske.ge.com/GE_simple_PI_controller_inline_combined". // need to refine / add rules //7
-
-//import "http://aske.ge.com/GE_simple_PID_controller_combined". //2
-//import "http://aske.ge.com/GE_simple_P_controller_combined". //3
-//import "http://aske.ge.com/GE_simple_PD_controller_combined". //10
-
-//import "http://aske.ge.com/PID_combined". //8
-//import "http://aske.ge.com/PID-Simplified_combined". //9
-
-
-// Rule subConjunctionR
-// if conj owl:intersectionOf l
-//  and conj1 owl:intersectionOf l1
-//  and l1 rdf:first conj
-//then
-//	conj is a SubConjunction.
-//
-//Rule conjunctR1:
-//if conj owl:intersectionOf l
-//   and l rdf:first cls1
-//   and noValue(cls1,owl:intersectionOf)
-//then
-//   cls1 conjunctOf conj.
-//
-//Rule conjunctR2:
-//if conj owl:intersectionOf l
-//   and l rdf:rest l1
-//   and l1 rdf:first cls2
-//   and noValue(cls2,owl:intersectionOf)
-//then
-// cls2 conjunctOf conj . 
-//
-//Rule conjunctR3:
-//if conj owl:intersectionOf l
-//   and l rdf:first conj2
-//   and cls1 conjunctOf conj2
-//   and cls2 conjunctOf conj2
-//then
-//   cls1 conjunctOf conj
-//and cls2 conjunctOf conj . 
-//
-//Rule conjTypeR
-//if x rdf:type conj
-//and cls conjunctOf conj
-//and conj is not a SubConjunction
-//then
-//	x rdf:type cls.
 
 // Do we need the transitive rules, Transitive1 needs to be modified is needed?
 // Rule Transitive1 
@@ -88,18 +32,18 @@ if inst is a cls
    and cls is a type of cls2
 then inst is a cls2.
 
-Rule varNameR
+Stage 1 Rule varNameR
 if 	    x is a Variable
 	and x identifier id
 	and xn is strafter(strbefore(strafter(strafter(id,"::"),"::"),"::"),"\\\\.")
 then x varName xn.
 
-Rule explicitVarR
+Stage 1 Rule explicitVarR
 if	    x is a Variable
 	and from_source of metadata of x is true
 then x is an ExplicitVariable.
 
-Rule sameVarR
+Stage 1 Rule sameVarR
 if 		x1 is a Variable
 	and x2 is a Variable
 	and x1 inBlock block
@@ -108,7 +52,7 @@ if 		x1 is a Variable
 	and varName of x1 == varName of x2
 then x1 sameVar x2.
 
-Rule sameVarR2
+Stage 1 Rule sameVarR2
 if 		x1 is a Variable
 	and x2 is a Variable
 	and x1 inBlock block1
@@ -118,19 +62,19 @@ if 		x1 is a Variable
 then    x1 sameVar x2
 	and x2 sameVar x1.
 	
-Rule sameVarInterfaceR
+Stage 1 Rule sameVarInterfaceR
 if 		x1 is a Variable
 	and x2 is a Variable
-	and edge inputs x1
-	and edge outputs x2
 	and edge function fun
 	and fun ftype "INTERFACE"
+	and edge inputs x1 //AM 11/13 moved it lower
+	and edge outputs x2
 	and x1 != x2
 	and varName of x1 == varName of x2
 then    x1 sameVar x2
     and x2 sameVar x1.	
 
-Rule sameVarStructureR1
+Stage 1 Rule sameVarStructureR1
 if 		x1 is a Variable
 	and e1 function fun1
 	and fun1 ftype "PACK"
@@ -143,16 +87,16 @@ if 		x1 is a Variable
 	and varName of x1 == varName of x2
 then x1 sameVar x2.
 
-Rule sameVarStructureR2
+Stage 1 Rule sameVarStructureR2
 if 		x1 is a Variable
 	and e1 function fun1
 	and fun1 ftype "PACK"
 	and e1 inputs x1
-	and e1 outputs struct1
 	and x2 is a Variable
 	and e2 function fun2
 	and fun2 ftype "EXTRACT"
 	and e2 outputs x2
+	and e1 outputs struct1 //AM 11/13 moved it lower	
 	and e2 inputs struct2
 	and varName of struct1 == varName of struct2
 	and x1 != x2
@@ -160,32 +104,32 @@ if 		x1 is a Variable
 then    x1 sameVar x2
     and x2 sameVar x1.
 
-Rule structureVariableR
+Stage 1 Rule structureVariableR
 if	edge function fun
 	and fun ftype "PACK"
 	and edge outputs var
 then var is a Structure.
 
-Rule loopBlockR
+Stage 1 Rule loopBlockR
 if	 node sg_type "LoopContainer"
 then node is a LoopBlock.
 	
-Rule funcBlockR
+Stage 1 Rule funcBlockR
 if	 node sg_type "FuncContainer"
 then node is a FunctionBlock.
 	
-Rule nestedBlockR
+Stage 1 Rule nestedBlockR
 if		node is a SubGraph
 	and node parent par
 then node is a NestedBlock.
 	
-Rule varInBlockR
+Stage 1 Rule varInBlockR
 if		var is a Variable
 	and b is a SubGraph
 	and b nodes var
 then var inBlock b.
 
-Rule lineEndR
+Stage 3 Rule lineEndR //AM 11/13 could even make it Stage 4 but keeping it in Stage 3 avoids "backtracking" in rule ControllerMetadataR
 if		x metadata md
 	and noValue(md,line_end)
 	and md line_begin lb
@@ -199,7 +143,7 @@ if		edge function f
 then  var is a LiteralInitialized .
 
 //Find parameter argument pairs.
-Rule argParamPairR
+Stage 1 Rule argParamPairR
 if	edge is a HyperEdge
 	and edge function fun
 	and fun ftype "INTERFACE"
@@ -218,11 +162,11 @@ then
 	and pair argument arg
 . 
 
-Rule lhsR1 
+Stage 1 Rule lhsR1 
 if	 var is LiteralInitialized
 then var is a LHS.
 
-Rule lhsR2
+Stage 1 Rule lhsR2
 if		edge is a HyperEdge
    	and edge outputs var
    	and var is an ExplicitVariable
@@ -232,13 +176,13 @@ then
 	var is a LHS.
 
 //a parameter assigned an argument is also a LHS
-Rule lhsR3
+Stage 1 Rule lhsR3
 if	pair parameter param
 	and pair argument arg
 then
 	param is a LHS.
 	
-Rule lhsR4 //LHS of function call 
+Stage 1 Rule lhsR4 //LHS of function call 
 if		edge is a HyperEdge
    	and edge outputs var  //   	and from_source of metadata of var is true //only look at explicit vars
    	and var is an ExplicitVariable
@@ -249,7 +193,7 @@ if		edge is a HyperEdge
 then 
 	var is a LHS.
 	
-Rule MultiplicationR
+Stage 1 Rule MultiplicationR
 if	    nd is an ExpNode
 	and nd operator "Mult"
 	and nd children clist
@@ -258,7 +202,7 @@ if	    nd is an ExpNode
 then    nd is a Multiplication
 	and nd multiplicand mxx.
 
-Rule SummationR
+Stage 1 Rule SummationR
 if	    nd is an ExpNode
 	and nd operator "Add"
 	and nd children clist
@@ -267,7 +211,7 @@ if	    nd is an ExpNode
 then    nd is a Summation
 	and nd summand mxx.
 
-Rule SubtractionR
+Stage 1 Rule SubtractionR
 if	    nd is an ExpNode
 	and nd operator "Sub"
 	and nd children clist
@@ -277,7 +221,6 @@ then    nd is a Subtraction
 	and nd minuend m
 	and nd subtrahend s.
 
-// I think we can drop "Stage 1" from the "notConstant" rules and reduce other stage numbers by 1.
 Stage 1 Rule notConstantR1
 if		var1 is a LHS
 	and var2 is a LHS 
@@ -339,7 +282,7 @@ if		var is a ExplicitVariable
 then var is a Constant.
 
 // this still uses element 0 etc., can we re-write it?
-Rule ErrorSignalCandidateR
+Stage 2 Rule ErrorSignalR
 if 		fun is an ExpressionTree
 	and fun nodes op
 	and op operator "Sub"
@@ -347,67 +290,50 @@ if 		fun is an ExpressionTree
 	and edge function fun 
 	and countMatches(edge,inputs) = 2 
 	and edge outputs var
+	and var is a NotConstant  //AM 11/13 added
 	and rs_et is element 0 of clist
 	and ms_et is element 1 of clist
 	and rs_et grfn_uid rs
+	and rs is a Constant  //AM 11/13 added
+	and ms is a NotConstant  //AM 11/13 added
 	and ms_et grfn_uid ms
     and fun lambda expr0
     and expr is strafter(expr0,":")
-then    
-	    var is an ErrorSignalCandidate
-	and rs is a ReferenceSignalCandidate 
-	and ms is a MeasurementSignalCandidate
-	and var referenceSignalCandidate rs  
-	and var measurementSignalCandidate ms
+then    var is an ErrorSignal
+	and rs is a ReferenceSignal 
+	and ms is a MeasurementSignal
+	and var referenceSignal rs  
+	and var measurementSignal ms
 	and var semanticExpression expr.
 
-Stage 2 Rule ErrorSignalR  // turning a ErrorSignalCandidate into a ErrorSignal
-if es1 is an ErrorSignalCandidate
-   and es2 is an ErrorSignalCandidate
-   and md1 is metadata of es1
-   and md2 is metadata of es2
-   and md1 line_begin l1
-   and md2 line_begin l2
-   and l1 < l2
-   and rs is referenceSignalCandidate of es1
-   and ms is measurementSignalCandidate of es1
-   and rs2 is referenceSignalCandidate of es2
-   and ms2 is measurementSignalCandidate of es2
-then   es1 is an ErrorSignal
-   and rs is referenceSignal of es1
-   and ms is measurementSignal of es1
-   and rs is a ReferenceSignal
-   and ms is a MeasurementSignal
-   and es2 is a DerivativeCandidate
-   and rs2 is errorCandidate of es2
-   and ms2 is prevErrorCandidate of es2.
-
-Stage 2 Rule ErrorSignalR2 
-if     countMatches(es, rdf:type, ErrorSignalCandidate) = 1 
-   and es1 is an ErrorSignalCandidate
-   and rs is referenceSignalCandidate of es1
-   and ms is measurementSignalCandidate of es1   
-then   es1 is an ErrorSignal
-   and rs is a ReferenceSignal
-   and ms is a MeasurementSignal.
-
-// we need to check that we have "error_last = error" however the json / sadl representation does not seem to be correct   
-Stage 2 Rule DerivativeR 
-if     es is a ErrorSignal
-   and der is a DerivativeCandidate
-   and ec is errorCandidate of der
-   and pec is prevErrorCandidate of der
-   and ec is a ErrorSignal
-then   der is a Derivative
-   and pec is a PrevError.
-
-Stage 2 Rule IntegratorCandidateR
+Stage 2 Rule DerivativeR
+if 		fun is an ExpressionTree
+	and fun nodes op
+	and op operator "Sub"
+	and op children clist
+	and edge function fun 
+	and countMatches(edge,inputs) = 2 
+	and edge outputs var
+	and var is a NotConstant  //AM 11/13 added
+	and rs_et is element 0 of clist
+	and ms_et is element 1 of clist
+	and rs_et grfn_uid rs
+	and rs is a ErrorSignal  //AM 11/13 added
+	and ms is a NotConstant  //AM 11/13 added
+	and ms_et grfn_uid ms
+    and fun lambda expr0
+    and expr is strafter(expr0,":")
+then    var is an Derivative
+	and ms is a PrevError.
+	
+Stage 2 Rule IntegratorR1
 if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
     and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
     and he is a HyperEdge
     and he outputs out
+    and out is a NotConstant  //AM 11/13 added
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
@@ -424,16 +350,17 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and c1 multiplicand cc2   
     and x varName error_signal_name
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
-then out is an Integrator.    
+then out is an Integrator.   
 
 // no multiplier
-Stage 2 Rule IntegratorCandidateR2 // make it more robust
+Stage 2 Rule IntegratorR2 // make it more robust
 if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
     and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
     and he is a HyperEdge
     and he outputs out
+    and out is NotConstant  //AM 11/13 added
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
@@ -458,6 +385,7 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and he function fun
     and he is a HyperEdge
     and he outputs out
+    and out is a NotConstant  //AM 11/13 added
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
@@ -476,7 +404,7 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and cc2 var_name error_signal_name  // so ErrorSignal present in RHS
 then out is an IntegratorTypo.    
 
-Stage 3 Rule PropExpNodeR 
+Stage 3 Rule PropExpNodeR // incorrectly matches with "timestep * error" and identifies timestep as proportional constant
 if      m is a Multiplication
 	and m multiplicand err_var
 	and err_var grfn_uid err
@@ -493,19 +421,7 @@ then    m is a PropExpNode //ConstTimesError
 //     and kp_cand is a ProportionalConstant //once we line up parameters and arguments, kp_cand should replace kp here
     and kp is a ProportionalConstant.
 
-//Ask: select distinct err kp errid kpid
-//where
-//	nd is a PropExpNode
-//	and nd proportionalConstant kp
-//	and kp varName kpn
-//	and kp identifier kpid
-//	and nd errorVariable err
-//	and err varName errn
-//	and err identifier errid
-//.
-
-
-Stage 2 Rule IntExpNodeR // matches constant * integrator value
+Stage 3 Rule IntExpNodeR // matches constant * integrator value
 if      m is a Multiplication
 	and m multiplicand int_var
 	and int_var grfn_uid int_cand
@@ -520,7 +436,7 @@ then     m is a IntExpNode
     and ki is a IntegratorConstant
     and m integratorVariable int_cand.
 
-Stage 2 Rule DervExpNodeR
+Stage 3 Rule DervExpNodeR
 if      m is a Multiplication
 	and m multiplicand derv_var
 	and derv_var grfn_uid derv_cand
@@ -536,7 +452,7 @@ then    m is a DervExpNode
     and kd is a DerivativeConstant
     and m derivativeVariable derv_cand.
 	
-Stage 2 Rule ControllerNameR
+Stage 4 Rule ControllerNameR
 if 	    sg nodes exp
 	and exp is a Controller
 	and sg is a SubGraph
@@ -545,7 +461,7 @@ if 	    sg nodes exp
  	and exp_name is strbefore(strafter(id,"::"),"::")
  then exp constructName exp_name. 	
 
-Stage 2 Rule ControllerMetadataR
+Stage 4 Rule ControllerMetadataR
 if 	sg is a SubGraph
 	and sg nodes pic
 	and pic is a Controller
@@ -554,7 +470,6 @@ if 	sg is a SubGraph
  	and md line_end lend
 then    pic linebegin lbeg
 	and pic lineend lend.
-
 
 Stage 3 Rule P-ControllerCandidateR
 if  	et is an ExpressionTree
@@ -570,11 +485,11 @@ if  	et is a P-ControllerCandidate
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
-	and exp summand m2
+//	and m1 proportionalConstant kp //AM 11/13 no need to check
 	and m1 is a PropExpNode 
-	and m1 proportionalConstant kp
+	and exp summand m2
 	and m2 is a IntExpNode 
-	and m2 integratorConstant ki
+//	and m2 integratorConstant ki //AM 11/13 no need to check
 then et is a PI-ControllerCandidate.
 
 Stage 3 Rule PD-ControllerCandidateR
@@ -582,20 +497,18 @@ if 		et is a P-ControllerCandidate
 	and et nodes exp
 	and exp is a Summation 
 	and exp summand m1
-	and exp summand m2
 	and m1 is a PropExpNode
-	and m1 proportionalConstant kp
+//	and m1 proportionalConstant kp //AM 11/13 no need to check
+	and exp summand m2
 	and m2 is a DervExpNode
-	and m2 derivativeConstant kd
+//	and m2 derivativeConstant kd //AM 11/13 no need to check
 then et is a PD-ControllerCandidate.
-
 
 Stage 3 Rule PID-ControllerR
 if     et is an PI-ControllerCandidate
    and et nodes n1
    and n1 is a DervExpNode
 then et is a PID-Controller.
-
 
 Stage 4 Rule P-ControllerR
 if		et is a P-ControllerCandidate
@@ -616,5 +529,3 @@ if	et is a PD-ControllerCandidate
 	and noValue(et1,rdf:type,PID-Controller)
 then
 	et is a PD-Controller.
-	
-
