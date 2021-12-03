@@ -1,14 +1,14 @@
  uri "http://sadl.org/GrFNExtractionModel.sadl" alias grfnem.
 
  Node is a class
- 	described by uid with a single value of type string
- 	described by description with a single value of type string
-  	described by identifier with a single value of type string
-  	described by metadata with a single value of type Metadata
+ 	described by uid with values of type string
+ 	described by description with values of type string
+  	described by identifier with values of type string
+  	described by metadata with values of type Metadata
  .
  
  GrFN is a type of Node
- 	described by date_created with a single value of type dateTime
+ 	described by date_created with values of type dateTime
  	described by functions with values of type Function
  	described by hyper_edges with values of type HyperEdge
  	described by subgraphs with values of type SubGraph
@@ -16,65 +16,66 @@
  .
  
  Function is a type of Node
- 	described by ftype with a single value of type string
- 	described by lambda with a single value of type string
- 	described by expression_tree with a single value of type ExpressionTree
+ 	described by ftype with values of type string
+ 	described by lambda with values of type string
+ 	described by nodes with values of type ExpNode
+// 	described by expression_tree with values of type ExpressionTree //Instances of Function are also instances of ExpressionTree, so not needed
  .
  
  HyperEdge is a type of Node
  	described by inputs with values of type Variable
  	described by inputList with values of type Variable List
- 	described by function with a single value of type Function
+ 	described by function with values of type Function
  	described by outputs with values of type Variable
  	described by outputList with values of type Variable List
  .
  
  Variable is a type of ExpNode
- 	described by object_ref with a single value of type string
- 	described by data_type with a single value of type string
+ 	described by object_ref with values of type string
+ 	described by data_type with values of type string
  .
  
  SubGraph is a type of Node
- 	described by parent with a single value of type SubGraph 
- 	described by name with a single value of type string 
- 	described by namespace with a single value of type string 
- 	described by scope with a single value of type string 
- 	described by occurrence_num with a single value of type string 
- 	described by sg_type with a single value of type string 
- 	described by exit with a single value of type string 
+ 	described by parent with values of type SubGraph 
+ 	described by name with values of type string 
+ 	described by namespace with values of type string 
+ 	described by scope with values of type string 
+ 	described by occurrence_num with values of type string 
+ 	described by sg_type with values of type string 
+ 	described by exit with values of type string 
 // 	described by objects with values of type Object
  	described by nodes with values of type {Variable or Function} 
  .
  
 // Object is a type of Node
-//  	described by obj_type with a single value of type Type 
+//  	described by obj_type with values of type Type 
 // .
  
  Type is a type of Node
- 	described by name with a single value of type string
- 	described by metatype with a single value of type string
+ 	described by name with values of type string
+ 	described by metatype with values of type string
  	described by fields with values of type Field
  .
  
  Field is a class
- 	described by name with a single value of type string
- 	described by data_type with a single value of type string
+ 	described by name with values of type string
+ 	described by data_type with values of type string
  .
  
  // An expression from a function
- ExpressionTree is a type of Node //with don't really need this class
- 	described by nodes with values of type ExpNode .
+// ExpressionTree is a type of Function //Node //with don't really need this class
+// 	described by nodes with values of type ExpNode .
  ExpNode is a type of Node
-	described by var_name with a single value of type string
-	described by exp_node_type with a single value of type string
-	described by operator with a single value of type string
+	described by var_name with values of type string
+	described by exp_node_type with values of type string
+	described by operator with values of type string
 	described by node_value with values of type string
 	described by children with values of type ExpNode List
 	described by grfn_uid with values of type Variable
 . 	
 
 Metadata is a class
-	described by from_source with a single value of type boolean 
-	described by line_begin with a single value of type int
-	described by line_end with a single value of type int
+	described by from_source with values of type boolean 
+	described by line_begin with values of type int
+	described by line_end with values of type int
 .

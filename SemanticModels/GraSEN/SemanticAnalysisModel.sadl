@@ -35,6 +35,14 @@ varName describes Variable with values of type string.
 ErrorSignal is a type of Variable
 	described by referenceSignal with values of type ReferenceSignal
 	described by measurementSignal with values of type MeasurementSignal.
+ErrorSignalNode is a type of ExpNode
+	described by nodeReferenceSignal with values of type ReferenceSignal
+	described by nodeMeasurementSignal with values of type MeasurementSignal.
+
+//subExpression describes ExpressionTree with values of type ExpNode.
+//rootNode describes ExpressionTree with values of type ExpNode.
+subExpression describes Function with values of type ExpNode.
+rootNode describes Function with values of type ExpNode.
 
 {MeasurementSignal, MeasurementSignalCandidate} are types of Variable.
 

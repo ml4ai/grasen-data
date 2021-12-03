@@ -4,6 +4,51 @@ uri "http://aske.ge.com/GE_simple_PI_controller-antiwindup_combined" alias GE_si
 //import "http://sadl.org/GrFNExtractionModel.sadl" as grfnem.
 import "http://sadl.org/SemAnnotator.sadl".
 
+Ask: "select distinct ?Name (?Q4 as ?Function_name) (strafter(str(?Annotation),'#') as ?AnnotationType) ?SrcLocStart ?SrcLocEnd
+where {
+{ ?Annotation <rdfs:subClassOf>* <ControllerConstruct>
+. ?x a ?Annotation 
+.  filter not exists {
+       ?C <rdfs:subClassOf> ?Annotation.
+       ?x a ?C.
+     }
+. ?x <varName> ?Name
+. ?Annotation <description> ?Description
+. ?x <identifier> ?Qual_name
+. FILTER(!regex(?Qual_name, 'LOOP')) # maybe there is a more generic way to drop, e.g. from_source is false etc.
+#. LET(?Q2 := replace(str(?Qual_name),'.*\\.','')) # why does this give an error?????
+. LET(?Q2 := replace(?Qual_name,'[.]','###'))
+. LET(?Q3 := replace(?Q2,'.*###',''))
+. LET(?Q4 := replace(?Q3,'::.*',''))
+. ?x <metadata> ?md
+. LET(?Loc_start := 1)
+. LET(?Loc_end := 999)
+. OPTIONAL{?md <line_begin> ?SrcLocStart} 
+. OPTIONAL{?md <line_end> ?SrcLocEnd}
+. OPTIONAL{?x <semanticExpression> ?Equation} 
+} union {
+?sg <rdf:type> <SubGraph>
+. ?sg <nodes> ?x
+. ?x <rdf:type> <Controller>
+. ?x <constructName> ?Name
+. LET(?Q2 := replace(?Name,'[.]','###'))
+. LET(?Q4 := replace(?Q2,'.*###',''))
+. ?x a ?Annotation
+.  filter not exists {
+       ?C <rdfs:subClassOf> ?Annotation.
+       ?x a ?C.
+     }
+. ?Annotation <rdfs:subClassOf>* <ControllerConstruct>
+. LET(?Loc_start := 1)
+. LET(?Loc_end := 999)
+. OPTIONAL{?x <linebegin> ?SrcLocStart.}
+. OPTIONAL{?x <lineend> ?SrcLocEnd.}
+. ?Annotation <description> ?Description
+. OPTIONAL{?x <lambda> ?Eq
+. LET(?Equation := replace(?Eq,'^.*: ',''))}
+} 
+} order by ?AnnotationType ?Name".
+
 // Individuals:
 _00ab4d55-9dc8-0fbe-c8c6-32d48334f30e is a grfnem:Variable,
     has grfnem:metadata (a grfnem:Metadata
@@ -1633,7 +1678,7 @@ _04aae9a9-7e2c-3478-bbaa-e92c5ba635a1 is a grfnem:ExpNode,
     has grfnem:children [_4181d179-9e8e-631e-0068-f56282a8246d],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "RETURN".
-_04fc80dd-4295-02e1-d6f2-ee3f251da100 is a grfnem:ExpressionTree,
+_04fc80dd-4295-02e1-d6f2-ee3f251da100 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes fdf0111e-fdc0-f184-af16-e34076a105d8,
     has grfnem:nodes _94d6c200-695c-6c2f-0b1d-ccf1d2900028,
     has grfnem:nodes ef541624-9b8d-644d-d5b4-5d283f85dfff,
@@ -1647,7 +1692,7 @@ _0655bfaf-8892-93c7-a483-4464ec537344 is a grfnem:ExpNode,
     has grfnem:exp_node_type "DEFINITION".
 _06e38291-3751-b502-6a14-0c03b29f9b61 is a grfnem:Variable.
 _07152585-15d5-0afc-3210-8e381f8b717b is a grfnem:Variable.
-_074b7365-7b95-b070-92a3-a45dd2e64d6f is a grfnem:ExpressionTree,
+_074b7365-7b95-b070-92a3-a45dd2e64d6f is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _37dddff2-b0b4-824b-773d-7f989037284e,
     has grfnem:nodes _93e35a18-8c9f-90cd-762e-ebd4efe46f61,
     has grfnem:nodes _7ead6f71-4b5f-8b31-a70b-c43983331457,
@@ -1773,7 +1818,7 @@ _1501d2e4-7640-6035-6cb9-e159bccbd6c9 is a grfnem:ExpNode,
     has grfnem:children [ed4f6e38-f014-bcf4-d42b-ca01dabb8adf],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "RETURN".
-_151b5ce3-81a7-eb85-e921-29e5db779af7 is a grfnem:ExpressionTree,
+_151b5ce3-81a7-eb85-e921-29e5db779af7 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _5771df47-db5d-b154-cfa4-cb185e96c868,
     has grfnem:nodes _7646257d-f8d5-f6e1-c3cf-a6b31e6e0171,
     has grfnem:nodes c3300b0a-18fb-35e7-c64f-45871180f426,
@@ -1818,13 +1863,13 @@ _1a315b9c-9633-76de-a3ff-8d8c33efcef0 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid a6281e4a-8c4d-8abd-c446-366820e00dc0,
     has grfnem:var_name "gain".
-_1a55e5e3-bda3-e6be-0e1f-a7fe1cb8abc8 is a grfnem:ExpressionTree,
+_1a55e5e3-bda3-e6be-0e1f-a7fe1cb8abc8 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _7de71cfd-fbc7-d21b-e003-d36a30be5b94,
     has grfnem:nodes _931a8187-a5e0-0a7b-e50e-eca0c5281f71,
     has grfnem:nodes _1b0d1924-d55a-be43-ccd4-c249b4aaf244,
     has grfnem:nodes _13918176-15f4-fdd2-8f70-30170a0b304a,
     has grfnem:nodes _49d9f137-8015-a6d5-b15a-71d720fd9907 .
-_1a5936e1-c018-d689-114e-e9d0d2aba303 is a grfnem:ExpressionTree,
+_1a5936e1-c018-d689-114e-e9d0d2aba303 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes ad07a0f5-c533-e58c-38b7-1fd7957d5c3a,
     has grfnem:nodes aa42cc6f-7a0c-d49d-1bc6-dd73e88ff586,
     has grfnem:nodes cf8a1579-c177-96bd-6a23-69ae3e549ff8,
@@ -1863,7 +1908,7 @@ _1eca9d82-c33e-b163-83ad-8c46efddd9f0 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _31e79b07-703d-2531-30ec-52e7aaee41a9,
     has grfnem:var_name "i".
-_1f86a47d-771a-b7df-14ad-63e54f836f5d is a grfnem:ExpressionTree,
+_1f86a47d-771a-b7df-14ad-63e54f836f5d is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _03590377-6300-3ea1-2899-0fde0e05ce07,
     has grfnem:nodes _0c4a1898-482d-f90f-ceb3-408212b5a609,
     has grfnem:nodes c095b892-cec9-e846-c308-8f6397247712,
@@ -1893,7 +1938,7 @@ _232e27dd-4f37-5d3e-4255-759417554938 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _7df36489-1cec-95b1-480d-68e200f9d42d,
     has grfnem:var_name "Kp_M_0".
-_238c04a9-c871-e0e7-0bf4-0015de369754 is a grfnem:ExpressionTree,
+_238c04a9-c871-e0e7-0bf4-0015de369754 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes d7bb9c7a-d61d-a0ad-b31e-cc49273529e1,
     has grfnem:nodes _8b44c578-a34a-fd0d-1da6-1f700fd08523,
     has grfnem:nodes _179a37c9-64a8-7938-78bf-7b0431978c32,
@@ -1911,7 +1956,7 @@ _238c04a9-c871-e0e7-0bf4-0015de369754 is a grfnem:ExpressionTree,
     has grfnem:nodes b248722d-a179-27a7-453d-54db63612f63,
     has grfnem:nodes e88faf15-8820-38d9-aabc-48a41406bbcb.
 _244886ef-abdb-f425-900a-990cf1c247b5 is a grfnem:Variable.
-_24b81c77-444f-6385-5881-3c8efc852bbb is a grfnem:ExpressionTree,
+_24b81c77-444f-6385-5881-3c8efc852bbb is a grfnem:Function //ExpressionTree,
     has grfnem:nodes c8d7b412-d90b-4058-ea18-1f6523fd2ff0,
     has grfnem:nodes e948df68-ca88-e8e1-c498-dff8fc6c406f,
     has grfnem:nodes eaa5621b-4df2-ea89-8ab9-d56bad0119b6,
@@ -1961,7 +2006,7 @@ _28e0f712-f747-d669-1933-ad7cf09cb278 is a grfnem:ExpNode,
     has grfnem:children [_6514f18b-254e-9d1f-f65a-64d7ce561ea7],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "RETURN".
-_28f449b7-6ba6-ddd0-e4b9-cbeecf4c17d7 is a grfnem:ExpressionTree,
+_28f449b7-6ba6-ddd0-e4b9-cbeecf4c17d7 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _79f94c25-a201-ecd8-37d4-87c0422240c8,
     has grfnem:nodes _72a304f7-3d4f-b3dc-cf06-1e038b56b879,
     has grfnem:nodes d537e375-2b6c-d566-2807-e6c3bd6bb0c9,
@@ -1974,7 +2019,7 @@ _28f449b7-6ba6-ddd0-e4b9-cbeecf4c17d7 is a grfnem:ExpressionTree,
     has grfnem:nodes _577e9426-3f95-56fb-40c9-02134b0f9352,
     has grfnem:nodes f136699e-83b9-69d0-fc33-5234ca295d3c,
     has grfnem:nodes _98fd79c9-36a5-562d-f8dc-f163ba665ccc.
-_2961ca5f-1eac-8a0c-aee8-2e912d4c441f is a grfnem:ExpressionTree,
+_2961ca5f-1eac-8a0c-aee8-2e912d4c441f is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _886f6709-7ae8-d3a7-c8bf-d549e914ab87,
     has grfnem:nodes _9c2a1ea2-cdb2-9a67-fe2d-d7011fa6720d,
     has grfnem:nodes _86a667fd-5f5a-f511-1964-3a7839638426,
@@ -1983,7 +2028,7 @@ _29e53dc9-8fc6-729d-34f4-65182a1abaaa is a grfnem:ExpNode,
     has grfnem:children [be0ab6ab-9197-1b3d-e7e5-9ea7841536a8],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "RETURN".
-_2a0eefb8-b29a-5bdf-e235-b4f4991232b3 is a grfnem:ExpressionTree,
+_2a0eefb8-b29a-5bdf-e235-b4f4991232b3 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _1501d2e4-7640-6035-6cb9-e159bccbd6c9,
     has grfnem:nodes ed4f6e38-f014-bcf4-d42b-ca01dabb8adf,
     has grfnem:nodes cfa7fff7-207b-078b-8a14-b461b884273f,
@@ -1996,7 +2041,7 @@ _2a0eefb8-b29a-5bdf-e235-b4f4991232b3 is a grfnem:ExpressionTree,
     has grfnem:nodes _302895e4-fece-1345-dc9a-482a11b78a3b,
     has grfnem:nodes e25f7c44-9edb-4244-b140-0863b3591046 .
 _2a15230d-8f21-ef5e-e3c9-52fc0e215163 is a grfnem:Variable.
-_2a6ed76a-2c2c-b1bd-aee7-f4cb1d0f00fd is a grfnem:ExpressionTree,
+_2a6ed76a-2c2c-b1bd-aee7-f4cb1d0f00fd is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _719ff28e-2ba6-bac2-9457-b664ef836933,
     has grfnem:nodes _60fed128-d1c4-b99b-6642-fddda46b7b37,
     has grfnem:nodes a231e4a2-40ac-9b83-3d32-b4c365675ad7,
@@ -2178,7 +2223,7 @@ _4095b215-181d-f47a-15f2-d0d67befcf57 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid a5c246fc-ca78-5879-57a9-92d7959b882c,
     has grfnem:var_name "plant_gain_0".
-_40e18e54-ecc0-d4e0-36f9-d58422fac028 is a grfnem:ExpressionTree,
+_40e18e54-ecc0-d4e0-36f9-d58422fac028 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _7d044c33-13f2-0022-b89f-6d1d144a6ef6,
     has grfnem:nodes _0a98f316-bf0d-f5df-7893-0df843de2d01,
     has grfnem:nodes _688d8c7b-fd55-4b2b-92e6-fad945608057,
@@ -2208,7 +2253,7 @@ _43677505-e270-9efc-f1af-e287870e2fcc is a grfnem:ExpNode,
     has grfnem:exp_node_type "DEFINITION".
 _470da451-79b5-590f-3b51-b23ae4f108a3 is a grfnem:ExpNode,
     has grfnem:exp_node_type "DEFINITION".
-_47721c53-056f-afb1-3cce-146865c23c05 is a grfnem:ExpressionTree,
+_47721c53-056f-afb1-3cce-146865c23c05 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes e9febb37-446b-b706-a98c-d7ad0d492c77,
     has grfnem:nodes _28979c45-9c76-8dc5-4fcd-8fbe371a21e5,
     has grfnem:nodes d597f854-d24b-6cd3-c3f3-15bb3e369392,
@@ -2228,7 +2273,7 @@ _49d9f137-8015-a6d5-b15a-71d720fd9907 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _16689a02-7bdf-9237-55d6-2415d1dab40a,
     has grfnem:var_name "upper_threshold".
-_4a777496-7779-b445-a4ab-3c2f2e3b8fe1 is a grfnem:ExpressionTree,
+_4a777496-7779-b445-a4ab-3c2f2e3b8fe1 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _5aef7148-9013-dd97-86e8-372074d1691e,
     has grfnem:nodes ef277dd7-1fb8-4bab-9c34-2d9d534f9fe8,
     has grfnem:nodes acf1b8d2-cbc0-d3b9-0a07-593fbb9e9558,
@@ -2258,7 +2303,7 @@ _4e6e6edf-ae57-0819-627a-d9e63173c157 is a grfnem:Variable,
     has grfnem:grfn_uid _8f254b6e-6adb-10ae-5da6-a9a8cadb857e,
     has grfnem:var_name "upper_threshold_updated".
 _4eb274f1-cc33-c03d-5242-fe4b9a9645aa is a grfnem:Variable.
-_4ed151e3-b6ff-71d5-6547-9bc91688c70c is a grfnem:ExpressionTree,
+_4ed151e3-b6ff-71d5-6547-9bc91688c70c is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _99f2b23d-cf11-e077-554a-be0f149a1744,
     has grfnem:nodes _9520d2fe-24a5-6c05-ead0-bf6587a3b528,
     has grfnem:nodes _2ee5f757-9c9d-d734-dff2-ee2f37a3d74a,
@@ -2271,7 +2316,7 @@ _4faed51c-4ec3-29a1-a829-7efa7bc57543 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid e1efc426-c9e6-6aa7-1775-0dd425bc179f,
     has grfnem:var_name "integrator_state_1".
-_50e35141-b6ae-31c2-0f65-ae9040f456a5 is a grfnem:ExpressionTree,
+_50e35141-b6ae-31c2-0f65-ae9040f456a5 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _8af11e2a-fe3b-b3b9-13ff-c38ad13436d5,
     has grfnem:nodes _83fed22a-6691-82ca-403f-0469805035e4,
     has grfnem:nodes _03d7decb-3803-dc77-38cb-3bc12eac7877,
@@ -2296,7 +2341,7 @@ _51aaba91-97e1-5385-e08d-ddeea9f087bc is a grfnem:Variable,
     has grfnem:grfn_uid _244886ef-abdb-f425-900a-990cf1c247b5,
     has grfnem:var_name "COND_2_0".
 _52476363-746b-b984-e1db-9b614adc5239 is a grfnem:Variable.
-_52b2da78-35fa-e431-82ad-e8d653a41896 is a grfnem:ExpressionTree,
+_52b2da78-35fa-e431-82ad-e8d653a41896 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _89f831bf-ebcc-60a9-8f7b-2ee845cc3cf2,
     has grfnem:nodes d78ac0d6-30dd-47b2-5b67-cee0acc9ca1e,
     has grfnem:nodes defbe2f1-5f4a-a356-3d09-c852294475a8,
@@ -2378,7 +2423,7 @@ _5a9ac7fc-dee2-b839-8106-7dc0e4421030 is a grfnem:Variable,
 _5aef7148-9013-dd97-86e8-372074d1691e is a grfnem:ExpNode,
     has grfnem:children [_43677505-e270-9efc-f1af-e287870e2fcc,ef277dd7-1fb8-4bab-9c34-2d9d534f9fe8],
     has grfnem:exp_node_type "DEFINITION".
-_5b17a934-1d46-ec83-b380-71f96e5fe9e3 is a grfnem:ExpressionTree,
+_5b17a934-1d46-ec83-b380-71f96e5fe9e3 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes d7259244-9e69-a00a-7c09-162c7158e837,
     has grfnem:nodes _00091538-b885-fbec-241f-cb4dbaf1f756,
     has grfnem:nodes _80deb518-4c17-a336-618f-e99771a5bfff,
@@ -2431,7 +2476,7 @@ _5e9f49e6-6895-ad6d-a617-6584a6a14b74 is a grfnem:ExpNode,
     has grfnem:children [_782cbdb0-54e5-9e2e-5c55-da48ff750628,e5502e76-899f-42ab-dc08-f107bdeed546],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "Is".
-_5eb5a922-cbe3-de81-0beb-83cba7711abf is a grfnem:ExpressionTree,
+_5eb5a922-cbe3-de81-0beb-83cba7711abf is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _744b9d4c-3ee4-ebd5-3764-573a4155d2e0,
     has grfnem:nodes _764a9bf6-3655-77e9-e6d5-1cf9781398f0,
     has grfnem:nodes fb6546ff-0d55-4a58-ef0e-2ef0a12d8081,
@@ -2452,7 +2497,7 @@ _60fed128-d1c4-b99b-6642-fddda46b7b37 is a grfnem:ExpNode,
     has grfnem:children [a231e4a2-40ac-9b83-3d32-b4c365675ad7],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "RETURN".
-_61116e49-4b6b-5242-b6ed-7be1751777d3 is a grfnem:ExpressionTree,
+_61116e49-4b6b-5242-b6ed-7be1751777d3 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes d2adcc6c-bf7a-2a6f-4499-28a4e3897a03,
     has grfnem:nodes _8e5fece9-be44-441d-d305-e24e365a3829,
     has grfnem:nodes _967dfcc2-be7e-850d-3e14-f02b2b3e284e,
@@ -2490,7 +2535,7 @@ _66030105-75c7-7541-6b5d-5e9ffad460e9 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _178dba51-deff-304b-e46a-c250ccd560e0,
     has grfnem:var_name "upper_threshold".
-_660f49c5-717e-6476-0158-7680a3322cfb is a grfnem:ExpressionTree,
+_660f49c5-717e-6476-0158-7680a3322cfb is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _1a8865dd-af9b-d11f-61be-e4a7aa75503b,
     has grfnem:nodes _1269dafa-4222-29b0-0f01-ebff8741c8ad,
     has grfnem:nodes ed64bdf8-3ed3-6900-86d5-7a7fd043c3fe,
@@ -2691,7 +2736,7 @@ _7f0c7a16-b084-59dd-6235-f0353f087e7c is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid eaf4c1b8-612b-dd8c-cbca-5513f8ecff64,
     has grfnem:var_name "integrator_state".
-_7fc591a9-f3c1-0296-ccc5-9d8297e0c258 is a grfnem:ExpressionTree,
+_7fc591a9-f3c1-0296-ccc5-9d8297e0c258 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _2dce86ef-d788-96d6-8ad5-687a08f1e1fd,
     has grfnem:nodes _51153026-4c69-1637-5f83-d1bf26c53466,
     has grfnem:nodes _0750059b-b18b-738e-0e8d-d64807a60ace,
@@ -2800,7 +2845,7 @@ _8a2aae10-0443-765d-7536-6c69493f4cf1 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid aa25368c-2753-4bc8-a9a0-49f343b8a0eb,
     has grfnem:var_name "update_integrator".
-_8ac4626c-f2b0-a998-283d-b58748bb3521 is a grfnem:ExpressionTree,
+_8ac4626c-f2b0-a998-283d-b58748bb3521 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _58532509-9039-e9a1-4542-3a410e0cf61a,
     has grfnem:nodes c38db097-5320-733b-da4f-5ba3f97db94e,
     has grfnem:nodes c12beed1-6ac5-3b75-3b16-17695dd02f1e,
@@ -2928,7 +2973,7 @@ _94d6c200-695c-6c2f-0b1d-ccf1d2900028 is a grfnem:ExpNode,
 _94f5022b-f6e8-0133-4545-694ebead7524 is a grfnem:ExpNode,
     has grfnem:children [_38aa7d44-e3e6-6205-2421-6861b9ac48ff,_82bafba1-4d4d-52b2-f6ab-759a85c9328d,_688d8c7b-fd55-4b2b-92e6-fad945608057],
     has grfnem:exp_node_type "DEFINITION".
-_9508d55d-0ed5-9495-4346-b07373e754ad is a grfnem:ExpressionTree,
+_9508d55d-0ed5-9495-4346-b07373e754ad is a grfnem:Function //ExpressionTree,
     has grfnem:nodes b4bf7b7a-817a-e106-46f8-6f2fff312440,
     has grfnem:nodes a111eba8-e0e7-3cdf-4c8b-4aa9235f0580,
     has grfnem:nodes _0f2e5b6a-9377-c818-5198-a1b6672e769d,
@@ -3010,7 +3055,7 @@ _991ca13a-bb7d-9cb9-80d3-548df0790613 is a grfnem:Variable,
     has grfnem:var_name "sensed_output_updated".
 _992d573e-325c-4c49-518e-e03d0d210e88 is a grfnem:ExpNode,
     has grfnem:exp_node_type "DEFINITION".
-_99637ac9-72ea-aaac-0922-a816c06096e8 is a grfnem:ExpressionTree,
+_99637ac9-72ea-aaac-0922-a816c06096e8 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _2ab6118c-2781-7ff2-d25d-186b393a99e4,
     has grfnem:nodes _8cba0fbf-8ce1-171b-e811-3dd3eccc3363,
     has grfnem:nodes _7679011d-cdc8-e324-be2c-650df259ef75,
@@ -3039,7 +3084,7 @@ _9af23f78-ba4f-d51c-bcad-25574735374e is a grfnem:ExpNode,
 _9be40bcb-7dde-e8ed-be8f-7dca472e9dbe is a grfnem:ExpNode,
     has grfnem:exp_node_type "VALUE",
     has grfnem:node_value "0.015".
-_9bf7869d-bce7-3e35-3205-a217fca6967e is a grfnem:ExpressionTree,
+_9bf7869d-bce7-3e35-3205-a217fca6967e is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _613e8fb5-1766-dba2-a362-f30e06b7585b,
     has grfnem:nodes _12f4d9a0-b312-4464-5fb9-cdb4546167e3,
     has grfnem:nodes _6f9b42e2-5d30-7340-405c-fb83bf6c9e07,
@@ -3111,7 +3156,7 @@ aa42cc6f-7a0c-d49d-1bc6-dd73e88ff586 is a grfnem:ExpNode,
     has grfnem:children [cf8a1579-c177-96bd-6a23-69ae3e549ff8],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "RETURN".
-aa9636ce-72c3-451e-858d-91f575e27014 is a grfnem:ExpressionTree,
+aa9636ce-72c3-451e-858d-91f575e27014 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes d0aa733a-fcac-ae2b-1fc3-3f8906007ba2,
     has grfnem:nodes ef03ac1a-6c6d-6ae1-448f-3169b30a1457,
     has grfnem:nodes d9cc4b1b-0137-25bc-1de6-c8d770a54ba7,
@@ -3122,7 +3167,7 @@ ab0026af-4326-29bc-cb6e-78618ce0c282 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _7adca2d3-72f9-44fd-398c-03bdae612403,
     has grfnem:var_name "lower_threshold_updated".
-ab8c7159-f304-9507-a309-819d2f1749c0 is a grfnem:ExpressionTree,
+ab8c7159-f304-9507-a309-819d2f1749c0 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _266b700a-dce0-e72a-dd62-09a6ec57ad98,
     has grfnem:nodes _827c2c92-62d3-adfd-906a-0842babc32fa,
     has grfnem:nodes d458db32-157b-8079-b215-1a923f5091d0,
@@ -3167,7 +3212,7 @@ afd25689-7529-0489-b14d-fc4224cca94e is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid f9165812-cf55-7475-94c8-dbd1b334892c,
     has grfnem:var_name "time_step".
-afecc282-534d-c455-1447-20ca10395b6c is a grfnem:ExpressionTree,
+afecc282-534d-c455-1447-20ca10395b6c is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _6887ea31-480c-6d2d-ccc7-a8fa4a815d30,
     has grfnem:nodes _5e282eee-52a1-cab4-0125-364332443a67,
     has grfnem:nodes _98215a1e-acae-54de-dda0-69147c87cb49,
@@ -3187,7 +3232,7 @@ b248722d-a179-27a7-453d-54db63612f63 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid e7798c9b-3891-9b21-2a1d-4e532368168d,
     has grfnem:var_name "update_integrator_2".
-b2a3375a-ef89-ad07-4157-ca7413270e77 is a grfnem:ExpressionTree,
+b2a3375a-ef89-ad07-4157-ca7413270e77 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes ed8c4087-ac52-a1b4-a5b1-ec557e5cd90d,
     has grfnem:nodes d99cf1e2-b7f4-f406-1ba1-7cf84747099b,
     has grfnem:nodes e08700fa-11d8-7605-e30c-e3a4eb654e91,
@@ -3219,7 +3264,7 @@ b3c539c6-d123-3f7e-8d70-77b0b11c3d8f is a grfnem:Variable,
 b4bf7b7a-817a-e106-46f8-6f2fff312440 is a grfnem:ExpNode,
     has grfnem:children [c7b7093a-26f5-b04e-a7f4-56bb53590c3d,a111eba8-e0e7-3cdf-4c8b-4aa9235f0580],
     has grfnem:exp_node_type "DEFINITION".
-b4cdfc8c-e962-94b9-23da-356a8a1097e7 is a grfnem:ExpressionTree,
+b4cdfc8c-e962-94b9-23da-356a8a1097e7 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _88b5329e-c416-e3ed-3b73-07c33ae04272,
     has grfnem:nodes bf8a2213-24b9-82ac-a370-a91c48148361,
     has grfnem:nodes _429272c2-1474-dedf-91e5-65eb4e1e1b57,
@@ -3268,7 +3313,7 @@ ba43b523-8bff-f053-3482-36f6bd5ef208 is a grfnem:Variable,
     has grfnem:grfn_uid e1efc426-c9e6-6aa7-1775-0dd425bc179f,
     has grfnem:var_name "integrator_state_1".
 baf8320c-90f6-8ea7-0ace-2a726b4d1ec9 is a grfnem:Variable.
-bb51c166-0498-58a0-5fc7-6567ce7aec5b is a grfnem:ExpressionTree,
+bb51c166-0498-58a0-5fc7-6567ce7aec5b is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _03ead03a-a026-6dac-b723-287645f04ea5,
     has grfnem:nodes _84fe4a6a-9a26-e998-88b6-5053247a1e7c,
     has grfnem:nodes c4b16b06-0630-3626-128f-1a2871ffa580,
@@ -3296,7 +3341,7 @@ be0ab6ab-9197-1b3d-e7e5-9ea7841536a8 is a grfnem:Variable,
 bf2b5d27-8736-c206-2f4b-78c6d5e90452 is a grfnem:ExpNode,
     has grfnem:children [_655436bc-42ec-da00-1fc7-023851637e44,_4f9480f2-58b5-4343-df91-bb83ac2a60b7],
     has grfnem:exp_node_type "DEFINITION".
-bf39e7a0-4a5f-62a9-2790-682d8993231b is a grfnem:ExpressionTree,
+bf39e7a0-4a5f-62a9-2790-682d8993231b is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _03ac38a0-f81f-7693-e98d-044900a82688,
     has grfnem:nodes _2fec77d5-b02b-89bc-29cb-b4483afe1455,
     has grfnem:nodes _97dc1b59-cdd0-b495-8a46-d1d974d438af,
@@ -3310,7 +3355,7 @@ bf8a2213-24b9-82ac-a370-a91c48148361 is a grfnem:Variable,
 c05cff0c-0ec3-5209-3e50-58d1450def3e is a grfnem:ExpNode,
     has grfnem:children [_7ead6f71-4b5f-8b31-a70b-c43983331457,_4248648a-dd5d-2beb-883e-5d03300f0327,_66030105-75c7-7541-6b5d-5e9ffad460e9,_970c01ed-98d8-a5d7-c572-237fed7af576],
     has grfnem:exp_node_type "DEFINITION".
-c08ba9fa-0643-73b5-a70d-6b6657637434 is a grfnem:ExpressionTree,
+c08ba9fa-0643-73b5-a70d-6b6657637434 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes aeae60a0-3d08-82dd-4a76-37cafe3e2a8e,
     has grfnem:nodes c4290121-9138-ac0e-8bd9-e9a96d56a56f,
     has grfnem:nodes _9be40bcb-7dde-e8ed-be8f-7dca472e9dbe,
@@ -3360,12 +3405,12 @@ c4b16b06-0630-3626-128f-1a2871ffa580 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid eaf4c1b8-612b-dd8c-cbca-5513f8ecff64,
     has grfnem:var_name "integrator_state".
-c4f38fa3-4608-180b-8e06-d7a24b827593 is a grfnem:ExpressionTree,
+c4f38fa3-4608-180b-8e06-d7a24b827593 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes af824c64-6391-ec8f-91cc-a1d046257086,
     has grfnem:nodes _73fe63da-2c3c-ca34-ee82-af93d5d6ad6a,
     has grfnem:nodes _1051ed08-0f36-f0b3-817d-0eb93b2d9e0f,
     has grfnem:nodes _334dedf4-a1dd-fcb1-8cc5-82d4a2853323 .
-c5247a5a-f642-c128-3221-be182b96f4f8 is a grfnem:ExpressionTree,
+c5247a5a-f642-c128-3221-be182b96f4f8 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes cb0b86d6-4b10-6eab-75f9-6062cc0516b0,
     has grfnem:nodes _7736a058-348b-08fd-2a03-bd93754f928b,
     has grfnem:nodes c5b9a68f-2286-7d01-5eec-e23a6e0baa3f,
@@ -3389,7 +3434,7 @@ c5b9a68f-2286-7d01-5eec-e23a6e0baa3f is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _76a9791e-9dd5-d858-d319-00b3b86cb936,
     has grfnem:var_name "Ki_M".
-c6133570-67d8-4d25-0952-20fc34913595 is a grfnem:ExpressionTree,
+c6133570-67d8-4d25-0952-20fc34913595 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes a74762d1-2fc3-b0f8-2274-d437b2d772da,
     has grfnem:nodes _5928ceb0-d6d1-9b98-2b3b-277a36f0d4e4,
     has grfnem:nodes fd9fdc87-fca3-ed28-a450-d3bf893de689,
@@ -3418,7 +3463,7 @@ cb0b86d6-4b10-6eab-75f9-6062cc0516b0 is a grfnem:ExpNode,
     has grfnem:children [_366a14f2-3c0e-03b1-f89b-6cfa542c3d03,_53eaeb85-ea9b-43d0-ae1d-458b10316af4],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "Mult".
-cc0ae41f-4493-68d0-8269-aed7d25bd2ad is a grfnem:ExpressionTree,
+cc0ae41f-4493-68d0-8269-aed7d25bd2ad is a grfnem:Function //ExpressionTree,
     has grfnem:nodes fe0f9467-7580-f70e-815d-a459732d74b9,
     has grfnem:nodes _034ea2da-4a61-3fb6-6823-dc36a31ceafe,
     has grfnem:nodes _71606a0b-7761-b817-755e-205aa5caccfc,
@@ -3470,7 +3515,7 @@ cfcf4f5e-7bab-faa8-cc35-59feee0e7724 is a grfnem:ExpNode,
 d0aa733a-fcac-ae2b-1fc3-3f8906007ba2 is a grfnem:ExpNode,
     has grfnem:children [bcb321c9-4041-f92d-5cfa-d4e27e4e0f78,ef03ac1a-6c6d-6ae1-448f-3169b30a1457],
     has grfnem:exp_node_type "DEFINITION".
-d0af43e0-1146-1e23-7aaa-bdb279571d3f is a grfnem:ExpressionTree,
+d0af43e0-1146-1e23-7aaa-bdb279571d3f is a grfnem:Function //ExpressionTree,
     has grfnem:nodes e1b4a94d-8763-d05b-1e29-760bf05535fa,
     has grfnem:nodes _2ee918fd-6ae8-c9ed-189d-cde038c54171,
     has grfnem:nodes _0a695ab8-56b1-5ee5-a1e3-72eb98bbb4b7,
@@ -3496,7 +3541,7 @@ d2adcc6c-bf7a-2a6f-4499-28a4e3897a03 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _78735954-3e31-7338-8618-d2d20c1d6c2a,
     has grfnem:var_name "num_steps".
-d2d47672-0175-01e4-57d5-a76b7dd42650 is a grfnem:ExpressionTree,
+d2d47672-0175-01e4-57d5-a76b7dd42650 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _6e56d4a8-8a5e-4eed-0f85-8f0341b965c9,
     has grfnem:nodes f6ebec18-45e7-1017-eb2c-93410d711f5d,
     has grfnem:nodes d10137b3-2b9a-2186-3c9d-6828d613595d,
@@ -3554,7 +3599,7 @@ d7bb9c7a-d61d-a0ad-b31e-cc49273529e1 is a grfnem:Variable,
     has grfnem:children [_97a525ed-e153-6d4b-cf0e-ddc3e9610c19,dc0741c4-75a1-f945-3f47-5e8c6db141a2],
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:var_name "TUPLE".
-d7dc089a-9901-1348-e4b3-8550b47f1a5c is a grfnem:ExpressionTree,
+d7dc089a-9901-1348-e4b3-8550b47f1a5c is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _9242edef-2e98-9205-6070-c2310daa1163,
     has grfnem:nodes _04aae9a9-7e2c-3478-bbaa-e92c5ba635a1,
     has grfnem:nodes _4181d179-9e8e-631e-0068-f56282a8246d,
@@ -3596,7 +3641,7 @@ dc0741c4-75a1-f945-3f47-5e8c6db141a2 is a grfnem:Variable,
 dc9da215-0f57-3e0f-9095-8a46d97180b6 is a grfnem:ExpNode,
     has grfnem:children [_93e876b3-4db4-0db4-7085-f1d69fb27527,_8c59a763-af89-dc23-370c-99a13892dc87,_5607cc57-dece-701f-1d56-cfcace03c6fe,_8ceeb998-c8b8-e7f7-b668-0c363e52b4db,_18c7f81f-5a5f-0ff5-11be-c14e69782f7c,b2ad377b-9028-d6df-3901-5c97221d82a2,f675eebd-5dbd-379b-29e9-c95599c69ccf,f3757133-8d54-327f-bbb5-47a26e202134],
     has grfnem:exp_node_type "DEFINITION".
-dd522bc2-2be1-9c81-91ea-37c7fd614d44 is a grfnem:ExpressionTree,
+dd522bc2-2be1-9c81-91ea-37c7fd614d44 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _5ca67cf0-11ab-aeca-61fa-f8c253aee4f2,
     has grfnem:nodes df7dbec7-bff3-b4e1-93d5-3598945d4954,
     has grfnem:nodes _78ee843e-33ff-1255-bfb0-062a3e438f1d,
@@ -3691,7 +3736,7 @@ e3f7220a-9bd4-b55c-6dfd-3deccc25654f is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _7b2d4481-143c-ac5b-bd40-989600ac0941,
     has grfnem:var_name "u_0".
-e4351083-0729-2032-8701-711f0b4b6968 is a grfnem:ExpressionTree,
+e4351083-0729-2032-8701-711f0b4b6968 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _363ecabd-2e6a-45d6-8d6c-66e228567683,
     has grfnem:nodes e55708d7-c921-4733-dac4-54081c442bf0,
     has grfnem:nodes fc686f86-6d6b-6d83-3f3a-802f9ea6b31b,
@@ -3712,7 +3757,7 @@ e55708d7-c921-4733-dac4-54081c442bf0 is a grfnem:Variable,
     has grfnem:var_name "integrator_state_0".
 e6f118ae-d95b-b65e-1be8-97bc8233f8b5 is a grfnem:Variable.
 e7246834-262d-2598-1285-792e33b3d7fb is a grfnem:Variable.
-e728e631-c6df-99b8-9080-6231b8fcd8f9 is a grfnem:ExpressionTree,
+e728e631-c6df-99b8-9080-6231b8fcd8f9 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes dbda601f-da69-a9ab-1ed9-14ca6d5ef97d,
     has grfnem:nodes b4f619ab-2e5a-1f21-9fe5-ab3fb0837ec6,
     has grfnem:nodes _25620be3-37ef-bcbf-974a-7e4164b268d5,
@@ -3746,7 +3791,7 @@ e9e8866c-3e3c-8826-4ef7-cab8842751f2 is a grfnem:Variable.
 e9febb37-446b-b706-a98c-d7ad0d492c77 is a grfnem:ExpNode,
     has grfnem:children [_5e2c09ba-6414-78d0-4338-5a95adda090e,_28979c45-9c76-8dc5-4fcd-8fbe371a21e5],
     has grfnem:exp_node_type "DEFINITION".
-ea427b15-9164-8bfc-5524-46b1ede440d2 is a grfnem:ExpressionTree,
+ea427b15-9164-8bfc-5524-46b1ede440d2 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _343fed80-979e-f6db-54fa-d272194398e4,
     has grfnem:nodes _93e876b3-4db4-0db4-7085-f1d69fb27527,
     has grfnem:nodes f3757133-8d54-327f-bbb5-47a26e202134,
@@ -3808,7 +3853,7 @@ ef3f2372-c812-52b4-683f-a75bca334923 is a grfnem:Variable,
 ef541624-9b8d-644d-d5b4-5d283f85dfff is a grfnem:ExpNode,
     has grfnem:exp_node_type "VALUE",
     has grfnem:node_value "0".
-ef5c4db1-1502-707e-8a17-f1b5637a1061 is a grfnem:ExpressionTree,
+ef5c4db1-1502-707e-8a17-f1b5637a1061 is a grfnem:Function //ExpressionTree,
     has grfnem:nodes f722b957-ef20-c206-2c9f-808b9d81b359,
     has grfnem:nodes _982ad08b-3696-8c8a-b798-332fc05fa202,
     has grfnem:nodes d564b0b2-1c92-70f6-01c6-6d2a863d0f7a,
@@ -3825,7 +3870,7 @@ f19a2eac-0075-bfe9-4b8f-56ce2f388076 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid cd6d0421-73c8-a7a7-9c92-2581e07a01dc,
     has grfnem:var_name "update_integrator_0".
-f1b43510-c13b-9eb4-855f-00f00204decb is a grfnem:ExpressionTree,
+f1b43510-c13b-9eb4-855f-00f00204decb is a grfnem:Function //ExpressionTree,
     has grfnem:nodes _8342e10b-2902-cc5e-1cef-c19f9aa80537,
     has grfnem:nodes _28e0f712-f747-d669-1933-ad7cf09cb278,
     has grfnem:nodes _6514f18b-254e-9d1f-f65a-64d7ce561ea7,
@@ -3872,7 +3917,7 @@ f9260139-de6c-f908-5765-bb4c1daf8b88 is a grfnem:Variable,
     has grfnem:exp_node_type "VARIABLE",
     has grfnem:grfn_uid _7d292bac-00cb-978f-0ce3-c080ce064630,
     has grfnem:var_name "desired_output_0".
-fad0bb74-0f0f-da0b-3182-67edd3ae606a is a grfnem:ExpressionTree,
+fad0bb74-0f0f-da0b-3182-67edd3ae606a is a grfnem:Function //ExpressionTree,
     has grfnem:nodes a43ac9fc-c452-ebc8-94ad-62532d2a893a,
     has grfnem:nodes _08dab3df-42bc-ab95-66c7-4d6cca3321da,
     has grfnem:nodes _42765691-602e-75a3-60c5-3bd2c0aa9667,
@@ -3903,7 +3948,7 @@ fb6546ff-0d55-4a58-ef0e-2ef0a12d8081 is a grfnem:ExpNode,
     has grfnem:children [_53754718-5296-dece-66fd-3c6874f1aa3b,afd25689-7529-0489-b14d-fc4224cca94e],
     has grfnem:exp_node_type "OPERATOR",
     has grfnem:operator "Div".
-fbf64b73-2213-dec9-9018-73701b42d48f is a grfnem:ExpressionTree,
+fbf64b73-2213-dec9-9018-73701b42d48f is a grfnem:Function //ExpressionTree,
     has grfnem:nodes b6b90088-3598-0325-8a06-a03c5f119e17,
     has grfnem:nodes _0e43ba9a-52cc-5fa3-7371-acc2a896071c,
     has grfnem:nodes e9c362a8-108e-ad95-130e-c2095b7c8bb5,
