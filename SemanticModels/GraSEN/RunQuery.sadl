@@ -2,19 +2,19 @@ uri "http://sadl.org/RunQuery.sadl" alias run.
 
 // PI controller and its variants (source is C code)
 // select one of these to run analysis on
+
 import "http://aske.ge.com/GE_simple_PI_controller_combined".  //1
+//import "http://aske.ge.com/GE_simple_PID_controller_combined". //2
+//import "http://aske.ge.com/GE_simple_P_controller_combined". //3
 //import "http://aske.ge.com/GE_simple_PI_controller_saturation_combined". //4
 //import "http://aske.ge.com/GE_simple_PI_controller_with_typo_combined". //5
 //import "http://aske.ge.com/GE_simple_PI_controller_withptr_combined". //6
 //import "http://aske.ge.com/GE_simple_PI_controller_inline_combined". // need to refine / add rules //7
-
-//import "http://aske.ge.com/GE_simple_PID_controller_combined". //2
-//import "http://aske.ge.com/GE_simple_P_controller_combined". //3
-//import "http://aske.ge.com/GE_simple_PD_controller_combined". //10
-
 //import "http://aske.ge.com/PID_combined". //8
 //import "http://aske.ge.com/PID-Simplified_combined". //9
+//import "http://aske.ge.com/GE_simple_PD_controller_combined". //10
 //import "http://aske.ge.com/GE_simple_PI_controller-antiwindup_combined".  //11
+
 //import "http://aske.ge.com/GE_simple_PI-and-PI_controler".  //12
 //import "http://aske.ge.com/GE_simple_PID-and-PI_controler".  //13
 
@@ -61,6 +61,29 @@ where {
 . OPTIONAL{?x <lineend> ?SrcLocEnd.}
 . ?AnnotationType <description> ?Description
 . OPTIONAL{?x <lambda> ?Eq . LET(?Equation := replace(str(?Eq),'^.*: ',''))}
+} union { # get the ControlConstructs that are identified inline 
+?nd <rdf:type> <ControllerConstruct> 
+. ?fun <nodes> ?nd . ?fun <lambda> ?Eq
+. ?nd <rdf:type> ?AnnotationType . ?AnnotationType <rdfs:subClassOf> <ControllerConstruct>
+. ?AnnotationType <description> ?Description
+. LET(?Equation := replace(str(?Eq),'^.*: ',''))
+. LET(?Loc_start := 1)
+. LET(?Loc_end := 999)
+. ?fun <metadata> ?md 
+. OPTIONAL{?md <line_begin> ?SrcLocStart} 
+. OPTIONAL{?md <line_end> ?SrcLocEnd}
+. ?he <rdf:type> <HyperEdge> . ?he <function> ?fun
+. ?he <outputs> ?out . ?out <identifier> ?Qual_name
+#. LET(?Function_name := 'TBD')
+
+#. ?x <identifier> ?Qual_name
+. FILTER(!regex(str(?Qual_name), 'LOOP')) # maybe there is a more generic way to drop, e.g. from_source is false etc.
+#. LET(?Q2 := replace(str(?Qual_name),'.*\\.','')) # why does this give an error?????
+. LET(?Q2 := replace(str(?Qual_name),'[.]','###'))
+. LET(?Q3 := replace(str(?Q2),'.*###',''))
+. LET(?Q4 := replace(str(?Q3),'::.*',''))
 } 
-} order by ?AnnotationType ?Name".     
-}to "SemAnnotation.csv".  
+} order by ?AnnotationType ?Name ?SrcLocStart".
+}to "SemAnnotation.csv". 
+
+

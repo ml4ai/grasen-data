@@ -1,20 +1,22 @@
- // can I identify some of the constants missing in PID and PID-simplified that I was getting originally???
- 
- // We do not identify "PI-Controller with saturation"
- // not properly handling PI inline
- // can I get qualified name for controller?
- // note in PI with typo, we identify a type and then say it is P-Controller; I could refine the rule
+  
+ // note in PI with typo, we identify a controller type and then say it is P-Controller; I could refine the rule
 
-// TBD: test and refine as needed ig multiple controllers present in a file.
+// TBD: test and refine as needed if multiple controllers present in a file.
 
 // ISSUES upstream
 // 		in PI with ptr, integrator_state is being identified as a constant
 // 		for RETURN_VAL, the json incorrectly says that it is from source; similarly for PID_realize_ARG_0
 
-// Not what I can handle
-// 		error_last does not have line begin; is it present in json file? once this is resolved then
-//			need to check for "error_last = error" is present
-//		not checking error_last = error as it does not seem to be present correctly in the input file
+// For "derivative" we need to check for "error_last = error" is present
+
+// 12/7/2021: Updated query, but note that at times we get a near duplicate output that can be dropped
+//		(see ErrorSignal output for file #1)
+// 12/7/2021. TBD
+//		In PI with anti windup protection; we have IF_2 etc. under Function_name; so adjust the query
+//		identify controller correctly in "PI with saturation"
+//		for PI with typo we infer P-Controller; later we can refine that
+//		PID and PID-simplified: we are only identifying Constants (need to handle structs)
+//		PI with anti windup protection
  
 uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
 
@@ -89,7 +91,7 @@ if 		x1 is a Variable
 	and x2 is a Variable
 	and edge function fun
 	and fun ftype "INTERFACE"
-	and edge inputs x1 //AM 11/13 moved it lower
+	and edge inputs x1 
 	and edge outputs x2
 	and x1 != x2
 	and varName of x1 == varName of x2
@@ -118,7 +120,7 @@ if 		x1 is a Variable
 	and e2 function fun2
 	and fun2 ftype "EXTRACT"
 	and e2 outputs x2
-	and e1 outputs struct1 //AM 11/13 moved it lower
+	and e1 outputs struct1 
 	and e2 inputs struct2
 	and varName of struct1 == varName of struct2
 	and x1 != x2
@@ -192,7 +194,7 @@ then
 	
 Stage 1 Rule lhsR4 //LHS of function call 
 if		edge is a HyperEdge
-   	and edge outputs var  //   	and from_source of metadata of var is true //only look at explicit vars
+   	and edge outputs var  // and from_source of metadata of var is true //only look at explicit vars
    	and var is an ExplicitVariable
    	and edge function fun
    	and fun ftype "INTERFACE"
@@ -293,30 +295,6 @@ if		var is a ExplicitVariable
 	and var is not a NotConstant //Stage 1
 then var is a Constant.
 
-//Must be Stage 2
-//Stage 2 Rule ErrorSignalR //Original
-//if 		fun is an ExpressionTree
-//	and edge function fun 
-//	and edge outputs var
-//	and var is a NotConstant  //AM 11/13 added
-//	and fun nodes nd 
-//	and nd is a Subtraction
-//	and nd minuend rs_et
-//	and nd subtrahend ms_et
-//	and rs_et grfn_uid rs
-//	and ms_et grfn_uid ms
-//	and rs is a Constant  //AM 11/13 added
-//	and ms is a NotConstant  //AM 11/13 added
-//    and fun lambda expr0
-//    and expr is strafter(expr0,":")
-//then    
-//	    var is an ErrorSignal
-//	and rs is a ReferenceSignal
-//	and ms is a MeasurementSignal
-//	and var referenceSignal rs  
-//	and var measurementSignal ms
-//	and var semanticExpression expr.
-
 Rule SubExpressionR
 if	et is an Function //ExpressionTree
 	and et nodes nrn
@@ -336,25 +314,7 @@ then
 	et rootNode rn.
 
 //Must be Stage 2
-Stage 2 Rule ErrorSignalVarR
-if 		fun is an Function //ExpressionTree
-	and edge function fun 
-	and edge outputs var
-	and var is a NotConstant  //AM 11/13 added
-	and fun nodes nd 
-	and fun rootNode nd
-	and nd is an ErrorSignal
-	and nd referenceSignal rs  
-	and nd measurementSignal ms
-	and nd semanticExpression expr
-then    
-	    var is an ErrorSignal
-	and var referenceSignal rs  
-	and var measurementSignal ms
-	and var semanticExpression expr.
-
-//Must be Stage 2
-Stage 2 Rule ErrorSignalNodeR
+Stage 2 Rule ErrorSignalNodeR //RHS (expression) has a node nd that is "<Constant> - <NotConstant>"?
 if 		fun is an Function //ExpressionTree
 	and fun nodes nd 
 	and nd is a Subtraction
@@ -373,91 +333,58 @@ then
 	and nd referenceSignal rs  
 	and nd measurementSignal ms
 	and nd semanticExpression expr.
+	
+//Must be Stage 2
+Stage 2 Rule ErrorSignalVarR // RHS has a root node which is an ErrorSignal; now looking at LHS
+if 		fun is an Function //ExpressionTree
+	and edge function fun 
+	and edge outputs var
+	and var is a NotConstant 
+	and fun nodes nd 
+	and fun rootNode nd
+	and nd is an ErrorSignal
+	and nd referenceSignal rs  
+	and nd measurementSignal ms
+	and nd semanticExpression expr
+then    
+	    var is an ErrorSignal
+	and var referenceSignal rs  
+	and var measurementSignal ms
+	and var semanticExpression expr.
 
-Stage 2 Rule ErrorSignalGrFN-ExpTree:
+Stage 2 Rule ErrorSignalGrFN-ExpTree: // label the the expression tree side to also be ErrorSignal
 if	var is an ErrorSignal
 	and etvar grfn_uid var
 then
 	etvar is an ErrorSignal.
 
 
-Stage 2 Rule DerivativeR
+Stage 2 Rule DerivativeR 
 if 		fun is an Function //ExpressionTree
 	and edge function fun 
 	and edge outputs var
-	and var is a NotConstant  //AM 11/13 added
+	and var is a NotConstant 
 	and fun nodes nd 
 	and nd is a Subtraction
 	and nd minuend rs_et
 	and nd subtrahend ms_et
 	and ms_et grfn_uid ms
 	and rs_et is a ErrorSignal 
-	and ms is a NotConstant  //AM 11/13 added
-    and fun lambda expr0
-    and expr is strafter(expr0,":")
+	and ms is a NotConstant 
+//    and fun lambda expr0
+//    and expr is strafter(expr0,":")
 then    var is an Derivative
 	and ms is a PrevError.
 
-//Stage 2 Rule IntegratorR1
-//if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
-//    and fun is an Function
-//    and fun ftype "ASSIGN"
-//    and he function fun
-//    and he is a HyperEdge
-//    and he outputs out
-//    and out is a NotConstant  //AM 11/13 added
-//    and out varName out_name
-//    and he inputs in1
-//    and in1 varName out_name
-//    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
-//    and expNode is an ExpNode
-//    and expNode exp_node_type "OPERATOR"
-//    and expNode children clist
-//    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
-//    and n1 is a Summation // one child should be Mult and one should be what is in LHS in our example
-//	and n1 summand c1
-//	and n1 summand c2
-//    and c2 var_name out_name // so LHS is repeated in the RHS    
-//    and c1 is a Multiplication
-//    and c1 multiplicand cc2
-//	and cc2 grfn_uid x
-//then out is an Integrator.
-
-//Covers inline ErrorSignal 
-Stage 2 Rule IntegratorR1Node
-if  	fun is an Function
-    and fun ftype "ASSIGN"
-    and he function fun
-    and he is a HyperEdge
-    and he outputs out
-    and out is a NotConstant  //AM 11/13 added
-    and out varName out_name
-    and he inputs in1
-    and in1 varName out_name
-    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
-    and expNode is an ExpNode
-    and expNode exp_node_type "OPERATOR"
-    and expNode children clist
-    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
-    and n1 is a Summation // one child should be Mult and one should be what is in LHS in our example
-	and n1 summand c1
-	and n1 summand c2
-    and c2 var_name out_name // so LHS is repeated in the RHS    
-    and c1 is a Multiplication
-    and c1 multiplicand cc2   
-	and cc2 is a ErrorSignal
-then out is an Integrator.
-
-
-// no multiplier
-Stage 2 Rule IntegratorR2 // make it more robust
-if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
+// Case: integrates just ErrorSignal (no constant factor)
+Stage 2 Rule IntegratorErrorSignalR
+if          c1 is a ErrorSignal
     and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
     and he is a HyperEdge
     and he outputs out
-    and out is NotConstant  //AM 11/13 added
+    and out is a NotConstant 
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
@@ -466,15 +393,70 @@ if      x is an ErrorSignal // will be using it later, this will "sequence" this
     and expNode exp_node_type "OPERATOR"
     and expNode children clist
     and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
-    and n1 is a Summation // one child should be Mult and one should be what is in LHS in our example
-	and n1 summand c1
-	and n1 summand c2
+    and n1 is a Summation 
+    and n1 summand c1
+    and n1 summand c2
     and c2 var_name out_name // so LHS is repeated in the RHS    
-    and x varName error_signal_name
-    and c1 var_name error_signal_name  // so ErrorSignal present in RHS
-then out is an Integrator.    
+then out is an Integrator.
 
-// This rule is still dependent on a particular order in the subtraction
+//Case: integrates Constant*ErrorSignal
+Stage 2 Rule IntegratorConstTimesErrorSignalR
+if          cc2 is a ErrorSignal
+    and fun is an Function
+    and fun ftype "ASSIGN"
+    and he function fun
+    and he is a HyperEdge
+    and he outputs out
+    and out is a NotConstant 
+    and out varName out_name
+    and he inputs in1
+    and in1 varName out_name
+    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
+    and expNode is an ExpNode
+    and expNode exp_node_type "OPERATOR"
+    and expNode children clist
+    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
+    and n1 is a Summation 
+    and n1 summand c1
+    and n1 summand c2
+    and c2 var_name out_name // so LHS is repeated in the RHS
+    and c1 is a Multiplication
+    and c1 multiplicand cc1
+    and cc1 grfn_uid grfncc1
+    and grfncc1 is a Constant
+    and c1 multiplicand cc2   
+then out is an Integrator.
+
+//Case: uses subtraction instead of addition in copy of Rule IntegratorConstTimesErrorSignalR
+// Additional rules to catch other types of typos but not doing so at this point.
+Stage 2 Rule IntegratorTypo1R
+if          cc2 is a ErrorSignal
+    and fun is an Function
+    and fun ftype "ASSIGN"
+    and he function fun
+    and he is a HyperEdge
+    and he outputs out
+    and out is a NotConstant 
+    and out varName out_name
+    and he inputs in1
+    and in1 varName out_name
+    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
+    and expNode is an ExpNode
+    and expNode exp_node_type "OPERATOR"
+    and expNode children clist
+    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
+	and n1 is a Subtraction
+	and n1 minuend c2
+	and n1 subtrahend c1 
+    and c2 var_name out_name // so LHS is repeated in the RHS
+    and c1 is a Multiplication
+    and c1 multiplicand cc1
+    and cc1 grfn_uid grfncc1
+    and grfncc1 is a Constant
+    and c1 multiplicand cc2   
+then out is an IntegratorTypo.
+ 
+//// This rule is still dependent on a particular order in the subtraction
 //Stage 2 Rule IntegratorTypoR
 //if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
 //    and fun is an Function
@@ -482,7 +464,7 @@ then out is an Integrator.
 //    and he function fun
 //    and he is a HyperEdge
 //    and he outputs out
-//    and out is a NotConstant  //AM 11/13 added
+//    and out is a NotConstant 
 //    and out varName out_name
 //    and he inputs in1
 //    and in1 varName out_name
@@ -590,7 +572,7 @@ if     et is an PI-ControllerCandidate
    and n1 is a DervExpNode
 then et is a PID-Controller.
 
-Stage 3 Rule lineEndR //AM 11/13 could even make it Stage 4 but keeping it in Stage 3 avoids "backtracking" in rule ControllerMetadataR
+Stage 3 Rule lineEndR // Could even make it Stage 4 but keeping it in Stage 3 to avoid "backtracking" in rule ControllerMetadataR
 if		x metadata md
 	and noValue(md,line_end)
 	and md line_begin lb

@@ -88,7 +88,7 @@ Controller is a class.
 description of Constant             is "This is a constant.".
 description of Derivative           is "This is an Derivative.".
 description of DerivativeConstant   is "This is the constant multiplier for the Derivative.".
-description of ErrorSignal          is "This is an error signal.".
+description of ErrorSignal          is "This is / has an error signal.".
 description of Integrator           is "This is an Integrator.".
 description of IntegratorConstant   is "This is the constant multiplier for the Integrator.".
 description of IntegratorTypo       is "This is close to being an Integrator - is there a typo?.".
