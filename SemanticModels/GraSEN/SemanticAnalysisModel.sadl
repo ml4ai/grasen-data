@@ -62,6 +62,27 @@ derivativeConstant describes ExpNode with values of type Constant.
 
 {PropExpNode, IntExpNode, DervExpNode} are types of ExpNode. // structure corresponding to Kp_M * (error - error_last) etc.
 
+SimpleIfConditional is a class
+	described by comparandLeft with values of type Variable
+	described by comparandRight with values of type Variable
+	described by condOperator with values of type ExpNode
+	described by ifVar with values of type Variable
+	described by outputVar with values of type Variable.	
+
+//SimpleIfElseConditional is a class
+//	described by comparandLeft with values of type Variable
+//	described by comparandRight with values of type Variable
+//	described by condOperator with values of type ExpNode
+//	described by ifVar with values of type Variable
+//	described by elseVar with values of type Variable
+//	described by outputVar with values of type Variable.	
+
+Saturation is a type of ControllerConstruct
+	described by inputVar with values of type Variable
+	described by outputVar with values of type Variable
+	described by lowerThreshold with values of type Variable
+	described by upperThreshold with values of type Variable .
+
 semanticExpression describes Variable with values of type string.	
 
 // classes and properties we will use to print out results in the csv file
@@ -77,18 +98,22 @@ Constant is a type of ControllerConstruct.
 {DerivativeConstantCandidate, IntegratorConstantCandidate, ProportionalConstantCandidate} are classes.
 
 ControllerCandidate is a class.
-{P-ControllerCandidate, PI-ControllerCandidate, PD-ControllerCandidate} are types of ControllerCandidate. //Node.
+{P-ControllerCandidate, PI-ControllerCandidate, PD-ControllerCandidate, PID-ControllerCandidate,
+ ControllerWithSaturationCandidate
+} are types of ControllerCandidate.
 
 Controller is a class.
-{P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of Controller.
+{P-Controller, PI-Controller, PD-Controller, PID-Controller,
+ P-ControllerWithSaturation, PI-ControllerWithSaturation, PD-ControllerWithSaturation, PID-ControllerWithSaturation
+} are types of Controller.
 
 {Derivative, ErrorSignal, Integrator, IntegratorTypo, MeasurementSignal, PrevError, ReferenceSignal,
  P-Controller, PI-Controller, PD-Controller, PID-Controller} are types of ControllerConstruct.
 
 description of Constant             is "This is a constant.".
-description of Derivative           is "This is an Derivative.".
+description of Derivative           is "This is a Derivative.".
 description of DerivativeConstant   is "This is the constant multiplier for the Derivative.".
-description of ErrorSignal          is "This is / has an error signal.".
+description of ErrorSignal          is "This is an error signal.".
 description of Integrator           is "This is an Integrator.".
 description of IntegratorConstant   is "This is the constant multiplier for the Integrator.".
 description of IntegratorTypo       is "This is close to being an Integrator - is there a typo?.".
@@ -100,3 +125,4 @@ description of P-Controller         is "This is a P Controller.".
 description of PI-Controller        is "This is a PI Controller.".
 description of PD-Controller        is "This is a PD Controller.".
 description of PID-Controller       is "This is a PID Controller.".
+description of Saturation			is "This is Saturation".

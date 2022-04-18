@@ -1,22 +1,20 @@
-  
- // note in PI with typo, we identify a controller type and then say it is P-Controller; I could refine the rule
+ // can I identify some of the constants missing in PID and PID-simplified that I was getting originally???
+ 
+ // We do not identify "PI-Controller with saturation"
+ // not properly handling PI inline
+ // can I get qualified name for controller?
+ // note in PI with typo, we identify a type and then say it is P-Controller; I could refine the rule
 
-// TBD: test and refine as needed if multiple controllers present in a file.
+// TBD: test and refine as needed ig multiple controllers present in a file.
 
 // ISSUES upstream
 // 		in PI with ptr, integrator_state is being identified as a constant
 // 		for RETURN_VAL, the json incorrectly says that it is from source; similarly for PID_realize_ARG_0
 
-// For "derivative" we need to check for "error_last = error" is present
-
-// 12/7/2021: Updated query, but note that at times we get a near duplicate output that can be dropped
-//		(see ErrorSignal output for file #1)
-// 12/7/2021. TBD
-//		In PI with anti windup protection; we have IF_2 etc. under Function_name; so adjust the query
-//		identify controller correctly in "PI with saturation"
-//		for PI with typo we infer P-Controller; later we can refine that
-//		PID and PID-simplified: we are only identifying Constants (need to handle structs)
-//		PI with anti windup protection
+// Not what I can handle
+// 		error_last does not have line begin; is it present in json file? once this is resolved then
+//			need to check for "error_last = error" is present
+//		not checking error_last = error as it does not seem to be present correctly in the input file
  
 uri "http://sadl.org/SemAnnotator.sadl" alias semannotator.
 
@@ -32,10 +30,32 @@ import "http://grasen.ge.com/SemanticAnalysisModel.sadl".
 
 ///////////// Stage 0 /////////////////// 
 
+//Stage 0
+// Rule Transitive0
+//if inst is a cls
+//   and cls is a type of cls2
+//then inst is a cls2.
+//Stage 1
+// Rule Transitive1  
+//if inst is a cls
+//   and cls is a type of cls2
+//then inst is a cls2.
+Stage 2
  Rule Transitive2  
 if inst is a cls
    and cls is a type of cls2
 then inst is a cls2.
+Stage 3
+ Rule Transitive3  
+if inst is a cls
+   and cls is a type of cls2
+then inst is a cls2.
+Stage 4
+ Rule Transitive4  
+if inst is a cls
+   and cls is a type of cls2
+then inst is a cls2.
+
 
 //Must be Stage 0
 Rule explicitVarR
@@ -91,7 +111,7 @@ if 		x1 is a Variable
 	and x2 is a Variable
 	and edge function fun
 	and fun ftype "INTERFACE"
-	and edge inputs x1 
+	and edge inputs x1 //AM 11/13 moved it lower
 	and edge outputs x2
 	and x1 != x2
 	and varName of x1 == varName of x2
@@ -120,7 +140,7 @@ if 		x1 is a Variable
 	and e2 function fun2
 	and fun2 ftype "EXTRACT"
 	and e2 outputs x2
-	and e1 outputs struct1 
+	and e1 outputs struct1 //AM 11/13 moved it lower
 	and e2 inputs struct2
 	and varName of struct1 == varName of struct2
 	and x1 != x2
@@ -194,7 +214,7 @@ then
 	
 Stage 1 Rule lhsR4 //LHS of function call 
 if		edge is a HyperEdge
-   	and edge outputs var  // and from_source of metadata of var is true //only look at explicit vars
+   	and edge outputs var  //   	and from_source of metadata of var is true //only look at explicit vars
    	and var is an ExplicitVariable
    	and edge function fun
    	and fun ftype "INTERFACE"
@@ -258,7 +278,158 @@ if		edge function f
 then
 	var is a NotConstant.
 
-///////////// Stage 2 /////////////////// 
+Stage 1
+Rule SGConditionR1 //If without Else
+if	sg is a SubGraph
+	and sg nodes condFun
+	and condFun ftype "CONDITION"
+	and condFun nodes opNode
+	and opNode operator oper //ex: "Gt"
+	and opNode children complist
+	and cL is element 0 of complist
+	and cL grfn_uid comparandL //saturate.IF_0::input::-1
+	and cR is element 1 of complist
+	and cR grfn_uid comparandR //saturate.IF_0::upper_threshold::-1
+	and sg nodes assignFun1
+	and assignFun1 ftype "ASSIGN"
+	and hypE1 function assignFun1
+	and hypE1 inputs comparandR //saturate.IF_0::upper_threshold::-1
+	and hypE1 outputs outvariable //saturate.IF_0::output::-1
+	
+then
+	sg is a SimpleIfConditional
+	and sg comparandLeft comparandL
+	and sg comparandRight comparandR 
+	and sg condOperator oper
+	and sg ifVar comparandR 
+	and sg outputVar outvariable
+.
+
+//Stage 1
+//Rule simpleIfConditionalR1 //If without Else
+//if	sg is a SubGraph
+//	and sg outputVar outvariable
+//	//Constraint: this outvariable is assigned the true case variable
+////	and sg nodes decisionNode
+////	and decisionNode nodes ifexprFun
+////	and ifexprFun operator "IfExpr"
+////	and ifexprFun children iflist
+////	and truecasev is element 1 of iflist ////output_0 saturate.IF_0::output::-1
+////	and truecasev grfn_uid outvariable // the true case variable is the output in the Assign
+//then
+//	sg is a SimpleIfConditional
+//.
+
+//Stage 1
+//Rule simpleIfConditionalR2 //If without Else
+//if	sg is a SubGraph
+//	and sg outputVar outvariable
+////	and sg nodes condFun
+////	and condFun ftype "CONDITION"
+////	and condFun nodes opNode
+////	and opNode operator oper //ex: "Gt"
+////	and opNode children complist
+////	and cL is element 0 of complist
+////	and cL grfn_uid comparandL //saturate.IF_0::input::-1
+////	and cR is element 1 of complist
+////	and cR grfn_uid comparandR //saturate.IF_0::upper_threshold::-1
+////	and sg nodes assignFun1
+////	and assignFun1 ftype "ASSIGN"
+////	and hypE1 function assignFun1
+////	and hypE1 inputs ifvariable //saturate.IF_0::upper_threshold::-1
+////	and hypE1 outputs outvariable //saturate.IF_0::output::-1
+//	//Constraint: this outvariable is assigned the true case variable
+//	and sg nodes decisionNode
+//	and decisionNode nodes ifexprFun
+//	and ifexprFun operator "IfExpr"
+//	and ifexprFun children iflist
+//	and truecaseTuple is element 1 of iflist ////output_0 saturate.IF_0::output::-1
+//	and faslecaseTuple is element 2 of iflist //"output_1" saturate::output::1
+//	and truecaseTuple children trueList
+//	and truecasev is element 0 of trueList
+////	and truecasev grfn_uid outvariable // the true case variable is the output in the Assign
+//then
+//	sg is a SimpleIfConditional
+//.
+
+//Works, but not needed for Saturation.
+////IfElse conditional with the same output variable
+//Stage 1
+//Rule simpleIfElseConditionalR 
+//if	sg is a SimpleIfConditional
+//	and sg outputVar outvariable
+//	and sg ifVar ifvariable
+//	//Else part
+//	and sg nodes assignFun2
+//	and assignFun2 ftype "ASSIGN"
+//	and hypE2 function assignFun2
+//	and hypE2 inputs elsevariable //ex lower_threshold
+//	and hypE2 outputs elseoutvariable //saturate.IF_0::output::-1
+//	and outvariable sameVar elseoutvariable
+//then
+//	sg is a SimpleIfElseConditional
+//and sg elseVar elsevariable
+//.
+
+//We don't need this. It is too strong to require
+//a final else case with output=input.
+//The code could be written with output=input before
+//conditionals that overwrite output with thresholds.
+////if else {if else}
+//Stage 1
+//Rule saturationR2
+//if 	sg is a SimpleIfConditional
+//	and	sg comparandLeft comparandL
+//	and sg comparandRight comparandR 
+//	and sg condOperator "Gt"
+//	and sg ifVar comparandR 
+//	and sg outputVar outvariable
+//	//Else part is another conditional
+//	and sg1 parent sg
+//	and sg1 is a SimpleIfElseConditional
+//	and sg1 comparandLeft sg1comparandL //saturate.IF_1::input::-1
+//	and comparandL sameVar sg1comparandL
+//	and sg1 comparandRight sg1comparandR //lower_threshold
+//	and sg1 condOperator "Lt" 
+//	and sg1 ifVar sg1comparandR //sg1ifvariable  //lower_threshold
+//	and sg1 elseVar sg1comparandL // comparandL
+//	and sg1 outputVar sg1outvariable
+//	and sg1outvariable sameVar outvariable
+//then
+// 	sg is a Saturation
+//and sg inputVar comparandL
+//and sg outputVar outvariable
+//and sg lowerThreshold sg1comparandR
+//and sg upperThreshold comparandR
+//.
+
+//if else {if }
+Stage 1 Rule saturationR1
+if 	sg is a SimpleIfConditional
+	and	sg comparandLeft comparandL
+	and sg comparandRight comparandR 
+	and sg condOperator "Gt"
+	and sg ifVar comparandR 
+	and sg outputVar outvariable
+	and sg1 parent sg
+	and sg1 is a SimpleIfConditional
+	and sg1 comparandLeft sg1comparandL 
+	and comparandL sameVar sg1comparandL
+	and sg1 comparandRight sg1comparandR
+	and sg1 condOperator "Lt" 
+	and sg1 ifVar sg1comparandR
+	and sg1 outputVar sg1outvariable
+	and sg1outvariable sameVar outvariable
+then
+ 	sg is a Saturation
+and sg inputVar comparandL
+and sg outputVar outvariable
+and sg lowerThreshold sg1comparandR
+and sg upperThreshold comparandR .
+
+
+///////////// Stage 2 ///////////////////
+ 
 
 // Must be Stage 2 or lower
 Stage 2 Rule MultiplicationR
@@ -295,6 +466,30 @@ if		var is a ExplicitVariable
 	and var is not a NotConstant //Stage 1
 then var is a Constant.
 
+//Must be Stage 2
+//Stage 2 Rule ErrorSignalR //Original
+//if 		fun is an ExpressionTree
+//	and edge function fun 
+//	and edge outputs var
+//	and var is a NotConstant  //AM 11/13 added
+//	and fun nodes nd 
+//	and nd is a Subtraction
+//	and nd minuend rs_et
+//	and nd subtrahend ms_et
+//	and rs_et grfn_uid rs
+//	and ms_et grfn_uid ms
+//	and rs is a Constant  //AM 11/13 added
+//	and ms is a NotConstant  //AM 11/13 added
+//    and fun lambda expr0
+//    and expr is strafter(expr0,":")
+//then    
+//	    var is an ErrorSignal
+//	and rs is a ReferenceSignal
+//	and ms is a MeasurementSignal
+//	and var referenceSignal rs  
+//	and var measurementSignal ms
+//	and var semanticExpression expr.
+
 Rule SubExpressionR
 if	et is an Function //ExpressionTree
 	and et nodes nrn
@@ -314,7 +509,25 @@ then
 	et rootNode rn.
 
 //Must be Stage 2
-Stage 2 Rule ErrorSignalNodeR //RHS (expression) has a node nd that is "<Constant> - <NotConstant>"?
+Stage 2 Rule ErrorSignalVarR
+if 		fun is an Function //ExpressionTree
+	and edge function fun 
+	and edge outputs var
+	and var is a NotConstant  //AM 11/13 added
+	and fun nodes nd 
+	and fun rootNode nd
+	and nd is an ErrorSignal
+	and nd referenceSignal rs  
+	and nd measurementSignal ms
+	and nd semanticExpression expr
+then    
+	    var is an ErrorSignal
+	and var referenceSignal rs  
+	and var measurementSignal ms
+	and var semanticExpression expr.
+
+//Must be Stage 2
+Stage 2 Rule ErrorSignalNodeR
 if 		fun is an Function //ExpressionTree
 	and fun nodes nd 
 	and nd is a Subtraction
@@ -333,58 +546,38 @@ then
 	and nd referenceSignal rs  
 	and nd measurementSignal ms
 	and nd semanticExpression expr.
-	
-//Must be Stage 2
-Stage 2 Rule ErrorSignalVarR // RHS has a root node which is an ErrorSignal; now looking at LHS
-if 		fun is an Function //ExpressionTree
-	and edge function fun 
-	and edge outputs var
-	and var is a NotConstant 
-	and fun nodes nd 
-	and fun rootNode nd
-	and nd is an ErrorSignal
-	and nd referenceSignal rs  
-	and nd measurementSignal ms
-	and nd semanticExpression expr
-then    
-	    var is an ErrorSignal
-	and var referenceSignal rs  
-	and var measurementSignal ms
-	and var semanticExpression expr.
 
-Stage 2 Rule ErrorSignalGrFN-ExpTree: // label the the expression tree side to also be ErrorSignal
+Stage 2 Rule ErrorSignalGrFN-ExpTree:
 if	var is an ErrorSignal
 	and etvar grfn_uid var
 then
 	etvar is an ErrorSignal.
 
 
-Stage 2 Rule DerivativeR 
+Stage 2 Rule DerivativeR
 if 		fun is an Function //ExpressionTree
 	and edge function fun 
 	and edge outputs var
-	and var is a NotConstant 
+	and var is a NotConstant  //AM 11/13 added
 	and fun nodes nd 
 	and nd is a Subtraction
 	and nd minuend rs_et
 	and nd subtrahend ms_et
 	and ms_et grfn_uid ms
 	and rs_et is a ErrorSignal 
-	and ms is a NotConstant 
-//    and fun lambda expr0
-//    and expr is strafter(expr0,":")
-then    var is an Derivative
+	and ms is a NotConstant  //AM 11/13 added
+then    var is a Derivative
 	and ms is a PrevError.
 
 // Case: integrates just ErrorSignal (no constant factor)
 Stage 2 Rule IntegratorErrorSignalR
-if          c1 is a ErrorSignal
-    and fun is an Function
+if  	c1 is a ErrorSignal
+	and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
     and he is a HyperEdge
     and he outputs out
-    and out is a NotConstant 
+    and out is a NotConstant  //AM 11/13 added
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
@@ -394,20 +587,20 @@ if          c1 is a ErrorSignal
     and expNode children clist
     and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
     and n1 is a Summation 
-    and n1 summand c1
-    and n1 summand c2
+	and n1 summand c1
+	and n1 summand c2
     and c2 var_name out_name // so LHS is repeated in the RHS    
 then out is an Integrator.
 
 //Case: integrates Constant*ErrorSignal
 Stage 2 Rule IntegratorConstTimesErrorSignalR
-if          cc2 is a ErrorSignal
-    and fun is an Function
+if  	cc2 is a ErrorSignal
+	and fun is an Function
     and fun ftype "ASSIGN"
     and he function fun
     and he is a HyperEdge
     and he outputs out
-    and out is a NotConstant 
+    and out is a NotConstant  //AM 11/13 added
     and out varName out_name
     and he inputs in1
     and in1 varName out_name
@@ -417,8 +610,8 @@ if          cc2 is a ErrorSignal
     and expNode children clist
     and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
     and n1 is a Summation 
-    and n1 summand c1
-    and n1 summand c2
+	and n1 summand c1
+	and n1 summand c2
     and c2 var_name out_name // so LHS is repeated in the RHS
     and c1 is a Multiplication
     and c1 multiplicand cc1
@@ -427,36 +620,7 @@ if          cc2 is a ErrorSignal
     and c1 multiplicand cc2   
 then out is an Integrator.
 
-//Case: uses subtraction instead of addition in copy of Rule IntegratorConstTimesErrorSignalR
-// Additional rules to catch other types of typos but not doing so at this point.
-Stage 2 Rule IntegratorTypo1R
-if          cc2 is a ErrorSignal
-    and fun is an Function
-    and fun ftype "ASSIGN"
-    and he function fun
-    and he is a HyperEdge
-    and he outputs out
-    and out is a NotConstant 
-    and out varName out_name
-    and he inputs in1
-    and in1 varName out_name
-    and fun nodes n1  // now parse through the ExpressionTree, want n1 to be the "root"
-    and expNode is an ExpNode
-    and expNode exp_node_type "OPERATOR"
-    and expNode children clist
-    and n1 is element 0 of clist   // not checking if there is only 1 element in clist - do that later
-	and n1 is a Subtraction
-	and n1 minuend c2
-	and n1 subtrahend c1 
-    and c2 var_name out_name // so LHS is repeated in the RHS
-    and c1 is a Multiplication
-    and c1 multiplicand cc1
-    and cc1 grfn_uid grfncc1
-    and grfncc1 is a Constant
-    and c1 multiplicand cc2   
-then out is an IntegratorTypo.
- 
-//// This rule is still dependent on a particular order in the subtraction
+// This rule is still dependent on a particular order in the subtraction
 //Stage 2 Rule IntegratorTypoR
 //if      x is an ErrorSignal // will be using it later, this will "sequence" this rule to fire after we have identified ErrorSignal
 //    and fun is an Function
@@ -464,7 +628,7 @@ then out is an IntegratorTypo.
 //    and he function fun
 //    and he is a HyperEdge
 //    and he outputs out
-//    and out is a NotConstant 
+//    and out is a NotConstant  //AM 11/13 added
 //    and out varName out_name
 //    and he inputs in1
 //    and in1 varName out_name
@@ -519,7 +683,7 @@ if      m is a Multiplication
 	and m multiplicand kp_var
 	and kp_var grfn_uid kp
 	and kp is a Constant
-	and kp is not an ErrorSignal //hence this is Stage 3
+//	and kp is not an ErrorSignal //hence this is Stage 3
 then    m is a PropExpNode
     and m proportionalConstant kp
     and m errorVariable err
@@ -540,7 +704,7 @@ then    m is a PropExpNode
 
 
 Stage 3 Rule P-ControllerCandidateR
-if  	et is an Function //ExpressionTree
+if  	et is a Function //ExpressionTree
 	and et nodes exp
 	and exp is a PropExpNode
 then et is a P-ControllerCandidate.
@@ -566,39 +730,50 @@ if 		et is a P-ControllerCandidate
 	and m2 is a DervExpNode
 then et is a PD-ControllerCandidate.
 
-Stage 3 Rule PID-ControllerR
+Stage 3 Rule PID-ControllerCandidateR
 if     et is an PI-ControllerCandidate
    and et nodes n1
    and n1 is a DervExpNode
-then et is a PID-Controller.
+then et is a PID-ControllerCandidate.
 
-Stage 3 Rule lineEndR // Could even make it Stage 4 but keeping it in Stage 3 to avoid "backtracking" in rule ControllerMetadataR
+Stage 3 Rule lineEndR //AM 11/13 could even make it Stage 4 but keeping it in Stage 3 avoids "backtracking" in rule ControllerMetadataR
 if		x metadata md
 	and noValue(md,line_end)
 	and md line_begin lb
 then md line_end lb.
 
+//Stage 3 Rule PControllerWithSaturationCandidateR:
+//if	c is a P-ControllerCandidate
+//	and sg is a Saturation
+//then
+//	c is a P-ControllerWithSaturationCandidate.
+//
+//Stage 3 Rule PIControllerWithSaturationCandidateR:
+//if	c is a PI-ControllerCandidate
+//	and sg is a Saturation
+//then
+//	c is a PI-ControllerWithSaturationCandidate.
+//
+//Stage 3 Rule PDControllerWithSaturationCandidate:
+//if	c is a PD-ControllerCandidate
+//	and sg is a Saturation
+//then
+//	c is a PD-ControllerWithSaturationCandidate.
+//
+//Stage 3 Rule PIDControllerWithSaturationCandidate:
+//if	c is a PID-ControllerCandidate
+//	and sg is a Saturation
+//then
+//	c is a PID-ControllerWithSaturation.
+
+//
+Stage 3 Rule ControllerWithSaturationCandidateR:
+if	c is a ControllerCandidate
+	and sg is a Saturation
+then
+	c is a ControllerWithSaturationCandidate.
+
 ///////////// Stage 4 /////////////////// 
-
-Stage 4 Rule P-ControllerR
-if		et is a P-ControllerCandidate
-	and noValue(et1,rdf:type,PI-ControllerCandidate)
-	and noValue(et1,rdf:type,PD-ControllerCandidate)
-	and noValue(et1,rdf:type,PID-Controller)
-then
-	et is a P-Controller.
-
-Stage 4 Rule PI-ControllerR
-if	et is a PI-ControllerCandidate
-	and noValue(et1,rdf:type,PID-Controller)
-then
-	et is a PI-Controller.
-
-Stage 4 Rule PD-ControllerR
-if	et is a PD-ControllerCandidate
-	and noValue(et1,rdf:type,PID-Controller)
-then
-	et is a PD-Controller.
 
 Stage 4 Rule PropExpNodeR
 if		et is a Controller
@@ -607,6 +782,66 @@ if		et is a Controller
 	and kp is a ProportionalConstantCandidate
 then
 	kp is a ProportionalConstant.
+
+Stage 4 Rule P-ControllerR
+if		et is a P-ControllerCandidate
+	and noValue(et1,rdf:type,PI-ControllerCandidate)
+	and noValue(et1,rdf:type,PD-ControllerCandidate)
+	and noValue(et1,rdf:type,PID-ControllerCandidate)
+	and noValue(et1,rdf:type,ControllerWithSaturationCandidate)
+then
+	et is a P-Controller.
+
+Stage 4 Rule P-ControllerWithSaturationR
+if		et is a P-ControllerCandidate
+	and et is a ControllerWithSaturationCandidate
+	and noValue(et1,rdf:type,PI-ControllerCandidate)
+	and noValue(et1,rdf:type,PD-ControllerCandidate)
+	and noValue(et1,rdf:type,PID-ControllerCandidate)
+then
+	et is a P-ControllerWithSaturation.
+
+
+Stage 4 Rule PI-ControllerR
+if	et is a PI-ControllerCandidate
+	and noValue(et1,rdf:type,PID-ControllerCandidate)
+	and noValue(et1,rdf:type,ControllerWithSaturationCandidate)
+then
+	et is a PI-Controller.
+
+Stage 4 Rule PI-ControllerWithSaturationR
+if		et is a PI-ControllerCandidate
+	and et is a ControllerWithSaturationCandidate
+	and noValue(et1,rdf:type,PID-ControllerCandidate)
+then
+	et is a PI-ControllerWithSaturation.
+
+
+Stage 4 Rule PD-ControllerR
+if	et is a PD-ControllerCandidate
+	and noValue(et1,rdf:type,PID-ControllerCandidate)
+	and noValue(et1,rdf:type,ControllerWithSaturationCandidate)
+then
+	et is a PD-Controller.
+	
+Stage 4 Rule PD-ControlleWithSaturationR
+if	et is a PD-ControllerCandidate
+	and et is a ControllerWithSaturationCandidate
+	and noValue(et1,rdf:type,PID-ControllerCandidate)
+then
+	et is a PD-ControllerWithSaturation.
+
+Stage 4 Rule PID-ControllerR
+if	et is a PID-ControllerCandidate
+	and noValue(et1,rdf:type,ControllerWithSaturationCandidate)
+then
+	et is a PID-Controller.
+
+Stage 4 Rule PID-ControllerWithSaturationR
+if	et is a PID-ControllerCandidate
+	and et is a ControllerWithSaturationCandidate
+then
+	et is a PID-ControllerWithSaturation.
 
 Stage 4 Rule ControllerNameR
 if 	    sg nodes exp
