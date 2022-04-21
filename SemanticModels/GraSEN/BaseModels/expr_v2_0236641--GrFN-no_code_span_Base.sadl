@@ -1,0 +1,371 @@
+uri "http://grasen.ge.com/expr_v2_0236641--GrFN-no_code_span_combined_Base" alias expr_v2_0236641--GrFN-no_code_span_combined_Base
+    (note "This ontology was created by extraction from GrFN json by the GraSEN SemanticAnnotator.").
+
+import "http://sadl.org/SemAnnotator.sadl" as semannotator.
+
+
+// Individuals:
+_0bbbce58-b29b-67db-7027-b1df1801fe0f is a grfnem:ExpNode,
+    has grfnem:children [fc224e9b-2a8a-fd9b-b449-bca85847b0fc,_4561fb56-ecb9-a1fd-8fd4-2a71b425c6f6,af9ee1b7-de6f-42c4-8cd0-2345cc0b51ed,b444a570-f215-4e6e-e52c-3eace6487751],
+    has grfnem:exp_node_type "DEFINITION".
+_0d97006f-c733-04d1-aece-f2a8643c63d5 is a grfnem:ExpNode,
+    has grfnem:children [ff61e469-2ec2-989a-821a-11d981ead73a],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_12e0c8b2-bad6-40fb-1948-8dec4f65d4d9 is a grfnem:Function,
+    has grfnem:nodes _5e8c0ffb-cc6a-f15d-a984-a6f41cef9ea2,
+    has grfnem:nodes _43facd07-c410-b889-4457-64fa9c1d05ec,
+    has grfnem:nodes _801958fa-0e3d-a3a5-6389-7b63c544cf6e,
+    has grfnem:nodes _4b59109b-47eb-ed86-abbe-e79d7ee071c8,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 15".
+_1846d424-c17c-6279-23c6-612f48268673 is a grfnem:SubGraph,
+    has grfnem:nodes fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c,
+    has grfnem:nodes eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    has grfnem:nodes f728b4fa-4248-5e3a-0a5d-2f346baa9455,
+    has grfnem:nodes e443df78-9558-867f-5ba9-1faf7a024204,
+    has grfnem:nodes _5487ce1e-af19-922a-d9b8-a714e61a441c,
+    has grfnem:scope "expr_v2_0236641",
+    has grfnem:uid "_1846d424-c17c-6279-23c6-612f48268673",
+    has grfnem:nodes _5a921187-19c7-8df4-8f4f-f31e78de5857,
+    has grfnem:nodes _12e0c8b2-bad6-40fb-1948-8dec4f65d4d9,
+    has grfnem:nodes e3e70682-c209-4cac-629f-6fbed82c07cd,
+    has grfnem:namespace "expr_v2_0236641",
+    has grfnem:nodes b4862b21-fb97-d435-8856-1712e8e5216a,
+    has grfnem:nodes f7c1bd87-4da5-e709-d471-3d60c8a70639,
+    has grfnem:nodes _23a7711a-8133-2876-37eb-dcd9e87a1613,
+    has grfnem:nodes _259f4329-e6f4-590b-9a16-4106cf6a659e,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:sg_type "FuncContainer".
+_2293fa18-37fe-607f-f40c-d8716dedcfbf is a grfnem:ExpNode,
+    has grfnem:children [db6e9fa4-52cf-7882-c299-65082903dba4,_95d39c84-d151-da2b-5822-d7bf3bf96745],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Add".
+_23a7711a-8133-2876-37eb-dcd9e87a1613 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:from_source false),
+    has grfnem:uid "_23a7711a-8133-2876-37eb-dcd9e87a1613",
+    has grfnem:identifier "expr_v2_0236641::expr_v2_0236641.main::RETURN_VAL::-1".
+_259f4329-e6f4-590b-9a16-4106cf6a659e is a grfnem:Function,
+    has grfnem:nodes f6d398a3-2136-14a7-9cf8-b1d7266786e1,
+    has grfnem:nodes e0f3a2e9-cb18-9afd-eb9f-dcff82c46c6b,
+    has grfnem:nodes _4e5a3f33-9194-ee91-3c03-9fab57c41a34,
+    has grfnem:nodes a6708744-8881-355d-b18f-c3892fb1540c,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 20".
+_33e60ed8-a12b-189d-d3c8-8acf7fcbeec0 is a grfnem:ExpNode,
+    has grfnem:children [e57ba9da-2a91-abe0-54a7-a8f2a1e82546],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_42a914ff-527c-854b-70ee-4fd4e7a2f009 is a grfnem:ExpNode,
+    has grfnem:children [_489ce62e-6889-0d96-f117-8ea337cb6fc7,a0db8157-5534-8ff6-31db-ca0171d266d9],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Mult".
+_43facd07-c410-b889-4457-64fa9c1d05ec is a grfnem:ExpNode,
+    has grfnem:children [_801958fa-0e3d-a3a5-6389-7b63c544cf6e],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_4561fb56-ecb9-a1fd-8fd4-2a71b425c6f6 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e3e70682-c209-4cac-629f-6fbed82c07cd,
+    has grfnem:var_name "x3".
+_489ce62e-6889-0d96-f117-8ea337cb6fc7 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid e3e70682-c209-4cac-629f-6fbed82c07cd,
+    has grfnem:var_name "x3".
+_4a50e821-6986-b01a-c934-d087874d7a5a is a grfnem:ExpNode,
+    has grfnem:children [e86c8276-01ec-0e93-7f19-d08915198734],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+_4b59109b-47eb-ed86-abbe-e79d7ee071c8 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_4e5a3f33-9194-ee91-3c03-9fab57c41a34 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "20".
+_5487ce1e-af19-922a-d9b8-a714e61a441c is a grfnem:Function,
+    has grfnem:nodes _58d1fa45-8f81-97dd-e164-d5e44f747b54,
+    has grfnem:nodes af9ee1b7-de6f-42c4-8cd0-2345cc0b51ed,
+    has grfnem:nodes a7e0e9d9-8f10-67b0-d767-43a923bfef8c,
+    has grfnem:nodes a0db8157-5534-8ff6-31db-ca0171d266d9,
+    has grfnem:nodes _489ce62e-6889-0d96-f117-8ea337cb6fc7,
+    has grfnem:nodes e774e824-3054-371e-25a6-da69d4e5b016,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:nodes _2293fa18-37fe-607f-f40c-d8716dedcfbf,
+    has grfnem:lambda "lambda x1,x3,x2,x4: (((x1 | -6) | (x3 * x2)) % ((x4 + 65) & 60))",
+    has grfnem:nodes _42a914ff-527c-854b-70ee-4fd4e7a2f009,
+    has grfnem:nodes fc224e9b-2a8a-fd9b-b449-bca85847b0fc,
+    has grfnem:nodes _0bbbce58-b29b-67db-7027-b1df1801fe0f,
+    has grfnem:nodes b444a570-f215-4e6e-e52c-3eace6487751,
+    has grfnem:nodes _9a74ac4b-c628-7251-89f8-9b763605cbc6,
+    has grfnem:nodes db6e9fa4-52cf-7882-c299-65082903dba4,
+    has grfnem:nodes _4561fb56-ecb9-a1fd-8fd4-2a71b425c6f6,
+    has grfnem:nodes b1efc109-0491-5bdb-8b3b-1b6c6e682f5c,
+    has grfnem:nodes b26d8b9c-35b6-069e-76fc-44573828fc6e,
+    has grfnem:nodes _637b6bfd-89c4-60ba-c8f7-8386522394f5,
+    has grfnem:nodes _5c5c02ef-c0fd-688b-716e-1a32f98bfdd1,
+    has grfnem:nodes _95d39c84-d151-da2b-5822-d7bf3bf96745,
+    has grfnem:ftype "ASSIGN",
+    has grfnem:nodes _72fbf262-7890-baed-6593-6478e4713a65,
+    has grfnem:nodes a8b40dd9-f945-d38a-5952-2127c28d3eb4 .
+_58d1fa45-8f81-97dd-e164-d5e44f747b54 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "6".
+_5a921187-19c7-8df4-8f4f-f31e78de5857 is a grfnem:Function,
+    has grfnem:nodes e3e57337-ce1a-5589-f1b9-a45ea3f86493,
+    has grfnem:nodes _4a50e821-6986-b01a-c934-d087874d7a5a,
+    has grfnem:nodes e86c8276-01ec-0e93-7f19-d08915198734,
+    has grfnem:nodes b27696e6-3f1b-8975-a824-75f6994716af,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 0".
+_5c5c02ef-c0fd-688b-716e-1a32f98bfdd1 is a grfnem:ExpNode,
+    has grfnem:children [_0bbbce58-b29b-67db-7027-b1df1801fe0f,b1efc109-0491-5bdb-8b3b-1b6c6e682f5c],
+    has grfnem:exp_node_type "DEFINITION".
+_5e8c0ffb-cc6a-f15d-a984-a6f41cef9ea2 is a grfnem:ExpNode,
+    has grfnem:children [_4b59109b-47eb-ed86-abbe-e79d7ee071c8,_43facd07-c410-b889-4457-64fa9c1d05ec],
+    has grfnem:exp_node_type "DEFINITION".
+_637b6bfd-89c4-60ba-c8f7-8386522394f5 is a grfnem:ExpNode,
+    has grfnem:children [_2293fa18-37fe-607f-f40c-d8716dedcfbf,e774e824-3054-371e-25a6-da69d4e5b016],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "BitAnd".
+_72fbf262-7890-baed-6593-6478e4713a65 is a grfnem:ExpNode,
+    has grfnem:children [b26d8b9c-35b6-069e-76fc-44573828fc6e,_42a914ff-527c-854b-70ee-4fd4e7a2f009],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "BitOr".
+_801958fa-0e3d-a3a5-6389-7b63c544cf6e is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "15".
+_8f27771c-0c5f-ece0-ce3b-f7e6e32e54be is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+_95d39c84-d151-da2b-5822-d7bf3bf96745 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "65".
+_9a74ac4b-c628-7251-89f8-9b763605cbc6 is a grfnem:ExpNode,
+    has grfnem:children [_72fbf262-7890-baed-6593-6478e4713a65,_637b6bfd-89c4-60ba-c8f7-8386522394f5],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "Mod".
+_9d84ccaf-3a31-1369-4828-c0ab145bf8dd is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "82".
+__sFILE is a grfnem:Type,
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "object$__sbuf",
+    with grfnem:name "_bf"),
+    has grfnem:name "__sFILE",
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_lbfsize"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_w"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_blksize"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_read"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "object$__sbuf",
+    with grfnem:name "_ub"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_write"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_file"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_flags"),
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_close"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_r"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_extra"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_nbuf"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_ubuf"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_offset"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_p"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_ur"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_cookie"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "object$__sbuf",
+    with grfnem:name "_lb"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_seek").
+__sFILEX is a grfnem:Type,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:name "__sFILEX".
+__sbuf is a grfnem:Type,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "Number",
+    with grfnem:name "_size"),
+    has grfnem:fields (a grfnem:Field
+    with grfnem:data_type "List",
+    with grfnem:name "_base"),
+    has grfnem:name "__sbuf".
+a0db8157-5534-8ff6-31db-ca0171d266d9 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f7c1bd87-4da5-e709-d471-3d60c8a70639,
+    has grfnem:var_name "x2".
+a3f2c9bf-9c63-16b9-50f2-44556f25e2a2 is a grfnem:GrFN,
+    has grfnem:subgraphs _1846d424-c17c-6279-23c6-612f48268673,
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputList [_23a7711a-8133-2876-37eb-dcd9e87a1613],
+    with grfnem:outputs _23a7711a-8133-2876-37eb-dcd9e87a1613,
+    with grfnem:function _5a921187-19c7-8df4-8f4f-f31e78de5857),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputList [e443df78-9558-867f-5ba9-1faf7a024204],
+    with grfnem:outputs e443df78-9558-867f-5ba9-1faf7a024204,
+    with grfnem:inputList [eb1167b3-67a9-c378-7c65-c1e582e2e662,e3e70682-c209-4cac-629f-6fbed82c07cd,f7c1bd87-4da5-e709-d471-3d60c8a70639,f728b4fa-4248-5e3a-0a5d-2f346baa9455],
+    with grfnem:inputs f728b4fa-4248-5e3a-0a5d-2f346baa9455,
+    with grfnem:inputs f7c1bd87-4da5-e709-d471-3d60c8a70639,
+    with grfnem:inputs e3e70682-c209-4cac-629f-6fbed82c07cd,
+    with grfnem:inputs eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    with grfnem:function _5487ce1e-af19-922a-d9b8-a714e61a441c),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputList [f7c1bd87-4da5-e709-d471-3d60c8a70639],
+    with grfnem:outputs f7c1bd87-4da5-e709-d471-3d60c8a70639,
+    with grfnem:function _12e0c8b2-bad6-40fb-1948-8dec4f65d4d9),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputList [eb1167b3-67a9-c378-7c65-c1e582e2e662],
+    with grfnem:outputs eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    with grfnem:function _259f4329-e6f4-590b-9a16-4106cf6a659e),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputList [f728b4fa-4248-5e3a-0a5d-2f346baa9455],
+    with grfnem:outputs f728b4fa-4248-5e3a-0a5d-2f346baa9455,
+    with grfnem:function b4862b21-fb97-d435-8856-1712e8e5216a),
+    has grfnem:hyper_edges (a grfnem:HyperEdge
+    with grfnem:outputList [e3e70682-c209-4cac-629f-6fbed82c07cd],
+    with grfnem:outputs e3e70682-c209-4cac-629f-6fbed82c07cd,
+    with grfnem:function fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c),
+    has grfnem:date_created "2022-01-27".
+a6708744-8881-355d-b18f-c3892fb1540c is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+a7e0e9d9-8f10-67b0-d767-43a923bfef8c is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    has grfnem:var_name "x1".
+a8b40dd9-f945-d38a-5952-2127c28d3eb4 is a grfnem:ExpNode,
+    has grfnem:children [_58d1fa45-8f81-97dd-e164-d5e44f747b54],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "USub".
+af9ee1b7-de6f-42c4-8cd0-2345cc0b51ed is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f7c1bd87-4da5-e709-d471-3d60c8a70639,
+    has grfnem:var_name "x2".
+b1efc109-0491-5bdb-8b3b-1b6c6e682f5c is a grfnem:ExpNode,
+    has grfnem:children [_9a74ac4b-c628-7251-89f8-9b763605cbc6],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+b26d8b9c-35b6-069e-76fc-44573828fc6e is a grfnem:ExpNode,
+    has grfnem:children [a7e0e9d9-8f10-67b0-d767-43a923bfef8c,a8b40dd9-f945-d38a-5952-2127c28d3eb4],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "BitOr".
+b27696e6-3f1b-8975-a824-75f6994716af is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+b444a570-f215-4e6e-e52c-3eace6487751 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f728b4fa-4248-5e3a-0a5d-2f346baa9455,
+    has grfnem:var_name "x4".
+b4862b21-fb97-d435-8856-1712e8e5216a is a grfnem:Function,
+    has grfnem:nodes b62f5914-d0eb-9945-5467-638372795873,
+    has grfnem:nodes _0d97006f-c733-04d1-aece-f2a8643c63d5,
+    has grfnem:nodes ff61e469-2ec2-989a-821a-11d981ead73a,
+    has grfnem:nodes _9d84ccaf-3a31-1369-4828-c0ab145bf8dd,
+    has grfnem:nodes e5c226e8-b264-7809-af73-ecae189f7ea3,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : -82".
+b62f5914-d0eb-9945-5467-638372795873 is a grfnem:ExpNode,
+    has grfnem:children [e5c226e8-b264-7809-af73-ecae189f7ea3,_0d97006f-c733-04d1-aece-f2a8643c63d5],
+    has grfnem:exp_node_type "DEFINITION".
+be4c9ce3-05d6-d6f1-a518-e20c5b67a8f2 is a grfnem:ExpNode,
+    has grfnem:children [_8f27771c-0c5f-ece0-ce3b-f7e6e32e54be,_33e60ed8-a12b-189d-d3c8-8acf7fcbeec0],
+    has grfnem:exp_node_type "DEFINITION".
+db6e9fa4-52cf-7882-c299-65082903dba4 is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid f728b4fa-4248-5e3a-0a5d-2f346baa9455,
+    has grfnem:var_name "x4".
+e0f3a2e9-cb18-9afd-eb9f-dcff82c46c6b is a grfnem:ExpNode,
+    has grfnem:children [_4e5a3f33-9194-ee91-3c03-9fab57c41a34],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "RETURN".
+e3e57337-ce1a-5589-f1b9-a45ea3f86493 is a grfnem:ExpNode,
+    has grfnem:children [b27696e6-3f1b-8975-a824-75f6994716af,_4a50e821-6986-b01a-c934-d087874d7a5a],
+    has grfnem:exp_node_type "DEFINITION".
+e3e70682-c209-4cac-629f-6fbed82c07cd is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:from_source true),
+    has grfnem:uid "e3e70682-c209-4cac-629f-6fbed82c07cd",
+    has grfnem:identifier "expr_v2_0236641::expr_v2_0236641.main::x3::0".
+e443df78-9558-867f-5ba9-1faf7a024204 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:from_source true),
+    has grfnem:uid "e443df78-9558-867f-5ba9-1faf7a024204",
+    has grfnem:identifier "expr_v2_0236641::expr_v2_0236641.main::x0::0".
+e57ba9da-2a91-abe0-54a7-a8f2a1e82546 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "10".
+e5c226e8-b264-7809-af73-ecae189f7ea3 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "DEFINITION".
+e774e824-3054-371e-25a6-da69d4e5b016 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "60".
+e86c8276-01ec-0e93-7f19-d08915198734 is a grfnem:ExpNode,
+    has grfnem:exp_node_type "VALUE",
+    has grfnem:node_value "0".
+eb1167b3-67a9-c378-7c65-c1e582e2e662 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:from_source true),
+    has grfnem:uid "eb1167b3-67a9-c378-7c65-c1e582e2e662",
+    has grfnem:identifier "expr_v2_0236641::expr_v2_0236641.main::x1::0".
+f6d398a3-2136-14a7-9cf8-b1d7266786e1 is a grfnem:ExpNode,
+    has grfnem:children [a6708744-8881-355d-b18f-c3892fb1540c,e0f3a2e9-cb18-9afd-eb9f-dcff82c46c6b],
+    has grfnem:exp_node_type "DEFINITION".
+f728b4fa-4248-5e3a-0a5d-2f346baa9455 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:from_source true),
+    has grfnem:uid "f728b4fa-4248-5e3a-0a5d-2f346baa9455",
+    has grfnem:identifier "expr_v2_0236641::expr_v2_0236641.main::x4::0".
+f7c1bd87-4da5-e709-d471-3d60c8a70639 is a grfnem:Variable,
+    has grfnem:metadata (a grfnem:Metadata
+    with grfnem:from_source true),
+    has grfnem:uid "f7c1bd87-4da5-e709-d471-3d60c8a70639",
+    has grfnem:identifier "expr_v2_0236641::expr_v2_0236641.main::x2::0".
+fc224e9b-2a8a-fd9b-b449-bca85847b0fc is a grfnem:Variable,
+    has grfnem:exp_node_type "VARIABLE",
+    has grfnem:grfn_uid eb1167b3-67a9-c378-7c65-c1e582e2e662,
+    has grfnem:var_name "x1".
+fcbd04c3-4021-2ef7-cca5-a5a19e4d6e3c is a grfnem:Function,
+    has grfnem:nodes be4c9ce3-05d6-d6f1-a518-e20c5b67a8f2,
+    has grfnem:nodes _33e60ed8-a12b-189d-d3c8-8acf7fcbeec0,
+    has grfnem:nodes e57ba9da-2a91-abe0-54a7-a8f2a1e82546,
+    has grfnem:nodes _8f27771c-0c5f-ece0-ce3b-f7e6e32e54be,
+    has grfnem:metadata (a grfnem:Metadata),
+    has grfnem:ftype "LITERAL",
+    has grfnem:lambda "lambda : 10".
+ff61e469-2ec2-989a-821a-11d981ead73a is a grfnem:ExpNode,
+    has grfnem:children [_9d84ccaf-3a31-1369-4828-c0ab145bf8dd],
+    has grfnem:exp_node_type "OPERATOR",
+    has grfnem:operator "USub".
