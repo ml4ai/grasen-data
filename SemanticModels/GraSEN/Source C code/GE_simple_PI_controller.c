@@ -9,8 +9,8 @@ double PI_calc(double Input_dmd, double Input_sensed, double Kp_M, double Ki_M, 
 {
     double error = Input_dmd - Input_sensed;
     
-	integrator_state = integrator_state + timestep*error;
-	
+    integrator_state = integrator_state + timestep*error;
+    
     return error*Kp_M + integrator_state*Ki_M;
 }
 

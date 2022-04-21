@@ -1,4 +1,0 @@
-uri "http://grasen.ge.com/expr_v2_0236644--GrFN-no_code_span_Base" alias expr_v2_0236644--GrFN-no_code_span_Base
-    (note "This ontology was created by extraction from GrFN json by the GraSEN SemanticAnnotator.").
-
-import "http://sadl.org/SemAnnotator.sadl" as semannotator.
