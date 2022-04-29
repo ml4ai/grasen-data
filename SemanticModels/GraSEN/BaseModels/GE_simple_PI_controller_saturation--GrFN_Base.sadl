@@ -1,4 +1,4 @@
-uri "http://grasen.ge.com/GE_simple_PI_controller_saturation--GrFN_combined_Base" alias GE_simple_PI_controller_saturation--GrFN_combined_Base
+uri "http://grasen.ge.com/GE_simple_PI_controller_saturation--GrFN_Base" alias GE_simple_PI_controller_saturation--GrFN_Base
     (note "This ontology was created by extraction from GrFN json by the GraSEN SemanticAnnotator.").
 
 import "http://sadl.org/SemAnnotator.sadl" as semannotator.
