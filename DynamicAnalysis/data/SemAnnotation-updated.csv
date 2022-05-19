@@ -1,0 +1,9 @@
+Name,Function_name,AnnotationType,Description,Loc_start,Loc_end,Qual_name,Equation
+error,PI_calc,ErrorSignal,This is an error signal candidate.,5,5,GE_simple_PI_controller::GE_simple_PI_controller.main::Ki_M::0, (Input_dmd - Input_sensed)
+integrator_state,PI_calc,Integrator,This is an Integrator.,5,5,GE_simple_PI_controller::GE_simple_PI_controller.main::Kp_M::0,null
+Ki_M,PI_calc,IntegratorConstant,This is the constant multiplier for the Integrator.,2,2,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::error::0,null
+Input_sensed,PI_calc,MeasurementSignal,This is a measurement signal candidate.,2,2,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::integrator_state::0,null
+GE_simple_PI_controller.PI_calc,PI_calc,PI-Controller,This is a PI Controller.,2,7,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_sensed::-1,((error * Kp_M) + (Ki_M * integrator_state))
+Kp_M,PI_calc,ProportionalConstant,This is the constant multiplier for the Proportional term.,2,2,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-1,null
+Input_dmd,PI_calc,ReferenceSignal,This is a reference signal candidate.,2,2,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-2,null
+desired_output,main,ReferenceSignal,This is a reference signal candidate.,5,5,GE_simple_PI_controller::GE_simple_PI_controller.PI_calc::Input_dmd::-3,null

@@ -1,0 +1,2 @@
+plant_command = 0.747*(desired_output-sensed_output) + 0.216*integral((desired_output-sensed_output)) + 0.03
+MSE = 0.00020250297128170604
